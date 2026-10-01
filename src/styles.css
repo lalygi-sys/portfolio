@@ -1444,7 +1444,7 @@
   }
   .hero-greeting {
     margin-bottom: 18px;
-    font-size: 1.08rem;
+    font-size: 1.2rem;
     line-height: 1.35;
   }
   .hero-symbol,
@@ -1454,9 +1454,11 @@
   .hero-symbol {
     width: fit-content;
     margin: 0 0 6px;
+    font-size: 1.45em;
+    line-height: 1;
   }
   .hero-statement {
-    font-size: clamp(2.55rem, 10.5vw, 3.25rem);
+    font-size: clamp(2.35rem, 9.5vw, 3rem);
     line-height: 1.04;
   }
   .hero-cta-group {
@@ -1468,6 +1470,11 @@
   }
   .hero-cta-group > a {
     width: 100%;
+    justify-content: space-between;
+    padding-inline: 26px;
+  }
+  .hero-cta-group > a > svg {
+    flex: 0 0 auto;
   }
   .animated-cursor {
     display: none;
