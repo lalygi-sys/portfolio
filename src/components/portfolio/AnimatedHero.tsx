@@ -112,7 +112,7 @@ export function AnimatedHero() {
             <span className="hero-face">(O_O)</span>
             <span className="hero-wave">ﾉ</span>
           </span>{" "}
-          {greeting.split(" ").map((word, wordIndex, words) => {
+          <span className="hero-greeting-copy">{greeting.split(" ").map((word, wordIndex, words) => {
             const offset = words.slice(0, wordIndex).join(" ").length + (wordIndex > 0 ? 1 : 0);
             return (
               <span key={wordIndex}>
@@ -132,7 +132,7 @@ export function AnimatedHero() {
                 </span>
               </span>
             );
-          })}
+          })}</span>
         </span>
       </p>
       <h1 id="hero-title" className="introduction-title hero-statement hero-reveal">

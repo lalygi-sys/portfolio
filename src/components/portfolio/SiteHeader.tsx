@@ -1,9 +1,14 @@
+import { useState } from "react";
 import { Link, useLocation } from "@tanstack/react-router";
+import { Menu, X } from "lucide-react";
 import { ThemeToggle } from "@/components/portfolio/ThemeToggle";
 
 export function SiteHeader({ resumeUrl }: { resumeUrl?: string | null }) {
   const pathname = useLocation({ select: (location) => location.pathname });
   const hash = useLocation({ select: (location) => location.hash });
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const closeMenu = () => setMenuOpen(false);
   return (
     <>
       <a className="skip-link" href="#main-content">
@@ -14,11 +19,22 @@ export function SiteHeader({ resumeUrl }: { resumeUrl?: string | null }) {
           <Link to="/" className="brand-name focus-ring">
             Tatiana Kapkaeva
           </Link>
-          <nav aria-label="Main navigation" className="header-nav">
+          <button
+            type="button"
+            className="mobile-menu-toggle focus-ring"
+            aria-expanded={menuOpen}
+            aria-controls="main-navigation"
+            aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
+            onClick={() => setMenuOpen((open) => !open)}
+          >
+            {menuOpen ? <X size={22} strokeWidth={1.7} aria-hidden="true" /> : <Menu size={24} strokeWidth={1.7} aria-hidden="true" />}
+          </button>
+          <nav id="main-navigation" aria-label="Main navigation" className={`header-nav${menuOpen ? " is-open" : ""}`}>
             <Link
               to="/work"
               className="nav-link"
               aria-current={pathname.startsWith("/work") ? "page" : undefined}
+              onClick={closeMenu}
             >
               Work
             </Link>
@@ -26,6 +42,7 @@ export function SiteHeader({ resumeUrl }: { resumeUrl?: string | null }) {
               to="/about"
               className="nav-link"
               aria-current={pathname === "/about" ? "page" : undefined}
+              onClick={closeMenu}
             >
               About
             </Link>
@@ -35,6 +52,7 @@ export function SiteHeader({ resumeUrl }: { resumeUrl?: string | null }) {
               activeOptions={{ exact: true, includeHash: true }}
               className="nav-link"
               aria-current={pathname === "/" && hash === "contact" ? "location" : undefined}
+              onClick={closeMenu}
             >
               Contact
             </Link>
@@ -44,6 +62,7 @@ export function SiteHeader({ resumeUrl }: { resumeUrl?: string | null }) {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Open Tatiana Kapkaeva CV (PDF)"
+              onClick={closeMenu}
             >
               CV
             </a>
