@@ -1,0 +1,6 @@
+ALTER TABLE public.portfolio_media DROP CONSTRAINT portfolio_media_path_key;
+ALTER TABLE public.portfolio_media ADD CONSTRAINT portfolio_media_case_path_key UNIQUE (case_id, path);
+DROP POLICY portfolio_storage_public_read ON storage.objects;
+CREATE POLICY portfolio_storage_public_read ON storage.objects FOR SELECT TO anon, authenticated USING (bucket_id = 'portfolio-media' AND (EXISTS (SELECT 1 FROM public.portfolio_media m JOIN public.portfolio_cases c ON c.id = m.case_id WHERE m.path = name AND c.published AND (c.cover_path = name OR EXISTS (SELECT 1 FROM jsonb_array_elements(c.sections) AS section WHERE section->>'imagePath' = name))) OR EXISTS (SELECT 1 FROM public.portfolio_settings s WHERE s.resume_path = name)));
+DROP POLICY media_public_read ON public.portfolio_media;
+CREATE POLICY media_public_read ON public.portfolio_media FOR SELECT TO anon, authenticated USING (portfolio_private.is_portfolio_owner() OR EXISTS (SELECT 1 FROM public.portfolio_cases c WHERE c.id = case_id AND c.published AND (c.cover_path = path OR EXISTS (SELECT 1 FROM jsonb_array_elements(c.sections) AS section WHERE section->>'imagePath' = path))));

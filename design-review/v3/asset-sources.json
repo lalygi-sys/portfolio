@@ -1,0 +1,180 @@
+{
+  "note": "All imagery is extracted from user-provided design PDFs. Neutral presentation canvases are the only added visual material. No AI-generated interface content. Crop points use top-left coordinates.",
+  "assets": [
+    {
+      "slug": "kyc-kyb-onboarding",
+      "sourcePdf": "/Users/tatianakapkaeva/Downloads/1.pdf",
+      "page": 1,
+      "method": "Embedded image 3; cropped to the main registration and verification flow overview, fit with the original gray background. Original image has Figma section labels.",
+      "alt": "Overview of registration, verification and early-access flows for partner onboarding.",
+      "output": {
+        "large": "/images/projects/kyc-kyb-onboarding.webp",
+        "small": "/images/projects/kyc-kyb-onboarding-640.webp",
+        "width": 1600,
+        "height": 1000,
+        "bytes": 48576,
+        "smallBytes": 13308
+      },
+      "embeddedImage": "1-image-3.png",
+      "cropPixels": [
+        0,
+        0,
+        1952,
+        1180
+      ],
+      "note": "Only a flow overview is available in the supplied PDF; individual UI screens are not high-resolution."
+    },
+    {
+      "slug": "b2b-rebates-payouts",
+      "sourcePdf": "/Users/tatianakapkaeva/Downloads/2.pdf",
+      "page": 1,
+      "method": "Clean embedded product screenshot, fit on a neutral canvas.",
+      "alt": "Rebate sharing interface with client settings, payout schedules and rebate statuses.",
+      "output": {
+        "large": "/images/projects/b2b-rebates-payouts.webp",
+        "small": "/images/projects/b2b-rebates-payouts-640.webp",
+        "width": 1600,
+        "height": 1000,
+        "bytes": 59272,
+        "smallBytes": 14016
+      },
+      "embeddedImage": "2-image-19.png"
+    },
+    {
+      "slug": "standalone-partner-portal",
+      "sourcePdf": "/Users/tatianakapkaeva/Downloads/3.pdf",
+      "page": 1,
+      "method": "Clean embedded product screenshot, fit on a neutral canvas.",
+      "alt": "Partner portal dashboard with partner rank, revenue statistics and client activity.",
+      "output": {
+        "large": "/images/projects/standalone-partner-portal.webp",
+        "small": "/images/projects/standalone-partner-portal-640.webp",
+        "width": 1600,
+        "height": 1000,
+        "bytes": 68314,
+        "smallBytes": 17532
+      },
+      "embeddedImage": "3-image-46.png"
+    },
+    {
+      "slug": "new-b2b-business-model",
+      "sourcePdf": "/Users/tatianakapkaeva/Downloads/4.pdf",
+      "page": 1,
+      "method": "Four original presentation slides, cropped as a 2 by 2 group; no slide copy or figures altered.",
+      "alt": "Four presentation slides explaining the new partner program and its business model.",
+      "output": {
+        "large": "/images/projects/new-b2b-business-model.webp",
+        "small": "/images/projects/new-b2b-business-model-640.webp",
+        "width": 1600,
+        "height": 1000,
+        "bytes": 100274,
+        "smallBytes": 25286
+      },
+      "cropPdfPoints": [
+        1808,
+        1241,
+        2328,
+        1540
+      ]
+    },
+    {
+      "slug": "research-recruitment",
+      "sourcePdf": "/Users/tatianakapkaeva/Downloads/5.pdf",
+      "page": 1,
+      "method": "Desktop and mobile survey invitation screens cropped from the original page and placed on a neutral canvas.",
+      "alt": "Desktop and mobile survey invitations used to recruit partners for research.",
+      "output": {
+        "large": "/images/projects/research-recruitment.webp",
+        "small": "/images/projects/research-recruitment-640.webp",
+        "width": 1600,
+        "height": 1000,
+        "bytes": 52302,
+        "smallBytes": 11584
+      },
+      "cropPdfPoints": [
+        [
+          2234,
+          817,
+          2561,
+          1142
+        ],
+        [
+          2597,
+          817,
+          2693,
+          1025
+        ]
+      ]
+    },
+    {
+      "slug": "window-configurator",
+      "sourcePdf": "/Users/tatianakapkaeva/Downloads/окна.pdf",
+      "page": 1,
+      "method": "Three complete mobile interface frames cropped and aligned on a neutral canvas.",
+      "alt": "Mobile window configurator showing dimensions, materials and settings for individual window parts.",
+      "output": {
+        "large": "/images/projects/window-configurator.webp",
+        "small": "/images/projects/window-configurator-640.webp",
+        "width": 1600,
+        "height": 1000,
+        "bytes": 74306,
+        "smallBytes": 18480
+      },
+      "cropPdfPoints": [
+        [
+          300,
+          564,
+          674,
+          1376
+        ],
+        [
+          2079,
+          564,
+          2454,
+          1376
+        ],
+        [
+          2079,
+          1875,
+          2454,
+          2687
+        ]
+      ]
+    },
+    {
+      "slug": "pizza-ordering-experience",
+      "sourcePdf": "/Users/tatianakapkaeva/Downloads/Мобильный сайт пиццы.pdf",
+      "page": 1,
+      "method": "Three complete mobile interface frames showing preferences, customization and cart, cropped and aligned on a neutral canvas.",
+      "alt": "Mobile pizza ordering flow with ingredient preferences, pizza customization and a populated cart.",
+      "output": {
+        "large": "/images/projects/pizza-ordering-experience.webp",
+        "small": "/images/projects/pizza-ordering-experience-640.webp",
+        "width": 1600,
+        "height": 1000,
+        "bytes": 125930,
+        "smallBytes": 28642
+      },
+      "cropPdfPoints": [
+        [
+          4499,
+          910,
+          4870,
+          1719
+        ],
+        [
+          6720,
+          907,
+          7095,
+          1719
+        ],
+        [
+          10006,
+          918,
+          10377,
+          1715
+        ]
+      ]
+    }
+  ]
+}

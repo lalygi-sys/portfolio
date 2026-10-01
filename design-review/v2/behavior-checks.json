@@ -1,0 +1,42 @@
+[
+  {
+    "check": "theme: saved dark",
+    "passed": true
+  },
+  {
+    "check": "theme: saved light",
+    "passed": true
+  },
+  {
+    "check": "theme: system dark",
+    "passed": true
+  },
+  {
+    "check": "theme: system light",
+    "passed": true
+  },
+  {
+    "check": "theme: invalid preference",
+    "passed": true
+  },
+  {
+    "check": "theme: storage unavailable",
+    "passed": true
+  },
+  {
+    "check": "initial reduced motion",
+    "passed": true
+  },
+  {
+    "check": "no observer",
+    "passed": true
+  },
+  {
+    "check": "no animation API",
+    "passed": true
+  },
+  {
+    "check": "reveal entry, reduced-motion change, queued callback, cleanup",
+    "passed": true
+  }
+]

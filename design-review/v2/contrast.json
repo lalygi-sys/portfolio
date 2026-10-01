@@ -1,0 +1,128 @@
+[
+  {
+    "theme": "light",
+    "foreground": "foreground",
+    "background": "background",
+    "ratio": 14.97,
+    "passes": true
+  },
+  {
+    "theme": "light",
+    "foreground": "muted-foreground",
+    "background": "background",
+    "ratio": 6.07,
+    "passes": true
+  },
+  {
+    "theme": "light",
+    "foreground": "muted-foreground",
+    "background": "card",
+    "ratio": 6.4,
+    "passes": true
+  },
+  {
+    "theme": "light",
+    "foreground": "muted-foreground",
+    "background": "secondary",
+    "ratio": 5.56,
+    "passes": true
+  },
+  {
+    "theme": "light",
+    "foreground": "primary",
+    "background": "background",
+    "ratio": 6.7,
+    "passes": true
+  },
+  {
+    "theme": "light",
+    "foreground": "primary",
+    "background": "card",
+    "ratio": 7.06,
+    "passes": true
+  },
+  {
+    "theme": "light",
+    "foreground": "primary-foreground",
+    "background": "primary",
+    "ratio": 7.06,
+    "passes": true
+  },
+  {
+    "theme": "light",
+    "foreground": "primary-foreground",
+    "background": "primary-hover",
+    "ratio": 9.58,
+    "passes": true
+  },
+  {
+    "theme": "light",
+    "foreground": "accent-foreground",
+    "background": "accent",
+    "ratio": 9.0,
+    "passes": true
+  },
+  {
+    "theme": "dark",
+    "foreground": "foreground",
+    "background": "background",
+    "ratio": 14.75,
+    "passes": true
+  },
+  {
+    "theme": "dark",
+    "foreground": "muted-foreground",
+    "background": "background",
+    "ratio": 7.79,
+    "passes": true
+  },
+  {
+    "theme": "dark",
+    "foreground": "muted-foreground",
+    "background": "card",
+    "ratio": 7.37,
+    "passes": true
+  },
+  {
+    "theme": "dark",
+    "foreground": "muted-foreground",
+    "background": "secondary",
+    "ratio": 6.81,
+    "passes": true
+  },
+  {
+    "theme": "dark",
+    "foreground": "primary",
+    "background": "background",
+    "ratio": 8.76,
+    "passes": true
+  },
+  {
+    "theme": "dark",
+    "foreground": "primary",
+    "background": "card",
+    "ratio": 8.29,
+    "passes": true
+  },
+  {
+    "theme": "dark",
+    "foreground": "primary-foreground",
+    "background": "primary",
+    "ratio": 8.85,
+    "passes": true
+  },
+  {
+    "theme": "dark",
+    "foreground": "primary-foreground",
+    "background": "primary-hover",
+    "ratio": 10.85,
+    "passes": true
+  },
+  {
+    "theme": "dark",
+    "foreground": "accent-foreground",
+    "background": "accent",
+    "ratio": 8.09,
+    "passes": true
+  }
+]
