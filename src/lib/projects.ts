@@ -118,7 +118,9 @@ export function projectFromCase(item: CaseWithMedia): PortfolioProject {
   const uploadedCover = item.cover_path ? item.mediaUrls[item.cover_path] : undefined;
   const localCover = item.slug === "new-b2b-business-model"
     ? "/images/projects/new-b2b-business-model-main.png"
-    : undefined;
+    : productNotes[item.slug]
+      ? "/images/projects/" + item.slug + ".webp"
+      : undefined;
   const customOutcome = !isOriginalCaseField(item, "outcome");
   return {
     slug: item.slug,
@@ -137,7 +139,7 @@ export function projectFromCase(item: CaseWithMedia): PortfolioProject {
     outcome: publicOutcome(item),
     coverImage: localCover || uploadedCover || (notes ? "/images/projects/" + item.slug + ".webp" : undefined),
     coverAlt: localCover ? "B2B partner program presentation and business model interface" : (uploadedCover ? item.title + " — project interface" : (notes?.coverAlt ?? item.title)),
-    localCover: !localCover && !uploadedCover && !!notes,
+    localCover: !!localCover,
     metrics: customOutcome ? [] : (notes?.metrics ?? []),
     featured: item.featured,
     sortOrder: item.sort_order,

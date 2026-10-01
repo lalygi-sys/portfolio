@@ -1,12 +1,16 @@
 import { createFileRoute, notFound } from '@tanstack/react-router';
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { getPublishedCase } from '@/lib/portfolio.functions';
 import { CaseDetail } from '@/components/portfolio/CaseDetail';
 import { additionalProjects } from '@/lib/projects';
+import { portfolioCases } from '@/lib/portfolio.content';
 import { SiteHeader, SiteFooter } from '@/components/portfolio/SiteHeader';
 import { ProjectCover } from '@/components/portfolio/ProjectCover';
 
-const caseQuery = (slug: string) => ({ queryKey: ['published-case', slug], queryFn: () => getPublishedCase({ data: { slug } }), staleTime: 30_000 });
+const caseQuery = (slug: string) => ({
+  queryKey: ['published-case', slug],
+  queryFn: async () => portfolioCases.find(item => item.slug === slug && item.published) ?? null,
+  staleTime: Infinity,
+});
 export const Route = createFileRoute('/work/$slug')({
   loader: async ({ context, params }) => { const local = additionalProjects.find(project => project.slug === params.slug); if (local) return local; const data = await context.queryClient.ensureQueryData(caseQuery(params.slug)); if (!data) throw notFound(); return data; },
   head: ({ loaderData }) => ({ meta: [
