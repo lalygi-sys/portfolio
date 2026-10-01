@@ -89,14 +89,14 @@ export function AnimatedHero() {
       timers.forEach(window.clearTimeout);
       button.classList.remove("is-cursor-hovered", "is-cursor-pressed");
     };
-    // Real interaction always takes priority over the decorative demonstration.
-    button.addEventListener("pointerenter", stop, { once: true });
+    // Keep the intro demonstration running even when the pointer happens to
+    // rest over the CTA while the page loads. Keyboard focus and viewport
+    // changes still stop it to avoid fighting an active interaction.
     button.addEventListener("focus", stop, { once: true });
     window.addEventListener("resize", stop, { once: true });
     motion.addEventListener("change", stop, { once: true });
     return () => {
       stop();
-      button.removeEventListener("pointerenter", stop);
       button.removeEventListener("focus", stop);
       window.removeEventListener("resize", stop);
       motion.removeEventListener("change", stop);
