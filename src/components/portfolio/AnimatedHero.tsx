@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowDownRight, ArrowUpRight, MousePointer2 } from "lucide-react";
+import { ArrowDown, ArrowRight, MousePointer2 } from "lucide-react";
 
 const greeting = "Hey! I'm 13 years in Design and 6 in Product Design";
 
@@ -142,11 +142,11 @@ export function AnimatedHero() {
       <div className="hero-cta-group" ref={groupRef}>
         <Link to="/" hash="contact" className="secondary-action hero-contact-action hero-reveal focus-ring">
           Contact me
-          <ArrowUpRight size={20} strokeWidth={1.7} aria-hidden="true" />
+          <ArrowDown size={20} strokeWidth={1.7} aria-hidden="true" />
         </Link>
         <Link to="/work" className="primary-action hero-work-action hero-reveal focus-ring">
-          View my work
-          <ArrowDownRight size={22} strokeWidth={1.7} aria-hidden="true" />
+          View all case studies
+          <ArrowRight size={22} strokeWidth={1.7} aria-hidden="true" />
         </Link>
         <span ref={cursorRef} className="animated-cursor" aria-hidden="true">
           <MousePointer2 size={34} strokeWidth={1.5} fill="currentColor" />
