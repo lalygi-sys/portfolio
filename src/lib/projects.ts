@@ -122,6 +122,8 @@ export function projectFromCase(item: CaseWithMedia): PortfolioProject {
       ? "/images/projects/b2b-rebates-prototype.png"
     : item.slug === "standalone-partner-portal"
       ? "/images/projects/standalone-partner-portal-prototype.png"
+    : item.slug === "research-recruitment"
+      ? "/images/projects/research-recruitment-main.png"
     : productNotes[item.slug]
       ? "/images/projects/" + item.slug + ".webp"
       : undefined;
