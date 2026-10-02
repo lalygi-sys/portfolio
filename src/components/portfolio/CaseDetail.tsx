@@ -61,7 +61,22 @@ export function CaseDetail({ item, preview = false }: { item: CaseWithMedia; pre
         </div>
         <div className="mb-16">
           {project.coverImage ? (
-            <ProjectCover project={project} eager />
+            project.prototypeUrl ? (
+              <a
+                className="case-prototype-cover focus-ring"
+                href={project.prototypeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`Open ${project.title} prototype`}
+              >
+                <ProjectCover project={project} eager />
+                <span className="case-prototype-cover-action">
+                  Open prototype <ArrowUpRight className="size-5" aria-hidden="true" />
+                </span>
+              </a>
+            ) : (
+              <ProjectCover project={project} eager />
+            )
           ) : (
             <PortfolioVisual item={item} className="case-cover" />
           )}

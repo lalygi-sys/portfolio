@@ -118,6 +118,8 @@ export function projectFromCase(item: CaseWithMedia): PortfolioProject {
   const uploadedCover = item.cover_path ? item.mediaUrls[item.cover_path] : undefined;
   const localCover = item.slug === "new-b2b-business-model"
     ? "/images/projects/new-b2b-business-model-main.png"
+    : item.slug === "b2b-rebates-payouts"
+      ? "/images/projects/b2b-rebates-prototype.png"
     : productNotes[item.slug]
       ? "/images/projects/" + item.slug + ".webp"
       : undefined;
@@ -144,6 +146,10 @@ export function projectFromCase(item: CaseWithMedia): PortfolioProject {
     featured: item.featured,
     sortOrder: item.sort_order,
     caseStudyPath: "/work/" + item.slug,
+    prototypeUrl:
+      item.slug === "b2b-rebates-payouts"
+        ? "https://lalygi-sys.github.io/new/prototype/rebate/index.html"
+        : undefined,
     externalLinks: linksOf(item.links).filter((link) => safeExternalUrl(link.url)),
     draft: !item.published,
   };

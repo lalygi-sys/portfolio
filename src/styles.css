@@ -1883,6 +1883,43 @@
   aspect-ratio: 2.6;
   min-height: 300px;
 }
+.case-prototype-cover {
+  position: relative;
+  display: block;
+  border-radius: 12px;
+  overflow: hidden;
+}
+.case-prototype-cover .project-cover {
+  transition: filter 180ms ease, transform 180ms ease;
+}
+.case-prototype-cover-action {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 52px;
+  padding: 14px 22px;
+  border: 1px solid #ffffff99;
+  border-radius: 999px;
+  background: #1a2029e8;
+  box-shadow: 0 8px 24px #00000040;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  transform: translate(-50%, -50%);
+  transition: background-color 180ms ease, transform 180ms ease;
+}
+.case-prototype-cover:hover .project-cover {
+  filter: brightness(0.84);
+  transform: scale(1.01);
+}
+.case-prototype-cover:hover .case-prototype-cover-action {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  transform: translate(-50%, -50%) scale(1.04);
+}
 .admin-auth {
   max-width: 460px;
   margin-block: 70px;

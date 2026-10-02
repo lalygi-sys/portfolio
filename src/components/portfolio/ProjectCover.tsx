@@ -13,7 +13,7 @@ export function ProjectCover({
         <img
           src={project.coverImage}
           srcSet={
-            project.localCover
+            project.localCover && project.coverImage.endsWith(".webp")
               ? project.coverImage.replace(".webp", "-640.webp") +
                 " 640w, " +
                 project.coverImage +
