@@ -1,7 +1,7 @@
 import { linksOf, safeExternalUrl, type CaseWithMedia } from "@/lib/portfolio";
 import { presentCase, isOriginalCaseField } from "@/lib/home-content";
 
-export type ProjectCategory = "Product work" | "Independent projects" | "Freelance & earlier work";
+export type ProjectCategory = "Product work" | "Independent projects" | "Freelance & pet projects";
 export type ProjectMetric = { value: string; label: string };
 export type PortfolioProject = {
   slug: string;
@@ -22,6 +22,11 @@ export type PortfolioProject = {
   sortOrder: number;
   caseStudyPath?: string;
   prototypeUrl?: string;
+  prototypeLabel?: string;
+  detailImage?: string;
+  detailImageAlt?: string;
+  detailPdfUrl?: string;
+  detailImageZoomEnabled?: boolean;
   externalLinks: { label: string; url: string }[];
   draft: boolean;
 };
@@ -107,7 +112,7 @@ const productNotes: Record<string, ProjectNotes> = {
 export const projectCategories: ProjectCategory[] = [
   "Product work",
   "Independent projects",
-  "Freelance & earlier work",
+  "Freelance & pet projects",
 ];
 
 // Product cases always come from published CMS rows. These notes enrich them;
@@ -118,6 +123,8 @@ export function projectFromCase(item: CaseWithMedia): PortfolioProject {
   const uploadedCover = item.cover_path ? item.mediaUrls[item.cover_path] : undefined;
   const localCover = item.slug === "new-b2b-business-model"
     ? "/images/projects/new-b2b-business-model-main.png"
+    : item.slug === "kyc-kyb-onboarding"
+      ? "/images/projects/kyc-kyb-onboarding-pdf-cover.png"
     : item.slug === "b2b-rebates-payouts"
       ? "/images/projects/b2b-rebates-prototype.png"
     : item.slug === "standalone-partner-portal"
@@ -151,11 +158,14 @@ export function projectFromCase(item: CaseWithMedia): PortfolioProject {
     sortOrder: item.sort_order,
     caseStudyPath: "/work/" + item.slug,
     prototypeUrl:
-      item.slug === "b2b-rebates-payouts"
+      item.slug === "kyc-kyb-onboarding"
+        ? "/documents/kyc-kyb-onboarding.pdf"
+        : item.slug === "b2b-rebates-payouts"
         ? "https://lalygi-sys.github.io/new/prototype/rebate/index.html"
         : item.slug === "standalone-partner-portal"
           ? "https://lalygi-sys.github.io/new/prototype/ib-dashboard/index.html"
         : undefined,
+    prototypeLabel: item.slug === "kyc-kyb-onboarding" ? "Open PDF" : undefined,
     externalLinks: linksOf(item.links).filter((link) => safeExternalUrl(link.url)),
     draft: !item.published,
   };
@@ -185,7 +195,7 @@ const visualProject = (
   tags,
   sortOrder,
   product: title,
-  category: "Freelance & earlier work",
+  category: "Freelance & pet projects",
   role: "UX/UI design",
   period: "",
   outcome: "",
@@ -198,24 +208,34 @@ const visualProject = (
 });
 
 export const additionalProjects: PortfolioProject[] = [
-  visualProject(
-    "window-configurator",
-    "Window configurator",
-    "A step-by-step interface for choosing a window’s dimensions, materials, profile and components.",
-    "The configuration flow takes a customer from choosing a window type to specifying dimensions, opening direction and component options. The screens bring technical choices into a guided visual sequence.",
-    "Three mobile window configurator screens for selecting a window, editing dimensions and choosing materials",
-    ["UX/UI", "Configuration", "Mobile"],
-    10,
-  ),
-  visualProject(
-    "pizza-ordering-experience",
-    "Pizza ordering experience",
-    "A mobile ordering flow that connects food preferences, delivery location, pizza customisation and checkout.",
-    "The mobile screens cover preference and location selection, browsing the menu, customising a pizza and reviewing the cart. The focus is on making each choice understandable throughout the ordering journey.",
-    "Three mobile pizza ordering screens showing food preferences, pizza customisation and the cart",
-    ["UX/UI", "E-commerce", "Mobile"],
-    11,
-  ),
+  {
+    ...visualProject(
+      "window-configurator",
+      "Window configurator",
+      "A step-by-step interface for choosing a window’s dimensions, materials, profile and components.",
+      "The configuration flow takes a customer from choosing a window type to specifying dimensions, opening direction and component options. The screens bring technical choices into a guided visual sequence.",
+      "Three mobile window configurator screens for selecting a window, editing dimensions and choosing materials",
+      ["UX/UI", "Configuration", "Mobile"],
+      10,
+    ),
+    detailImage: "/images/projects/window-configurator-flow.png",
+    detailImageAlt: "Window configurator flow showing mobile screens for choosing dimensions, materials and components",
+    detailPdfUrl: "/documents/window-configurator.pdf",
+  },
+  {
+    ...visualProject(
+      "pizza-ordering-experience",
+      "Pizza ordering experience",
+      "A mobile ordering flow that connects food preferences, delivery location, pizza customisation and checkout.",
+      "The mobile screens cover preference and location selection, browsing the menu, customising a pizza and reviewing the cart. The focus is on making each choice understandable throughout the ordering journey.",
+      "Three mobile pizza ordering screens showing food preferences, pizza customisation and the cart",
+      ["UX/UI", "E-commerce", "Mobile"],
+      11,
+    ),
+    detailImage: "/images/projects/pizza-ordering-experience-flow.png",
+    detailImageAlt: "Full mobile pizza ordering flow, including preference selection, menu browsing, customisation, delivery and checkout",
+    detailPdfUrl: "/documents/pizza-ordering-experience-flow.pdf",
+  },
 ];
 
 // Unpublished briefs only. No contribution, results, dates or metrics are assumed.

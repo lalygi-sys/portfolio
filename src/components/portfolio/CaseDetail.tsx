@@ -67,11 +67,11 @@ export function CaseDetail({ item, preview = false }: { item: CaseWithMedia; pre
                 href={project.prototypeUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label={`Open ${project.title} prototype`}
+                aria-label={`Open ${project.title} ${project.prototypeLabel === "Open PDF" ? "PDF" : "prototype"}`}
               >
                 <ProjectCover project={project} eager />
                 <span className="case-prototype-cover-action">
-                  Open prototype <ArrowUpRight className="size-5" aria-hidden="true" />
+                  {project.prototypeLabel ?? "Open prototype"} <ArrowUpRight className="size-5" aria-hidden="true" />
                 </span>
               </a>
             ) : (

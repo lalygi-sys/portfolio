@@ -36,7 +36,18 @@ function WorkPage() {
           <p>Explore a project for its context, my contribution and what changed.</p>
         </div>
         {projectCategories.map((category) => {
-          const group = projects.filter((project) => project.category === category);
+          const group = projects
+            .filter((project) => project.category === category)
+            .sort((a, b) => {
+              if (category === "Freelance & pet projects") {
+                if (a.slug === "pizza-ordering-experience") return -1;
+                if (b.slug === "pizza-ordering-experience") return 1;
+              }
+              if (category !== "Product work") return a.sortOrder - b.sortOrder;
+              if (a.slug === "standalone-partner-portal") return -1;
+              if (b.slug === "standalone-partner-portal") return 1;
+              return a.sortOrder - b.sortOrder;
+            });
           if (!group.length) return null;
           const id = "group-" + category.split(" ")[0]?.toLowerCase();
           return (
@@ -55,6 +66,20 @@ function WorkPage() {
             </section>
           );
         })}
+        <section className="work-coming-soon" aria-labelledby="more-case-studies">
+          <span className="work-coming-soon-label">In progress</span>
+          <h2 id="more-case-studies">More case studies are on the way.</h2>
+          <p>
+            I’m preparing more projects to share. Want to see another case?
+            <br />
+            Get in touch with me.
+          </p>
+          <div className="work-coming-soon-actions">
+            <a className="primary-action work-coming-soon-contact" href="/contact">
+              Contact me
+            </a>
+          </div>
+        </section>
       </main>
       <SiteFooter />
     </>

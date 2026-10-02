@@ -46,13 +46,20 @@ export function AnimatedHero() {
     const cursor = cursorRef.current;
     const button = group?.querySelector<HTMLAnchorElement>(".primary-action");
     const motion = window.matchMedia(
-      "(prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine) and (min-width: 761px)",
+      "(prefers-reduced-motion: no-preference)",
     );
     if (!group || !cursor || !button || !motion.matches || !("animate" in cursor)) return;
 
     const width = button.getBoundingClientRect().width;
+    const height = button.getBoundingClientRect().height;
+    const mobile = window.matchMedia("(max-width: 760px)").matches;
+    const bubbleWidth = cursor.querySelector<HTMLElement>(".cursor-bubble")?.offsetWidth ?? 220;
+    const landingX = Math.max(8, Math.min(width * 0.4, width - bubbleWidth - 34));
     cursor.style.left = `${button.offsetLeft}px`;
-    cursor.style.offsetPath =
+    cursor.style.top = `${button.offsetTop}px`;
+    cursor.style.offsetPath = mobile
+      ? `path("M ${width * 0.2} ${height + 70} C ${width * 0.35} ${height + 85}, ${landingX + 35} ${height + 35}, ${landingX} ${height - 8}")`
+      :
       'path("M ' +
       (width + 235) +
       " -30 C " +

@@ -21,7 +21,7 @@ export function ContactSection({
           Have a product challenge in mind, or want to hear more about a project? I’d be happy to
           connect.
         </p>
-        <small>© 2026 Tatiana Kapkaeva</small>
+        <small className="contact-copyright-desktop">© 2026 Tatiana Kapkaeva</small>
       </div>
       <div className="home-contact-links">
         <a href={"mailto:" + email}>
@@ -33,6 +33,7 @@ export function ContactSection({
           <span>{telegramLabel ? "@" + telegramLabel : "Telegram"}</span>
         </a>
       </div>
+      <small className="contact-copyright-mobile">© 2026 Tatiana Kapkaeva</small>
     </section>
   );
 }

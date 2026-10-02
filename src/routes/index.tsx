@@ -42,6 +42,11 @@ function HomePage() {
   useSectionReveal(mainRef);
   const featured = getPublicProjects(data.cases)
     .filter((project) => project.featured)
+    .sort((a, b) => {
+      if (a.slug === "standalone-partner-portal") return -1;
+      if (b.slug === "standalone-partner-portal") return 1;
+      return a.sortOrder - b.sortOrder;
+    })
     .slice(0, 3);
   return (
     <>
@@ -51,8 +56,9 @@ function HomePage() {
         <section id="work" className="site-container selected-work" aria-labelledby="work-title">
           <div className="home-section-heading">
             <h2 id="work-title">Selected work</h2>
-            <Link to="/work" className="section-link">
-              More projects <ArrowUpRight size={18} aria-hidden="true" />
+            <Link to="/work" className="section-link selected-work-more" aria-label="View all projects">
+              More projects
+              <ArrowUpRight size={18} aria-hidden="true" />
             </Link>
           </div>
           <div className="home-case-list">
