@@ -120,6 +120,8 @@ export function projectFromCase(item: CaseWithMedia): PortfolioProject {
     ? "/images/projects/new-b2b-business-model-main.png"
     : item.slug === "b2b-rebates-payouts"
       ? "/images/projects/b2b-rebates-prototype.png"
+    : item.slug === "standalone-partner-portal"
+      ? "/images/projects/standalone-partner-portal-prototype.png"
     : productNotes[item.slug]
       ? "/images/projects/" + item.slug + ".webp"
       : undefined;
@@ -149,6 +151,8 @@ export function projectFromCase(item: CaseWithMedia): PortfolioProject {
     prototypeUrl:
       item.slug === "b2b-rebates-payouts"
         ? "https://lalygi-sys.github.io/new/prototype/rebate/index.html"
+        : item.slug === "standalone-partner-portal"
+          ? "https://lalygi-sys.github.io/new/prototype/ib-dashboard/index.html"
         : undefined,
     externalLinks: linksOf(item.links).filter((link) => safeExternalUrl(link.url)),
     draft: !item.published,
