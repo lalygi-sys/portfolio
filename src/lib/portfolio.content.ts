@@ -5,12 +5,12 @@ const storedCases = [
     "id": "81d396f6-fb1b-4198-b268-2b408f0caf07",
     "slug": "kyc-kyb-onboarding",
     "title": "KYC/KYB onboarding for individuals and businesses",
-    "summary": "Making registration and verification workable across individuals, companies, documents, review states, and compliance constraints.",
-    "contribution": "Research, benchmarking, branching journeys, verification states, and an early-access model.",
+    "summary": "Giving partners earlier portal access while keeping application review and document verification as requirements for withdrawal.",
+    "contribution": "Led the onboarding redesign across legal requirements, operational processes, research, UX/UI, development handoff and implementation oversight.",
     "outcome": "Designed an onboarding model that lets partners explore the portal before verification. Smaller partners represented 10–20% of program profit; that figure is segment context, not a redesign outcome.",
     "role": "Area Product Designer / Project Lead",
     "period": "2025–2026",
-    "stage": "Designed; full rollout not claimed",
+    "stage": "Core journey handed off; further improvements in backlog",
     "cover_path": null,
     "sections": [
       {
@@ -26,7 +26,7 @@ const storedCases = [
         "title": "Key decisions"
       },
       {
-        "text": "The important design work was the branching logic: which information is required, when a partner can enter the portal, what each review state communicates, and how an exception returns to the main path. A full flow and readable decision-level excerpts can be added here.",
+        "text": "The design covers registration, personal information, an experience-based questionnaire, paths with and without manager contact, verification consent, pending states and rejection. Deferred signup improvements were kept in the backlog to accelerate initial development.",
         "title": "Flows and interface"
       },
       {

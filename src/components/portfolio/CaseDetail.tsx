@@ -8,8 +8,14 @@ import { ProjectCover } from "./ProjectCover";
 import { projectFromCase, publicOutcome } from "@/lib/projects";
 import { SiteFooter, SiteHeader } from "./SiteHeader";
 import { linksOf, safeExternalUrl, sectionsOf, type CaseWithMedia } from "@/lib/portfolio";
+import { KycCaseStudy } from "./KycCaseStudy";
 
 export function CaseDetail({ item, preview = false }: { item: CaseWithMedia; preview?: boolean }) {
+  if (item.slug === "kyc-kyb-onboarding" && !preview) return <KycCaseStudy item={item} />;
+  return <StandardCaseDetail item={item} preview={preview} />;
+}
+
+function StandardCaseDetail({ item, preview = false }: { item: CaseWithMedia; preview?: boolean }) {
   const project = projectFromCase(item);
   const [zoom, setZoom] = useState<{ url: string; caption: string } | null>(null);
   const sections = sectionsOf(item.sections).filter(
@@ -71,7 +77,8 @@ export function CaseDetail({ item, preview = false }: { item: CaseWithMedia; pre
               >
                 <ProjectCover project={project} eager />
                 <span className="case-prototype-cover-action">
-                  {project.prototypeLabel ?? "Open prototype"} <ArrowUpRight className="size-5" aria-hidden="true" />
+                  {project.prototypeLabel ?? "Open prototype"}{" "}
+                  <ArrowUpRight className="size-5" aria-hidden="true" />
                 </span>
               </a>
             ) : (
