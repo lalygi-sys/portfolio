@@ -132,10 +132,53 @@ const screens = {
       "Working design: a visible application status, a way to continue, and an explanation that rewards cannot be withdrawn before completion. Individual permissions remained subject to compliance review.",
     height: 1828,
   },
+  migrationNotice: {
+    file: "migration-notice",
+    title: "Consent to move the existing IB relationship",
+    caption:
+      "The existing IB area introduces the move, explains the transfer of data and asks the partner to accept the updated agreements before a sign-in link is sent.",
+    height: 832,
+  },
+  migrationLogin: {
+    file: "migration-login",
+    title: "Sign in to the new IB program",
+    caption:
+      "The transition link opens a familiar sign-in state, with password recovery and account creation available from the same entry point.",
+    height: 832,
+  },
+  migrationConfirmation: {
+    file: "migration-confirm",
+    title: "A linked account can continue the transition",
+    caption:
+      "An account-recognition state confirms the partner’s credentials and continues the route into the new program.",
+    height: 832,
+  },
+  migrationAgreement: {
+    file: "migration-dashboard",
+    title: "Accept agreements inside the new portal",
+    caption:
+      "The first portal state makes the migration explicit: data and statistics have moved, and the partner accepts the renewed IB agreement before continuing.",
+    height: 832,
+  },
+  migrationMap: {
+    file: "migration-flow-map",
+    title: "Migration flow — working map",
+    caption:
+      "The full design frame shows the main route, its screens and the alternate recovery paths used during migration.",
+    height: 3834,
+  },
 };
 type Screen = (typeof screens)[keyof typeof screens];
 const imagePath = (screen: Screen) =>
   `/images/projects/kyc/${screen.file}.${screen.file === "dashboard" ? "jpg" : "png"}`;
+
+const migrationScreens: Record<MigrationStep["id"], Screen> = {
+  notice: screens.migrationNotice,
+  "sign-in": screens.migrationLogin,
+  confirm: screens.migrationConfirmation,
+  portal: screens.migrationAgreement,
+  recovery: screens.migrationLogin,
+};
 
 function Journey({ after = false }: { after?: boolean }) {
   const steps = after
@@ -230,6 +273,7 @@ export function KycCaseStudy({ item }: { item: CaseWithMedia }) {
   const [selectedMigrationStep, setSelectedMigrationStep] = useState<MigrationStep["id"]>("notice");
   const opener = useRef<HTMLButtonElement | null>(null);
   const activeMigrationStep = migrationSteps.find((step) => step.id === selectedMigrationStep)!;
+  const activeMigrationScreen = migrationScreens[selectedMigrationStep];
   function openScreen(screen: Screen, button: HTMLButtonElement) {
     opener.current = button;
     setActualSize(false);
@@ -576,6 +620,16 @@ export function KycCaseStudy({ item }: { item: CaseWithMedia }) {
                     </div>
                   </dl>
                 </div>
+                <div className="kyc-migration-screen-stage" aria-live="polite">
+                  <div className="kyc-migration-screen-heading">
+                    <span>Linked screen</span>
+                    <p>
+                      This frame belongs to <strong>{activeMigrationStep.title}</strong> in the
+                      migration route.
+                    </p>
+                  </div>
+                  <ScreenFigure onOpen={openScreen} screen={activeMigrationScreen} />
+                </div>
                 <div className="kyc-migration-branch">
                   <div>
                     <span>Conditional route</span>
@@ -617,6 +671,14 @@ export function KycCaseStudy({ item }: { item: CaseWithMedia }) {
                   </p>
                 </div>
               </div>
+              <details className="kyc-migration-map">
+                <summary>View the full migration map</summary>
+                <p>
+                  A working overview of the migration frames, including the main journey and the
+                  routes used when a partner does not complete the transition in time.
+                </p>
+                <ScreenFigure onOpen={openScreen} screen={screens.migrationMap} />
+              </details>
             </section>
 
             <section id="delivery" className="kyc-section">

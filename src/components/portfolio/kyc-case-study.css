@@ -449,6 +449,39 @@
   font-size: 15px;
   line-height: 1.6;
 }
+.kyc-migration-screen-stage {
+  padding: 30px;
+  border-top: 1px solid var(--border);
+  background: var(--card);
+}
+.kyc-migration-screen-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 18px;
+}
+.kyc-migration-screen-heading span {
+  flex: none;
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.kyc-migration-screen-heading p {
+  max-width: 560px;
+  color: var(--muted-foreground);
+  font-size: 14px;
+  line-height: 1.5;
+}
+.kyc-migration-screen-heading strong {
+  color: var(--foreground);
+  font-weight: 500;
+}
+.kyc-migration-screen-stage .kyc-screen figcaption {
+  margin-top: 14px;
+}
 .kyc-migration-branch {
   display: flex;
   align-items: center;
@@ -487,6 +520,34 @@
 .kyc-migration-connections > div {
   padding: 16px 0 0;
   border-top: 1px solid var(--border);
+}
+.kyc-migration-map {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+.kyc-migration-map summary {
+  width: fit-content;
+  color: var(--primary);
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 500;
+}
+.kyc-migration-map > p {
+  max-width: 680px;
+  margin: 16px 0 20px;
+  color: var(--muted-foreground);
+  font-size: 15px;
+  line-height: 1.6;
+}
+.kyc-migration-map .kyc-screen-button {
+  max-height: 250px;
+  background: oklch(0.27 0 0);
+}
+.kyc-migration-map .kyc-screen-button img {
+  height: 250px;
+  object-fit: cover;
+  object-position: center;
 }
 .kyc-screen-pair {
   display: grid;
@@ -838,6 +899,14 @@
     gap: 22px;
     padding: 22px 18px;
   }
+  .kyc-migration-screen-stage {
+    padding: 22px 18px;
+  }
+  .kyc-migration-screen-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
   .kyc-migration-detail dl,
   .kyc-migration-connections {
     grid-template-columns: 1fr;
@@ -851,6 +920,10 @@
   }
   .kyc-migration-connections {
     margin-top: 20px;
+  }
+  .kyc-migration-map .kyc-screen-button,
+  .kyc-migration-map .kyc-screen-button img {
+    height: 164px;
   }
   .kyc-ui-story {
     margin-top: 36px;
