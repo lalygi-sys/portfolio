@@ -353,6 +353,141 @@
 .kyc-ui-story {
   margin-top: 44px;
 }
+.kyc-migration-flow {
+  margin-top: 28px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  overflow: hidden;
+  background: var(--secondary);
+}
+.kyc-migration-steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  border-bottom: 1px solid var(--border);
+}
+.kyc-migration-steps li {
+  position: relative;
+  min-width: 0;
+}
+.kyc-migration-steps li > svg {
+  position: absolute;
+  z-index: 2;
+  top: calc(50% - 8px);
+  right: -8px;
+  color: var(--primary);
+  background: var(--secondary);
+}
+.kyc-migration-steps button {
+  display: grid;
+  gap: 10px;
+  width: 100%;
+  min-height: 152px;
+  padding: 22px;
+  text-align: left;
+  background: transparent;
+  cursor: pointer;
+  border-right: 1px solid var(--border);
+  transition:
+    background-color 160ms ease,
+    color 160ms ease;
+}
+.kyc-migration-steps li:last-child button {
+  border-right: 0;
+}
+.kyc-migration-steps button:hover,
+.kyc-migration-steps button.is-active {
+  background: var(--accent);
+  color: var(--accent-foreground);
+}
+.kyc-migration-step-label {
+  color: var(--muted-foreground);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.kyc-migration-steps button.is-active .kyc-migration-step-label {
+  color: var(--primary);
+}
+.kyc-migration-steps strong {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.3;
+}
+.kyc-migration-detail {
+  display: grid;
+  grid-template-columns: 0.7fr 1.3fr;
+  gap: 40px;
+  padding: 30px;
+  background: var(--card);
+}
+.kyc-migration-detail h3 {
+  margin-top: 10px;
+}
+.kyc-migration-detail dl {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+.kyc-migration-detail dt,
+.kyc-migration-branch > div > span,
+.kyc-migration-connections span {
+  display: block;
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 9px;
+}
+.kyc-migration-detail dd,
+.kyc-migration-branch p,
+.kyc-migration-connections p {
+  color: var(--muted-foreground);
+  font-size: 15px;
+  line-height: 1.6;
+}
+.kyc-migration-branch {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  padding: 26px 30px;
+  border-top: 1px dashed var(--border-strong);
+}
+.kyc-migration-branch h3 {
+  margin-bottom: 8px;
+  font-size: 18px;
+}
+.kyc-migration-branch > button {
+  display: inline-flex;
+  flex: none;
+  gap: 9px;
+  align-items: center;
+  min-height: 44px;
+  padding: 10px 15px;
+  color: var(--accent-foreground);
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  cursor: pointer;
+}
+.kyc-migration-branch > button:hover,
+.kyc-migration-branch > button.is-active {
+  border-color: var(--primary);
+  background: var(--accent);
+}
+.kyc-migration-connections {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  margin-top: 18px;
+}
+.kyc-migration-connections > div {
+  padding: 16px 0 0;
+  border-top: 1px solid var(--border);
+}
 .kyc-screen-pair {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -677,6 +812,45 @@
   .kyc-screen-pair {
     grid-template-columns: 1fr;
     gap: 32px;
+  }
+  .kyc-migration-steps {
+    grid-template-columns: 1fr;
+  }
+  .kyc-migration-steps button {
+    grid-template-columns: 64px 22px 1fr;
+    align-items: center;
+    min-height: 72px;
+    padding: 18px;
+    border-right: 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .kyc-migration-steps li:last-child button {
+    border-bottom: 0;
+  }
+  .kyc-migration-steps li > svg {
+    top: auto;
+    bottom: -8px;
+    right: calc(50% - 8px);
+    transform: rotate(90deg);
+  }
+  .kyc-migration-detail {
+    grid-template-columns: 1fr;
+    gap: 22px;
+    padding: 22px 18px;
+  }
+  .kyc-migration-detail dl,
+  .kyc-migration-connections {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .kyc-migration-branch {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 18px;
+    padding: 22px 18px;
+  }
+  .kyc-migration-connections {
+    margin-top: 20px;
   }
   .kyc-ui-story {
     margin-top: 36px;

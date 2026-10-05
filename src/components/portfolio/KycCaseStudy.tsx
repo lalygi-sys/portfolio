@@ -1,6 +1,17 @@
 import { useRef, useState, type MouseEvent } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowLeft, ArrowRight, ArrowUpRight, Expand, LockKeyhole } from "lucide-react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  ArrowUpRight,
+  BadgeCheck,
+  Expand,
+  KeyRound,
+  LayoutDashboard,
+  LifeBuoy,
+  LockKeyhole,
+  Mail,
+} from "lucide-react";
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import type { CaseWithMedia } from "@/lib/portfolio";
 import { SiteFooter, SiteHeader } from "./SiteHeader";
@@ -12,9 +23,64 @@ const chapters = [
   ["ownership", "My role"],
   ["access", "Access & verification"],
   ["experience", "The experience"],
+  ["migration", "Existing partners"],
   ["delivery", "Delivery & scope"],
   ["outcome", "Outcome & learnings"],
 ] as const;
+
+const migrationSteps = [
+  {
+    id: "notice",
+    label: "Screen 01",
+    title: "Migration notice",
+    icon: Mail,
+    partner:
+      "A current partner receives a clear message that their IB area is moving, with one action to begin the transition.",
+    operations:
+      "Segment existing accounts, prepare the communication and retain a recovery path for people who do not act in time.",
+  },
+  {
+    id: "sign-in",
+    label: "Screen 02",
+    title: "Log in or create access",
+    icon: KeyRound,
+    partner:
+      "The secure link opens a single-entry sign-in or sign-up state, depending on whether credentials already exist.",
+    operations:
+      "Use the entry point to connect the current relationship with the destination portal without assuming every partner starts from the same account state.",
+  },
+  {
+    id: "confirm",
+    label: "Screen 03",
+    title: "Confirm the account",
+    icon: BadgeCheck,
+    partner:
+      "The transition asks for the necessary confirmation before access is activated, including email confirmation where required.",
+    operations:
+      "Handle account matching, multiple-account situations and legal-entity scenarios as explicit branches rather than manual surprises.",
+  },
+  {
+    id: "portal",
+    label: "Screen 04",
+    title: "Enter the new portal",
+    icon: LayoutDashboard,
+    partner:
+      "After confirmation, the partner lands in the new IB area with a recognisable dashboard and their next required action visible.",
+    operations:
+      "Keep the migration state and any remaining onboarding requirements visible to both the partner and the review team.",
+  },
+  {
+    id: "recovery",
+    label: "Recovery state",
+    title: "Restore the route to access",
+    icon: LifeBuoy,
+    partner:
+      "If a partner misses the message after the old area is no longer available, they are directed back to a recoverable sign-in and support route.",
+    operations:
+      "Support can identify the transition state instead of treating a missed communication as a dead end.",
+  },
+] as const;
+type MigrationStep = (typeof migrationSteps)[number];
 
 const screens = {
   registration: {
@@ -161,7 +227,9 @@ function revisitSection(event: MouseEvent<HTMLAnchorElement>) {
 export function KycCaseStudy({ item }: { item: CaseWithMedia }) {
   const [zoom, setZoom] = useState<Screen | null>(null);
   const [actualSize, setActualSize] = useState(false);
+  const [selectedMigrationStep, setSelectedMigrationStep] = useState<MigrationStep["id"]>("notice");
   const opener = useRef<HTMLButtonElement | null>(null);
+  const activeMigrationStep = migrationSteps.find((step) => step.id === selectedMigrationStep)!;
   function openScreen(screen: Screen, button: HTMLButtonElement) {
     opener.current = button;
     setActualSize(false);
@@ -458,8 +526,101 @@ export function KycCaseStudy({ item }: { item: CaseWithMedia }) {
               </div>
             </section>
 
+            <section id="migration" className="kyc-section kyc-migration">
+              <p className="kyc-eyebrow">06 / Existing partners</p>
+              <h2>Migrate current partners without leaving them behind.</h2>
+              <p>
+                The new journey also needed to work for people who were already using the IB area. I
+                mapped the transition from communication to first entry in the new portal, including
+                the operational branches behind it.
+              </p>
+              <p className="kyc-note">
+                Select a step to see the screen purpose, the partner-facing message and the work it
+                connects to.
+              </p>
+              <div className="kyc-migration-flow" aria-label="Existing partner migration flow">
+                <ol className="kyc-migration-steps">
+                  {migrationSteps.slice(0, 4).map((step, index) => {
+                    const Icon = step.icon;
+                    const active = selectedMigrationStep === step.id;
+                    return (
+                      <li key={step.id}>
+                        <button
+                          type="button"
+                          aria-pressed={active}
+                          className={active ? "is-active" : undefined}
+                          onClick={() => setSelectedMigrationStep(step.id)}
+                        >
+                          <span className="kyc-migration-step-label">{step.label}</span>
+                          <Icon size={19} aria-hidden="true" />
+                          <strong>{step.title}</strong>
+                        </button>
+                        {index < 3 && <ArrowRight aria-hidden="true" />}
+                      </li>
+                    );
+                  })}
+                </ol>
+                <div className="kyc-migration-detail" aria-live="polite">
+                  <div>
+                    <span className="kyc-eyebrow">{activeMigrationStep.label}</span>
+                    <h3>{activeMigrationStep.title}</h3>
+                  </div>
+                  <dl>
+                    <div>
+                      <dt>What the partner sees</dt>
+                      <dd>{activeMigrationStep.partner}</dd>
+                    </div>
+                    <div>
+                      <dt>What it connects to</dt>
+                      <dd>{activeMigrationStep.operations}</dd>
+                    </div>
+                  </dl>
+                </div>
+                <div className="kyc-migration-branch">
+                  <div>
+                    <span>Conditional route</span>
+                    <h3>Missed the communication?</h3>
+                    <p>
+                      The recovery state appears after the old IB area is unavailable. It returns
+                      the partner to sign-in and support rather than ending the journey.
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    className={selectedMigrationStep === "recovery" ? "is-active" : undefined}
+                    aria-pressed={selectedMigrationStep === "recovery"}
+                    onClick={() => setSelectedMigrationStep("recovery")}
+                  >
+                    <LifeBuoy size={18} aria-hidden="true" /> Explore recovery state
+                  </button>
+                </div>
+              </div>
+              <div className="kyc-migration-connections">
+                <div>
+                  <span>Communication</span>
+                  <p>
+                    Explains the change and gives an action that opens the secure transition route.
+                  </p>
+                </div>
+                <div>
+                  <span>Identity & account state</span>
+                  <p>
+                    Connects existing partners, credentials and confirmation without treating all
+                    accounts alike.
+                  </p>
+                </div>
+                <div>
+                  <span>Portal & support</span>
+                  <p>
+                    Connects successful entry and recovery to a visible next step, not a silent
+                    access failure.
+                  </p>
+                </div>
+              </div>
+            </section>
+
             <section id="delivery" className="kyc-section">
-              <p className="kyc-eyebrow">06 / Delivery & scope</p>
+              <p className="kyc-eyebrow">07 / Delivery & scope</p>
               <h2>
                 Define the first delivery.
                 <br />
@@ -497,14 +658,10 @@ export function KycCaseStudy({ item }: { item: CaseWithMedia }) {
                   </p>
                 </div>
               </div>
-              <p>
-                Existing partners also needed a transition path. I mapped migration communication,
-                account access and confirmation scenarios alongside the new-partner journey.
-              </p>
             </section>
 
             <section id="outcome" className="kyc-section">
-              <p className="kyc-eyebrow">07 / Outcome & learnings</p>
+              <p className="kyc-eyebrow">08 / Outcome & learnings</p>
               <h2>A different entry model, with a path to delivery.</h2>
               <p>
                 The work produced a model for earlier portal access, a defined verification boundary
