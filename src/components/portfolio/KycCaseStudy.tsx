@@ -244,7 +244,7 @@ const screens = {
     title: "Open the new portal",
     caption:
       "The old IB area is replaced by a redirect screen. An email also links to the new portal.",
-    height: 790,
+    height: 680,
   },
   migrationCode: {
     file: "migration-code",
@@ -410,6 +410,10 @@ export function KycCaseStudy({ item }: { item: CaseWithMedia }) {
   }
   const registrationRef = useRef<HTMLDivElement | null>(null);
   useSectionReveal(registrationRef);
+  const profitRef = useRef<HTMLElement | null>(null);
+  useSectionReveal(profitRef);
+  const competitorRef = useRef<HTMLElement | null>(null);
+  useSectionReveal(competitorRef);
   const opener = useRef<HTMLButtonElement | null>(null);
   function openScreen(screen: Screen, button: HTMLButtonElement) {
     opener.current = button;
@@ -550,19 +554,15 @@ export function KycCaseStudy({ item }: { item: CaseWithMedia }) {
                   products commonly let partners use their tools before completing verification — a
                   model that could support engagement while the application was still in progress.
                 </p>
-                <figure className="kyc-evidence">
-                  <div className="kyc-evidence-heading">
+                <figure className="kyc-profit-highlight" ref={competitorRef}>
+                  <div className="kyc-profit-summary" data-reveal>
                     <strong>1 in 10</strong>
-                    <span>direct competitors used a similarly closed access model.</span>
+                    <div>
+                      <span>kept access similarly closed</span>
+                      <p>Only one of the direct competitors reviewed.</p>
+                    </div>
                   </div>
-                  <div className="kyc-competitor-marks" aria-hidden="true">
-                    {Array.from({ length: 10 }, (_, i) => (
-                      <span key={i} className={i === 0 ? "is-closed" : ""} />
-                    ))}
-                  </div>
-                  <figcaption>
-                    My competitor analysis · 1 closed model / 9 different entry models
-                  </figcaption>
+                  <figcaption>Source: my competitor analysis</figcaption>
                 </figure>
                 <p>
                   I used this research to define an entry model around our own compliance
@@ -608,26 +608,19 @@ export function KycCaseStudy({ item }: { item: CaseWithMedia }) {
                 <h3>Second: keep smaller partners — and help them grow.</h3>
                 <p>
                   Together with the Product Owner, I analysed data from the adjacent referral
-                  program. Partners with a small client base accounted for 10–20% of IB-program
-                  profit. This changed the priority: retain this segment and create room for it to
-                  grow.
+                  program. The findings changed our priority: retain smaller partners and create
+                  room for them to grow.
                 </p>
-                <figure className="kyc-evidence">
-                  <div className="kyc-evidence-heading">
+                <figure className="kyc-profit-highlight" ref={profitRef}>
+                  <div className="kyc-profit-summary" data-reveal>
                     <strong>10–20%</strong>
-                    <span>of IB-program profit came from partners with a small client base.</span>
-                  </div>
-                  <div className="kyc-profit-track" aria-hidden="true">
-                    <span />
-                    <span />
-                  </div>
-                  <div className="kyc-profit-scale" aria-hidden="true">
-                    <span>0%</span>
-                    <span>100%</span>
+                    <div>
+                      <span>of IB-program profit</span>
+                      <p>From partners with a small client base.</p>
+                    </div>
                   </div>
                   <figcaption>
-                    Internal analysis with the PO · segment contribution, not an uplift from this
-                    redesign
+                    Existing segment contribution · Internal analysis with the PO
                   </figcaption>
                 </figure>
               </div>
@@ -682,26 +675,25 @@ export function KycCaseStudy({ item }: { item: CaseWithMedia }) {
                 </li>
                 <li className="kyc-migration-transfer">
                   <div className="kyc-migration-story-copy">
-                    <span className="kyc-eyebrow">In progress</span>
+                    <span className="kyc-eyebrow">02</span>
                     <h3>Transfer data between licences</h3>
                     <p>
                       While the partner waits, the team transfers personal and IB-related data
                       internally between the licences that support the old and new portals.
                     </p>
                   </div>
-                  <div
-                    className="kyc-transfer-visual"
-                    aria-label="Internal transfer between licences"
-                  >
-                    <div>
-                      <span>Broker licence</span>
-                      <strong>Personal Area + IB data</strong>
-                    </div>
-                    <ArrowRight size={22} aria-hidden="true" />
-                    <div>
-                      <span>IB Portal licence</span>
-                      <strong>Partner profile + history</strong>
-                    </div>
+                  <div className="kyc-journey kyc-transfer-visual">
+                    <ol aria-label="Internal transfer between licences">
+                      <li>
+                        <span className="kyc-step-number">Broker licence</span>
+                        <strong>Personal Area + IB data</strong>
+                        <ArrowRight aria-hidden="true" />
+                      </li>
+                      <li>
+                        <span className="kyc-step-number">IB Portal licence</span>
+                        <strong>Partner profile + history</strong>
+                      </li>
+                    </ol>
                   </div>
                   <div className="kyc-migration-transition">
                     <ArrowRight size={18} aria-hidden="true" />
