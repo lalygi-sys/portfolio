@@ -706,7 +706,7 @@
   object-fit: contain;
 }
 .kyc-lightbox-image.is-actual-size img {
-  width: 1280px;
+  width: auto;
   max-width: none;
   max-height: none;
 }
@@ -1018,5 +1018,224 @@
   }
   .kyc-migration-transition {
     padding-bottom: 24px;
+  }
+}
+
+/* Screen-led storytelling: decisions stay beside their actual interface states. */
+.kyc-hero-showcase {
+  grid-template-columns: 1fr;
+  gap: 32px;
+  padding: 40px;
+}
+.kyc-hero-showcase .kyc-hero-principle {
+  max-width: 760px;
+}
+.kyc-hero-showcase .kyc-hero-principle h2 {
+  margin-bottom: 18px;
+}
+.kyc-hero-screens {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: start;
+  gap: 28px;
+}
+.kyc-hero-screens > :last-child {
+  margin-top: 64px;
+}
+.kyc-hero-screens .kyc-screen-button {
+  height: auto;
+  box-shadow: 0 12px 28px oklch(0.1 0.015 260 / 0.1);
+}
+.kyc-hero-screens .kyc-screen-button img {
+  height: auto;
+  object-fit: contain;
+}
+.kyc-hero-screens figcaption span {
+  display: none;
+}
+.kyc-context-number {
+  font-size: 24px;
+  line-height: 1.3;
+}
+.kyc-decision {
+  margin-top: 48px;
+  text-align: center;
+}
+.kyc-decision h3 {
+  margin-top: 10px;
+}
+.kyc-decision > p {
+  max-width: 590px;
+  margin: 12px auto 0;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--muted-foreground);
+}
+.kyc-branches {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px;
+  padding-top: 32px;
+  margin-block: 24px;
+  position: relative;
+}
+.kyc-branches::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  height: 22px;
+  left: 25%;
+  right: 25%;
+  border: 1px solid var(--primary);
+  border-bottom: 0;
+  border-radius: 8px 8px 0 0;
+}
+.kyc-branches::after {
+  content: "";
+  position: absolute;
+  height: 24px;
+  width: 1px;
+  background: var(--primary);
+  top: -24px;
+  left: 50%;
+}
+.kyc-branch {
+  min-width: 0;
+}
+.kyc-route-label {
+  display: block;
+  color: var(--primary);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.kyc-flow-path {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin-block: 24px;
+  gap: 16px;
+}
+.kyc-flow-path li {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  gap: 16px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.kyc-flow-path li > span {
+  flex: 1;
+}
+.kyc-flow-path svg {
+  flex-shrink: 0;
+  color: var(--primary);
+}
+.kyc-branch .kyc-flow-path {
+  flex-direction: column;
+  gap: 10px;
+  margin-block: 20px 24px;
+}
+.kyc-branch .kyc-flow-path li {
+  position: relative;
+  min-height: 42px;
+  border-left: 1px solid var(--border);
+  padding: 0 0 14px 16px;
+}
+.kyc-branch .kyc-flow-path svg {
+  transform: rotate(90deg);
+  position: absolute;
+  left: -8px;
+  bottom: -3px;
+  background: var(--background);
+}
+.kyc-route-result {
+  font-size: 14px;
+  line-height: 1.6;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+  color: var(--muted-foreground);
+}
+.kyc-question-entry {
+  max-width: 580px;
+  margin: 28px auto 48px;
+}
+.kyc-question-entry figcaption {
+  display: none;
+}
+.kyc-flow-merge {
+  display: flex;
+  gap: 12px;
+  align-items: start;
+  border-block: 1px solid var(--border);
+  padding-block: 20px;
+  margin-block: 28px 16px;
+  font-size: 16px;
+  line-height: 1.6;
+}
+.kyc-flow-merge svg {
+  flex-shrink: 0;
+  margin-top: 4px;
+  color: var(--primary);
+}
+.kyc-flow-merge span {
+  font-size: 14px;
+  color: var(--muted-foreground);
+}
+.kyc-scope-compact {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px;
+}
+.kyc-details > .kyc-screen {
+  margin-top: 24px;
+}
+@media (max-width: 640px) {
+  .kyc-hero-showcase {
+    padding: 24px 16px;
+  }
+  .kyc-hero-screens,
+  .kyc-branches,
+  .kyc-scope-compact {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .kyc-hero-screens > :last-child {
+    margin-top: 0;
+  }
+  .kyc-decision {
+    text-align: left;
+    margin-top: 36px;
+  }
+  .kyc-branches {
+    padding-top: 0;
+    margin-block: 28px;
+  }
+  .kyc-branches::before,
+  .kyc-branches::after {
+    display: none;
+  }
+  .kyc-branch {
+    padding-top: 20px;
+    border-top: 2px solid var(--primary);
+  }
+  .kyc-flow-path {
+    flex-direction: column;
+    gap: 12px;
+  }
+  .kyc-flow-path li {
+    flex-direction: column;
+    align-items: start;
+    gap: 10px;
+  }
+  .kyc-flow-path svg {
+    transform: rotate(90deg);
+  }
+  .kyc-branch .kyc-flow-path li {
+    display: block;
+  }
+  .kyc-question-entry {
+    margin-bottom: 28px;
   }
 }

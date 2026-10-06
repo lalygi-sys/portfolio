@@ -1,6 +1,6 @@
 import { useRef, useState, type MouseEvent } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowLeft, ArrowRight, ArrowUpRight, Expand, LockKeyhole } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight, Expand } from "lucide-react";
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import type { CaseWithMedia } from "@/lib/portfolio";
 import { SiteFooter, SiteHeader } from "./SiteHeader";
@@ -10,14 +10,81 @@ const chapters = [
   ["challenge", "The challenge"],
   ["journey", "Before & after"],
   ["ownership", "My role"],
-  ["access", "Access & verification"],
-  ["experience", "The experience"],
+  ["access", "Entry & country rules"],
+  ["experience", "Application branches"],
   ["migration", "Existing partners"],
   ["delivery", "Delivery & scope"],
   ["outcome", "Outcome & learnings"],
 ] as const;
 
 const screens = {
+  signup: {
+    file: "signup-new",
+    title: "A new front door for the standalone IB portal",
+    caption: "Dedicated signup, separate from the broker account journey.",
+    height: 920,
+  },
+  portal: {
+    file: "portal-access",
+    title: "Enter the portal with Pending IB status",
+    caption:
+      "The dashboard and referral tools are visible; the application remains a clear next step.",
+    height: 736,
+  },
+  deadline: {
+    file: "application-deadline",
+    title: "Explain the deadline before access changes",
+    caption:
+      "A reminder explains that the IB application will become mandatory and portal features will be limited.",
+    height: 736,
+  },
+  reminder: {
+    file: "application-reminder",
+    title: "Keep the next step visible",
+    caption:
+      "After the modal is dismissed, the dashboard keeps the countdown and Continue IB application action.",
+    height: 736,
+  },
+  riskApplication: {
+    file: "risk-application",
+    title: "Continue the application before entering the portal",
+    caption:
+      "The medium/high-risk route keeps the partner in onboarding instead of opening the dashboard.",
+    height: 832,
+  },
+  riskReview: {
+    file: "risk-review",
+    title: "Application submitted for review",
+    caption:
+      "The partner receives an explicit waiting state while a manager assesses the application.",
+    height: 832,
+  },
+  call: {
+    file: "call-request",
+    title: "Arrange the manager interview",
+    caption: "Phone, messenger and preferred language help operations reach the partner.",
+    height: 992,
+  },
+  markets: {
+    file: "experienced-markets",
+    title: "Experienced partner → existing business",
+    caption:
+      "Client markets, segment and instruments inform review. Restricted client markets trigger an inline warning.",
+    height: 1089,
+  },
+  plan: {
+    file: "new-partner-plan",
+    title: "New partner → acquisition plan",
+    caption:
+      "Ask about the plan and expected clients instead of a brokerage history they do not have.",
+    height: 832,
+  },
+  reviewContacts: {
+    file: "review-contacts",
+    title: "Submit details for written review",
+    caption: "Capture reachable contact details without promising a scheduled call.",
+    height: 992,
+  },
   registration: {
     file: "registration",
     title: "A dedicated entry to the IB program",
@@ -146,6 +213,19 @@ type Screen = (typeof screens)[keyof typeof screens];
 const imagePath = (screen: Screen) =>
   `/images/projects/kyc/${screen.file}.${screen.file === "dashboard" ? "jpg" : "png"}`;
 
+function FlowPath({ steps }: { steps: string[] }) {
+  return (
+    <ol className="kyc-flow-path">
+      {steps.map((step, index) => (
+        <li key={step}>
+          <span>{step}</span>
+          {index < steps.length - 1 && <ArrowRight size={16} aria-hidden="true" />}
+        </li>
+      ))}
+    </ol>
+  );
+}
+
 function Journey({ after = false }: { after?: boolean }) {
   const steps = after
     ? [
@@ -263,8 +343,8 @@ export function KycCaseStudy({ item }: { item: CaseWithMedia }) {
             <span>Verify before withdrawal.</span>
           </h1>
           <p className="kyc-hero-summary">
-            Redesigning onboarding for individuals and businesses so partners could start using the
-            portal earlier, with verification protecting access to payouts.
+            A new onboarding journey for a standalone IB portal. I initiated and researched early
+            product access, then drove the legal, operational and interface changes behind it.
           </p>
           <dl className="kyc-meta">
             <div>
@@ -280,19 +360,22 @@ export function KycCaseStudy({ item }: { item: CaseWithMedia }) {
               <dd>Product strategy, service design, UX/UI & delivery</dd>
             </div>
           </dl>
-          <div className="kyc-hero-visual">
+          <div className="kyc-hero-visual kyc-hero-showcase">
             <div className="kyc-hero-principle">
-              <p className="kyc-eyebrow">The key shift</p>
-              <h2>Product access and partner approval became separate milestones.</h2>
+              <p className="kyc-eyebrow">One product change. Two distinct decisions.</p>
+              <h2>
+                A dedicated signup.
+                <br />A chance to explore before approval.
+              </h2>
               <p>
-                I led the change across the customer journey, legal requirements and operational
-                processes — through design handoff and implementation oversight.
+                The IB area was becoming an independent product. I used this transition to rethink
+                when partners should gain access.
               </p>
-              <a href="#journey" className="text-link" onClick={revisitSection}>
-                See the journey change <ArrowRight size={18} aria-hidden="true" />
-              </a>
             </div>
-            <ScreenFigure onOpen={openScreen} screen={screens.dashboard} hero />
+            <div className="kyc-hero-screens">
+              <ScreenFigure onOpen={openScreen} screen={screens.signup} hero />
+              <ScreenFigure onOpen={openScreen} screen={screens.portal} hero />
+            </div>
           </div>
         </header>
 
@@ -313,36 +396,23 @@ export function KycCaseStudy({ item }: { item: CaseWithMedia }) {
           <article className="kyc-story">
             <section id="challenge" className="kyc-section">
               <p className="kyc-eyebrow">01 / The challenge</p>
-              <h2>A long application stood between interest and value.</h2>
+              <h2>A new portal needed more than a new registration form.</h2>
               <p>
-                Introducing Brokers (IBs) refer clients to the broker through its partner program.
-                Partners arrived from a dedicated landing page, but had to register with the broker,
-                complete an application, wait for review and speak to a manager before entering the
-                partner area. They were being asked to commit before they could understand the
-                product.
+                The IB partner area was separating from the broker, requiring its own signup and
+                account journey. The old process made partners complete an application and manager
+                interview before they could see the product.
               </p>
-              <p>
-                Mapping the existing journey exposed more than a long form: incomplete applications,
-                waiting states and rejected applications could leave people without a clear route
-                back to their status or next step.
-              </p>
-              <aside className="kyc-context">
-                <span className="kyc-context-number">10–20%</span>
+              <div className="kyc-context">
+                <span className="kyc-context-number">My initiative</span>
                 <div>
-                  <strong>of program profit came from smaller partners.</strong>
+                  <strong>Let partners experience the product earlier.</strong>
                   <p>
-                    This business context challenged the previous entry model, which excluded
-                    partners with fewer than five clients. It is segment context, not a measured
-                    result of the redesign.
+                    I independently researched and drove this idea through journey analysis and
+                    competitor research, then worked with legal and operations to define its
+                    boundaries.
                   </p>
                 </div>
-              </aside>
-              <p>
-                I combined the journey audit with competitor benchmarking and discussions about
-                eligibility and review requirements. The opportunity was to let partners experience
-                the portal while keeping the required checks attached to actions that needed
-                approval.
-              </p>
+              </div>
             </section>
 
             <section id="journey" className="kyc-section">
@@ -364,178 +434,221 @@ export function KycCaseStudy({ item }: { item: CaseWithMedia }) {
                 A simplified comparison of the main journey. Country and risk exceptions can require
                 verification before portal access; review or an interview may still be required.
               </p>
-              <blockquote>
-                “When does this information become necessary?” became as important as “Which
-                information do we need?”
-              </blockquote>
             </section>
 
             <section id="ownership" className="kyc-section">
               <p className="kyc-eyebrow">03 / My role</p>
-              <h2>I drove the service change behind the screens.</h2>
-              <p>
-                Earlier access needed a shared definition of what an unapproved partner could do. I
-                worked with the lawyer and operational teams to connect that definition to the
-                interface, review process and communication.
-              </p>
+              <h2>I owned the idea and drove it through delivery.</h2>
               <div className="kyc-workstreams">
                 <div>
-                  <span>01</span>
-                  <h3>Legal & eligibility</h3>
+                  <span>01 / Research & direction</span>
+                  <h3>Challenge the access gate</h3>
+                  <p>Initiated and researched early access; mapped the new customer journey.</p>
+                </div>
+                <div>
+                  <span>02 / Legal</span>
+                  <h3>Separate access from approval</h3>
+                  <p>Worked with the lawyer on agreements, declarations and eligibility rules.</p>
+                </div>
+                <div>
+                  <span>03 / Operations</span>
+                  <h3>Connect the review process</h3>
                   <p>
-                    Worked through changes to agreements, declarations and the distinction between
-                    an account and approved partner status.
+                    Redesigned review, manager contact and communication flows with operational
+                    teams.
                   </p>
                 </div>
                 <div>
-                  <span>02</span>
-                  <h3>Operations & review</h3>
-                  <p>
-                    Mapped questionnaire review, manager contact, approval and rejection so customer
-                    states reflected the work happening behind them.
-                  </p>
+                  <span>04 / Design & delivery</span>
+                  <h3>Make the model implementable</h3>
+                  <p>Designed screens and branches, prepared handoff and oversaw implementation.</p>
                 </div>
-                <div>
-                  <span>03</span>
-                  <h3>Product & interaction</h3>
-                  <p>
-                    Designed the entry path, branching questions, document verification and return
-                    paths across desktop and mobile.
-                  </p>
-                </div>
-                <div>
-                  <span>04</span>
-                  <h3>Handoff & follow-through</h3>
-                  <p>
-                    Prepared flows and interface states for development, separated deferred
-                    improvements and followed implementation with the team.
-                  </p>
-                </div>
-              </div>
-              <div className="kyc-service">
-                <h3>One journey, several teams</h3>
-                <dl>
-                  <div>
-                    <dt>Account created</dt>
-                    <dd>
-                      Legal acknowledgement and account state must agree with the access shown in
-                      the portal.
-                    </dd>
-                  </div>
-                  <div>
-                    <dt>Application submitted</dt>
-                    <dd>
-                      Operations receive the information for review; the partner sees whether to
-                      wait or expect manager contact.
-                    </dd>
-                  </div>
-                  <div>
-                    <dt>Verification reviewed</dt>
-                    <dd>
-                      The decision needs to reach the interface, communication and permissions
-                      consistently.
-                    </dd>
-                  </div>
-                </dl>
               </div>
             </section>
 
             <section id="access" className="kyc-section">
-              <p className="kyc-eyebrow">04 / Access & verification</p>
-              <h2>Early access had explicit limits.</h2>
+              <p className="kyc-eyebrow">04 / Entry & country rules</p>
+              <h2>One account. Different access paths.</h2>
               <p>
-                The model separated exploring and starting to use the product from withdrawing
-                funds. Account creation, application review and identity verification were distinct
-                states, rather than a single invisible gate.
+                A dedicated signup leads to personal details and legal acknowledgement. An account
+                is created here; approved IB status is a later milestone.
               </p>
-              <div className="kyc-permissions">
-                <div>
-                  <span>Available earlier</span>
-                  <h3>The partner portal</h3>
-                  <p>
-                    Explore the product, see the account and application status, and continue the
-                    onboarding journey.
+              <div className="kyc-screen-pair">
+                <ScreenFigure onOpen={openScreen} screen={screens.signup} />
+                <ScreenFigure onOpen={openScreen} screen={screens.profile} />
+              </div>
+              <div className="kyc-decision">
+                <span className="kyc-eyebrow">Decision 01</span>
+                <h3>Country of residence → access rules</h3>
+                <p>
+                  Unavailable countries are excluded from signup. For supported countries, the risk
+                  category determines whether the portal opens immediately.
+                </p>
+              </div>
+              <div className="kyc-branches">
+                <div className="kyc-branch">
+                  <span className="kyc-route-label">Low risk · early access</span>
+                  <FlowPath
+                    steps={[
+                      "Account created",
+                      "Enter the portal",
+                      "Complete application & verification",
+                    ]}
+                  />
+                  <ScreenFigure onOpen={openScreen} screen={screens.portal} />
+                  <p className="kyc-route-result">
+                    Explore the product and referral tools. Withdrawal stays locked until approval.
                   </p>
                 </div>
-                <div>
-                  <span>Restricted</span>
-                  <h3>Sensitive client information</h3>
-                  <p>
-                    Data visibility and individual capabilities depend on eligibility and compliance
-                    rules.
-                  </p>
-                </div>
-                <div>
-                  <span>
-                    <LockKeyhole size={14} aria-hidden="true" /> Approval required
-                  </span>
-                  <h3>Fund withdrawal</h3>
-                  <p>
-                    Complete the application and required verification before money can be
-                    withdrawn.
+                <div className="kyc-branch">
+                  <span className="kyc-route-label">Medium / high risk · review first</span>
+                  <FlowPath
+                    steps={[
+                      "Account created",
+                      "Application & required checks",
+                      "Access after clearance",
+                    ]}
+                  />
+                  <ScreenFigure onOpen={openScreen} screen={screens.riskApplication} />
+                  <p className="kyc-route-result">
+                    Stay in the application flow. There is no early route to the dashboard.
                   </p>
                 </div>
               </div>
-              <p>
-                Individual and business onboarding needed different information and document
-                requirements. I mapped these branches within the wider KYC/KYB journey; the selected
-                interface examples below focus on the individual IB application.
+              <p className="kyc-note">
+                Designed risk routes; country lists and detailed permissions remained subject to
+                legal review.
               </p>
-              <details className="kyc-details">
-                <summary>Country exceptions and decisions requiring confirmation</summary>
+
+              <div className="kyc-ui-story">
+                <h3>Early access is not an indefinite pause.</h3>
                 <p>
-                  The working map includes India, Pakistan and Nigeria as exceptions where
-                  verification precedes portal access. Referral-link availability, the exact client
-                  data visible before approval, deeper-review triggers and verification-provider
-                  coverage were also discussion points. They are not presented here as universally
-                  released rules.
+                  If the application remains incomplete, a timed reminder explains the upcoming
+                  restriction and leads back to the unfinished step.
                 </p>
-              </details>
+                <FlowPath
+                  steps={[
+                    "Application incomplete",
+                    "Email + in-portal warning",
+                    "Deadline to continue",
+                    "Features limited if unfinished",
+                  ]}
+                />
+                <div className="kyc-screen-pair">
+                  <ScreenFigure onOpen={openScreen} screen={screens.deadline} />
+                  <ScreenFigure onOpen={openScreen} screen={screens.reminder} />
+                </div>
+                <p className="kyc-note">
+                  The design uses N/X days as configurable placeholders, not a confirmed deadline.
+                  Withdrawal also returns the partner to the unfinished application or verification
+                  step.
+                </p>
+              </div>
             </section>
 
             <section id="experience" className="kyc-section">
-              <p className="kyc-eyebrow">05 / The experience</p>
-              <h2>Make the next step understandable.</h2>
+              <p className="kyc-eyebrow">05 / Application branches</p>
+              <h2>
+                Ask what is needed.
+                <br />
+                Choose the right review route.
+              </h2>
               <p>
-                Each part of the flow needed to answer three questions: where am I, what is still
-                required, and what can I do now? These are selected working designs from the
-                handoff, rather than screenshots of a confirmed full rollout.
+                Two decisions shape the questionnaire: whether a manager can interview the partner,
+                and whether the partner already has IB experience.
+              </p>
+              <div className="kyc-decision">
+                <span className="kyc-eyebrow">Decision 02 / Operational coverage</span>
+                <h3>Can a manager conduct the interview?</h3>
+                <p>
+                  Compliance needs the same information. The collection method changes with the
+                  country’s contact coverage.
+                </p>
+              </div>
+              <div className="kyc-branches">
+                <div className="kyc-branch">
+                  <span className="kyc-route-label">Yes → shorter form + interview</span>
+                  <FlowPath
+                    steps={[
+                      "Experience & acquisition questions",
+                      "Request a call",
+                      "Remaining questions in the interview",
+                    ]}
+                  />
+                  <ScreenFigure onOpen={openScreen} screen={screens.call} />
+                  <p className="kyc-route-result">
+                    The manager completes the review using the submitted answers and conversation.
+                  </p>
+                </div>
+                <div className="kyc-branch">
+                  <span className="kyc-route-label">No → full questionnaire</span>
+                  <FlowPath
+                    steps={[
+                      "Interview questions in the form",
+                      "Submit contact details",
+                      "Manager reviews the application",
+                    ]}
+                  />
+                  <ScreenFigure onOpen={openScreen} screen={screens.reviewContacts} />
+                  <p className="kyc-route-result">
+                    Capture the information in writing when an interview is unavailable.
+                  </p>
+                </div>
+              </div>
+              <div className="kyc-decision">
+                <span className="kyc-eyebrow">Decision 03 / Relevant questions</span>
+                <h3>Has the partner worked as an IB before?</h3>
+              </div>
+              <div className="kyc-question-entry">
+                <ScreenFigure onOpen={openScreen} screen={screens.experience} />
+              </div>
+              <div className="kyc-branches">
+                <div className="kyc-branch">
+                  <span className="kyc-route-label">Yes → understand the existing business</span>
+                  <FlowPath
+                    steps={[
+                      "Client markets & profile",
+                      "Broker history",
+                      "Acquisition plan & expectations",
+                    ]}
+                  />
+                  <ScreenFigure onOpen={openScreen} screen={screens.markets} />
+                </div>
+                <div className="kyc-branch">
+                  <span className="kyc-route-label">No → understand the proposed business</span>
+                  <FlowPath
+                    steps={[
+                      "Acquisition channels",
+                      "Plan & expected clients",
+                      "Partnership expectations",
+                    ]}
+                  />
+                  <ScreenFigure onOpen={openScreen} screen={screens.plan} />
+                </div>
+              </div>
+              <div className="kyc-flow-merge">
+                <ArrowRight size={18} aria-hidden="true" />
+                <p>
+                  Both paths → answers to CRM → manager review.
+                  <br />
+                  <span>Saved progress lets the partner resume without starting again.</span>
+                </p>
+              </div>
+              <p className="kyc-note">
+                Examples above show the full-form experience branches. The interview route collects
+                a shorter set online. Contact coverage is an operational setting, separate from
+                country risk.
               </p>
               <div className="kyc-ui-story">
-                <h3>01. Establish an account and explain its status</h3>
-                <p>
-                  Registration leads into a staged application. The legal wording and interface
-                  distinguish account access from partner approval, so early entry does not imply
-                  completed verification.
-                </p>
+                <h3>Show what happens after submission.</h3>
                 <div className="kyc-screen-pair">
-                  <ScreenFigure onOpen={openScreen} screen={screens.registration} />
-                  <ScreenFigure onOpen={openScreen} screen={screens.profile} />
-                </div>
-              </div>
-              <div className="kyc-ui-story">
-                <h3>02. Ask relevant questions, then route the review</h3>
-                <p>
-                  The questionnaire branches around IB experience and captures acquisition channels.
-                  I designed paths with and without a requested manager call, alongside the
-                  restricted-access path for risk-related exceptions.
-                </p>
-                <div className="kyc-screen-pair">
-                  <ScreenFigure onOpen={openScreen} screen={screens.experience} />
-                  <ScreenFigure onOpen={openScreen} screen={screens.channels} />
-                </div>
-              </div>
-              <div className="kyc-ui-story">
-                <h3>03. Treat verification and refusal as part of the journey</h3>
-                <p>
-                  Consent, document checks and an approval decision need their own states. The flow
-                  also covers waiting for review and manager contact, so a submitted application
-                  does not simply disappear from the partner’s view.
-                </p>
-                <div className="kyc-screen-pair">
+                  <ScreenFigure onOpen={openScreen} screen={screens.riskReview} />
                   <ScreenFigure onOpen={openScreen} screen={screens.verification} />
-                  <ScreenFigure onOpen={openScreen} screen={screens.rejection} />
                 </div>
+                <details className="kyc-details">
+                  <summary>When the application is declined</summary>
+                  <ScreenFigure onOpen={openScreen} screen={screens.rejection} />
+                </details>
               </div>
             </section>
 
@@ -625,65 +738,45 @@ export function KycCaseStudy({ item }: { item: CaseWithMedia }) {
 
             <section id="delivery" className="kyc-section">
               <p className="kyc-eyebrow">07 / Delivery & scope</p>
-              <h2>
-                Define the first delivery.
-                <br />
-                Keep the next steps visible.
-              </h2>
+              <h2>A focused first delivery. A visible backlog.</h2>
               <p>
-                To accelerate development, the work was split into an implementation scope and
-                follow-up improvements. Transparent frames in the source file mark deferred work,
-                not missing designs or shipped features.
+                I split the work to accelerate development: the core journey and review states for
+                handoff, with further improvements retained in the backlog.
               </p>
-              <div className="kyc-scope-list">
+              <div className="kyc-scope-list kyc-scope-compact">
                 <div>
-                  <span className="kyc-status">Designed & handed off</span>
-                  <h3>The core journey and its states</h3>
+                  <span className="kyc-status">Design & handoff</span>
+                  <h3>Core journey</h3>
                   <p>
-                    Registration, the staged application, manager-review branches, verification
-                    entry, portal restrictions and approval or rejection states, with desktop and
-                    mobile designs.
+                    Registration, application branches, portal permissions, verification and
+                    migration.
                   </p>
                 </div>
                 <div>
                   <span className="kyc-status kyc-status-muted">Backlog</span>
-                  <h3>Deferred signup improvements</h3>
+                  <h3>Deferred improvements</h3>
                   <p>
-                    Further registration variants, including when to ask for the country, were kept
-                    in the backlog to reduce the initial development scope.
-                  </p>
-                </div>
-                <div>
-                  <span className="kyc-status kyc-status-muted">Needs confirmation</span>
-                  <h3>Detailed policy and provider coverage</h3>
-                  <p>
-                    Open questions about permissions, risk handling and verification coverage stay
-                    separate from confirmed interface decisions.
+                    Transparent frames in Figma mark future work to reduce the initial development
+                    scope.
                   </p>
                 </div>
               </div>
+              <p className="kyc-note">
+                Screens show the designed solution and working variants, not a claim that every
+                state shipped.
+              </p>
             </section>
 
             <section id="outcome" className="kyc-section">
               <p className="kyc-eyebrow">08 / Outcome & learnings</p>
-              <h2>A different entry model, with a path to delivery.</h2>
+              <h2>The change was the sequence, not just the form.</h2>
               <p>
-                The work produced a model for earlier portal access, a defined verification boundary
-                for withdrawals, and a detailed set of customer and operational states for
-                implementation. I drove it from legal and process changes through interface design,
-                handoff and implementation oversight.
+                The result was a defined early-access model, connected customer and operational
+                flows, and designs ready for implementation. I drove the work from the original
+                hypothesis through legal alignment, handoff and implementation oversight.
               </p>
-              <div className="kyc-takeaway">
-                <h3>The key learning</h3>
-                <p>
-                  Reducing onboarding friction meant changing when checks happened and coordinating
-                  the people responsible for them. Shorter screens alone would not have removed the
-                  wait for product access.
-                </p>
-              </div>
               <p className="kyc-note">
-                This case documents the design and delivery work. A full rollout, conversion uplift
-                or measured revenue increase is not claimed.
+                Post-launch conversion and revenue impact were not measured in this case.
               </p>
               <details className="kyc-details kyc-archive">
                 <summary>Explore the complete working flow</summary>
@@ -744,7 +837,18 @@ export function KycCaseStudy({ item }: { item: CaseWithMedia }) {
           </div>
           <div className={`kyc-lightbox-image ${actualSize ? "is-actual-size" : ""}`}>
             {zoom && (
-              <img src={imagePath(zoom)} alt={zoom.title} width={1280} height={zoom.height} />
+              <img
+                src={imagePath(zoom)}
+                alt={zoom.title}
+                width={
+                  zoom.file === "migration-flow-map"
+                    ? 15150
+                    : zoom.file === "migration-late"
+                      ? 2610
+                      : 1280
+                }
+                height={zoom.height}
+              />
             )}
           </div>
         </DialogContent>
