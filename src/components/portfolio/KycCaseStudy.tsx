@@ -95,6 +95,45 @@ const screens = {
       "The first portal state makes the migration explicit: data and statistics have moved, and the partner accepts the renewed IB agreement before continuing.",
     height: 832,
   },
+  migrationMoved: {
+    file: "migration-moved",
+    title: "Open the new portal",
+    caption:
+      "The old IB area is replaced by a redirect screen. An email also links to the new portal.",
+    height: 790,
+  },
+  migrationCode: {
+    file: "migration-code",
+    title: "Confirm it\u2019s you",
+    caption: "Confirm the first login with the code sent by email.",
+    height: 832,
+  },
+  migrationPassword: {
+    file: "migration-password",
+    title: "Create a new password",
+    caption: "Set a new password for the IB profile after email confirmation.",
+    height: 832,
+  },
+  migrationPending: {
+    file: "migration-pending",
+    title: "Continue verification",
+    caption:
+      "The dashboard shows Pending IB status and the next verification step to unlock withdrawals.",
+    height: 832,
+  },
+  migrationReminder: {
+    file: "migration-reminder",
+    title: "Consent postponed",
+    caption: "Closing the consent modal leaves a reminder. Learn more returns to the consent step.",
+    height: 826,
+  },
+  migrationLate: {
+    file: "migration-late",
+    title: "Consent after the old area closes",
+    caption:
+      "Accept the transfer agreement on the replacement page, then continue to the same login route.",
+    height: 678,
+  },
   migrationMap: {
     file: "migration-flow-map",
     title: "Migration flow — working map",
@@ -170,7 +209,13 @@ function ScreenFigure({
         <img
           src={imagePath(screen)}
           alt={screen.title}
-          width={1280}
+          width={
+            screen.file === "migration-flow-map"
+              ? 15150
+              : screen.file === "migration-late"
+                ? 2610
+                : 1280
+          }
           height={screen.height}
           loading={hero ? "eager" : "lazy"}
           decoding="async"
@@ -497,25 +542,52 @@ export function KycCaseStudy({ item }: { item: CaseWithMedia }) {
             <section id="migration" className="kyc-section kyc-migration">
               <p className="kyc-eyebrow">06 / Existing partners</p>
               <h2>A clear route to the new partner portal.</h2>
-              <p>Consent to transfer data, sign in, and continue in the new IB portal.</p>
+              <p>
+                From transfer consent to a new password and verification — with a return path for
+                partners who move later.
+              </p>
               <ol className="kyc-migration-story">
                 {[
                   {
                     screen: screens.migrationNotice,
-                    title: "Agree to the move",
-                    text: "In the existing IB area, review the agreements and consent to transfer personal and IB data.",
-                    transition: "Consent processed → sign-in link by email",
+                    title: "Agree to transfer data",
+                    text: "Accept the transfer agreement in the broker\u2019s IB area. The same message is sent by email.",
+                    transition: "Consent \u2192 personal and IB data transfer",
+                  },
+                  {
+                    screen: screens.migrationMoved,
+                    title: "Leave the old IB area",
+                    text: "After transfer, the old IB functionality is hidden. A replacement page and email direct the partner to the new portal.",
+                    transition: "Portal link \u2192 login",
                   },
                   {
                     screen: screens.migrationLogin,
-                    title: "Follow the sign-in link",
-                    text: "Open the new IB program and sign in. Password recovery is available from this screen.",
-                    transition: "Complete access setup → enter the new portal",
+                    title: "Log in to the IB program",
+                    text: "Enter account credentials to begin the first login.",
+                    transition: "First login \u2192 email confirmation",
+                  },
+                  {
+                    screen: screens.migrationCode,
+                    title: "Confirm it\u2019s you",
+                    text: "Enter the confirmation code sent by email.",
+                    transition: "Email confirmed \u2192 new password",
+                  },
+                  {
+                    screen: screens.migrationPassword,
+                    title: "Set a new password",
+                    text: "Create and save a new password for the IB profile.",
+                    transition: "New password \u2192 portal agreements",
                   },
                   {
                     screen: screens.migrationAgreement,
-                    title: "Continue in the new portal",
-                    text: "Review the welcome message and accept the new agreements. IB data and statistics have moved with the partner.",
+                    title: "Accept the new agreements",
+                    text: "Review and accept the IB Agreement and Compliance guide in the new portal.",
+                    transition: "Agreements accepted \u2192 dashboard",
+                  },
+                  {
+                    screen: screens.migrationPending,
+                    title: "Continue verification",
+                    text: "Enter the dashboard with Pending IB status. Continue verification to unlock withdrawals.",
                     transition: null,
                   },
                 ].map((step, index) => (
@@ -536,9 +608,13 @@ export function KycCaseStudy({ item }: { item: CaseWithMedia }) {
                 ))}
               </ol>
               <div className="kyc-migration-delayed">
-                <h3>Moving later?</h3>
+                <h3>Two ways back to the main journey</h3>
+                <div className="kyc-screen-pair">
+                  <ScreenFigure onOpen={openScreen} screen={screens.migrationReminder} />
+                  <ScreenFigure onOpen={openScreen} screen={screens.migrationLate} />
+                </div>
                 <p>
-                  The original flow also covers reminders and re-entry after the old IB area closes.
+                  Reminder → consent · Late consent → login → email confirmation → new password.
                 </p>
               </div>
               <details className="kyc-migration-map">
