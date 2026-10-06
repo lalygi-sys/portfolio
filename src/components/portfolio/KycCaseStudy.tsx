@@ -1,23 +1,100 @@
 import { useRef, useState, type MouseEvent } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowLeft, ArrowRight, ArrowUpRight, Expand } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight, Expand, Plus, Minus } from "lucide-react";
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { useSectionReveal } from "@/hooks/use-section-reveal";
 import type { CaseWithMedia } from "@/lib/portfolio";
 import { SiteFooter, SiteHeader } from "./SiteHeader";
 import "./kyc-case-study.css";
 
 const chapters = [
-  ["challenge", "The challenge"],
-  ["journey", "Before & after"],
-  ["ownership", "My role"],
-  ["access", "Entry & country rules"],
-  ["experience", "Application branches"],
+  ["challenge", "Context"],
+  ["journey", "What I did"],
+  ["ownership", "Designing the service"],
   ["migration", "Existing partners"],
+  ["registration", "Account registration"],
+  ["access", "Step 1 · Personal details"],
+  ["portal", "Inside the portal"],
+  ["experience", "Application branches"],
   ["delivery", "Delivery & scope"],
   ["outcome", "Outcome & learnings"],
 ] as const;
 
+type Screen = {
+  file: string;
+  title: string;
+  caption: string;
+  height: number;
+  width?: number;
+  diagram?: boolean;
+};
 const screens = {
+  signupMobile: {
+    file: "signup-mobile",
+    title: "Signup on mobile",
+    caption: "The same entry point adapted to a smaller screen.",
+    width: 720,
+    height: 1600,
+  },
+  migrationOverview: {
+    file: "migration-overview",
+    title: "Migration: the complete connected journey",
+    caption:
+      "Transfer consent, the move to the new portal, first login and return paths for partners who migrate later.",
+    width: 15150,
+    height: 3834,
+    diagram: true,
+  },
+  registrationFlow: {
+    file: "registration-flow",
+    title: "Registration, login and account recovery",
+    caption:
+      "Connected screens cover email confirmation, sign-in, password reset and the emails sent at each transition.",
+    width: 4257,
+    height: 5435,
+    diagram: true,
+  },
+  accountDetails: {
+    file: "account-details",
+    title: "Step 1 — personal information",
+    caption: "Basic personal details and acceptance of the IB Agreement and Compliance guide.",
+    width: 1280,
+    height: 1132,
+  },
+  accountFlow: {
+    file: "account-details-flow",
+    title: "Personal details: rules, validation and country routing",
+    caption:
+      "The working flow connects the form to country eligibility, risk routing, validation states and the account-created message.",
+    width: 5863,
+    height: 10918,
+    diagram: true,
+  },
+  portalOverview: {
+    file: "portal-overview",
+    title: "The dashboard after Step 1",
+    caption:
+      "Low-risk partners can start using the portal while the application remains unfinished.",
+    width: 1280,
+    height: 736,
+  },
+  portalStatus: {
+    file: "portal-status",
+    title: "Account access is not yet IB approval",
+    caption:
+      "Pending IB status and a visible next step distinguish product access from withdrawal eligibility.",
+    width: 1280,
+    height: 736,
+  },
+  portalFlow: {
+    file: "portal-followup-flow",
+    title: "Inside the portal: access, withdrawal and reminders",
+    caption:
+      "The working map connects dashboard, wallet and profile states to the unfinished application and time-based reminders.",
+    width: 6798,
+    height: 5104,
+    diagram: true,
+  },
   signup: {
     file: "signup-new",
     title: "A new front door for the standalone IB portal",
@@ -190,15 +267,21 @@ const screens = {
   },
   migrationReminder: {
     file: "migration-reminder",
-    title: "Consent postponed",
-    caption: "Closing the consent modal leaves a reminder. Learn more returns to the consent step.",
-    height: 826,
+    title: "A reminder to review the new agreements",
+    caption: "The existing IB area also keeps the consent visible as a clear in-product reminder.",
+    height: 298,
   },
-  migrationLate: {
-    file: "migration-late",
-    title: "Consent after the old area closes",
+  migrationLateUnchecked: {
+    file: "migration-late-unchecked",
+    title: "Consent before entering the portal",
     caption:
-      "Accept the transfer agreement on the replacement page, then continue to the same login route.",
+      "Partners who return after the old area has closed can accept the agreement and data transfer before entering the new portal.",
+    height: 678,
+  },
+  migrationLateChecked: {
+    file: "migration-late-checked",
+    title: "Consent confirmed",
+    caption: "Accepting the agreement activates the route into the new IB portal.",
     height: 678,
   },
   migrationMap: {
@@ -208,8 +291,9 @@ const screens = {
       "The full design frame shows the main route, its screens and the alternate recovery paths used during migration.",
     height: 3834,
   },
-};
-type Screen = (typeof screens)[keyof typeof screens];
+} satisfies Record<string, Screen>;
+const screenWidth = (screen: Screen) =>
+  screen.width ?? (screen.file === "migration-flow-map" ? 15150 : 1280);
 const imagePath = (screen: Screen) =>
   `/images/projects/kyc/${screen.file}.${screen.file === "dashboard" ? "jpg" : "png"}`;
 
@@ -231,7 +315,7 @@ function Journey({ after = false }: { after?: boolean }) {
     ? [
         "Partner website",
         "Register / log in",
-        "Enter the portal",
+        "Portal features · limited access",
         "Request withdrawal",
         "Application + verification",
         "Approval → withdrawal",
@@ -242,7 +326,7 @@ function Journey({ after = false }: { after?: boolean }) {
         "Application",
         "Wait for review",
         "Manager interview",
-        "Approval → portal access",
+        "Approval → access to portal features",
       ];
   return (
     <div className={`kyc-journey ${after ? "kyc-journey-after" : ""}`}>
@@ -280,7 +364,9 @@ function ScreenFigure({
   onOpen: (screen: Screen, button: HTMLButtonElement) => void;
 }) {
   return (
-    <figure className={`kyc-screen ${hero ? "kyc-screen-hero" : ""}`}>
+    <figure
+      className={`kyc-screen ${hero ? "kyc-screen-hero" : ""} ${screen.diagram ? "kyc-screen-diagram" : ""}`}
+    >
       <button
         className="kyc-screen-button focus-ring"
         aria-label={`Enlarge: ${screen.title}`}
@@ -289,20 +375,14 @@ function ScreenFigure({
         <img
           src={imagePath(screen)}
           alt={screen.title}
-          width={
-            screen.file === "migration-flow-map"
-              ? 15150
-              : screen.file === "migration-late"
-                ? 2610
-                : 1280
-          }
+          width={screenWidth(screen)}
           height={screen.height}
           loading={hero ? "eager" : "lazy"}
           decoding="async"
         />
         <span className="kyc-expand">
           <Expand size={16} aria-hidden="true" />
-          <span>View screen</span>
+          <span>{screen.diagram ? "Explore flow" : "View screen"}</span>
         </span>
       </button>
       <figcaption>
@@ -321,11 +401,19 @@ function revisitSection(event: MouseEvent<HTMLAnchorElement>) {
 
 export function KycCaseStudy({ item }: { item: CaseWithMedia }) {
   const [zoom, setZoom] = useState<Screen | null>(null);
-  const [actualSize, setActualSize] = useState(false);
+  const [zoomScale, setZoomScale] = useState<number | null>(null);
+  const zoomImage = useRef<HTMLImageElement | null>(null);
+  function resizeImage(multiplier: number) {
+    if (!zoom || !zoomImage.current) return;
+    const current = zoomScale ?? zoomImage.current.clientWidth / screenWidth(zoom);
+    setZoomScale(Math.max(0.01, Math.min(2, current * multiplier)));
+  }
+  const registrationRef = useRef<HTMLDivElement | null>(null);
+  useSectionReveal(registrationRef);
   const opener = useRef<HTMLButtonElement | null>(null);
   function openScreen(screen: Screen, button: HTMLButtonElement) {
     opener.current = button;
-    setActualSize(false);
+    setZoomScale(null);
     setZoom(screen);
   }
   return (
@@ -395,88 +483,379 @@ export function KycCaseStudy({ item }: { item: CaseWithMedia }) {
           </nav>
           <article className="kyc-story">
             <section id="challenge" className="kyc-section">
-              <p className="kyc-eyebrow">01 / The challenge</p>
-              <h2>A new portal needed more than a new registration form.</h2>
+              <p className="kyc-eyebrow">01 / Context</p>
+              <h2>Context</h2>
               <p>
-                The IB partner area was separating from the broker, requiring its own signup and
-                account journey. The old process made partners complete an application and manager
-                interview before they could see the product.
+                As the IB program moved into a standalone portal, its entry conditions needed to be
+                redesigned. The previous model created two barriers that cost us leads.
               </p>
-              <div className="kyc-context">
-                <span className="kyc-context-number">My initiative</span>
+              <div className="kyc-barriers">
                 <div>
-                  <strong>Let partners experience the product earlier.</strong>
+                  <span className="kyc-eyebrow">Barrier 01 / Waiting for value</span>
+                  <h3>A week or more before access</h3>
                   <p>
-                    I independently researched and drove this idea through journey analysis and
-                    competitor research, then worked with legal and operations to define its
-                    boundaries.
+                    Portal features were locked until full verification, including a phone
+                    interview, was complete. Getting access could take a week or longer.
+                  </p>
+                </div>
+                <div>
+                  <span className="kyc-eyebrow">Barrier 02 / Excluding potential</span>
+                  <h3>Fewer than 5 clients? No entry.</h3>
+                  <p>
+                    Smaller partners were sent to the broker’s other referral program, even when
+                    they wanted to grow and needed the IB program’s tools and support.
                   </p>
                 </div>
               </div>
-            </section>
-
-            <section id="journey" className="kyc-section">
-              <p className="kyc-eyebrow">02 / Before & after</p>
-              <h2>
-                Move access earlier.
-                <br />
-                Keep the verification boundary clear.
-              </h2>
               <p>
-                The main change was the order of commitment: enter the portal after registration,
-                then complete the application and document verification to unlock withdrawal.
+                These barriers became unacceptable for an independent product. Larger partners could
+                lose interest and turn to competitors while waiting for approval. Smaller partners
+                would register with nowhere to go: the alternative referral program was staying
+                inside the broker’s account area.
               </p>
               <div className="kyc-journeys">
                 <Journey />
-                <Journey after />
               </div>
-              <p className="kyc-note">
-                A simplified comparison of the main journey. Country and risk exceptions can require
-                verification before portal access; review or an interview may still be required.
+              <details className="kyc-details kyc-research-sources">
+                <summary>Research context: friction in financial onboarding</summary>
+                <p>
+                  Signicat’s 2022 study of 7,600 consumers across 14 countries found that 68% had
+                  abandoned a financial application in the previous year. This describes general
+                  onboarding abandonment, not the effect of requesting documents at a particular
+                  step.
+                </p>
+                <a
+                  className="text-link"
+                  href="https://www.signicat.com/the-battle-to-onboard-2022"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Signicat · The Battle to Onboard, 2022{" "}
+                  <ArrowUpRight size={14} aria-hidden="true" />
+                </a>
+              </details>
+            </section>
+
+            <section id="journey" className="kyc-section">
+              <p className="kyc-eyebrow">02 / What I did</p>
+              <h2>What I did</h2>
+              <p>
+                I initiated a review of both barriers and built the case for changing them with
+                evidence.
               </p>
+              <div className="kyc-ui-story">
+                <h3>First: let partners see value earlier.</h3>
+                <p>
+                  I analysed direct competitors to test the early-access hypothesis. Similar
+                  products commonly let partners use their tools before completing verification — a
+                  model that could support engagement while the application was still in progress.
+                </p>
+                <figure className="kyc-evidence">
+                  <div className="kyc-evidence-heading">
+                    <strong>1 in 10</strong>
+                    <span>direct competitors used a similarly closed access model.</span>
+                  </div>
+                  <div className="kyc-competitor-marks" aria-hidden="true">
+                    {Array.from({ length: 10 }, (_, i) => (
+                      <span key={i} className={i === 0 ? "is-closed" : ""} />
+                    ))}
+                  </div>
+                  <figcaption>
+                    My competitor analysis · 1 closed model / 9 different entry models
+                  </figcaption>
+                </figure>
+                <p>
+                  I used this research to define an entry model around our own compliance
+                  constraints: three-step, risk-based onboarding.
+                </p>
+                <ol className="kyc-risk-stages">
+                  <li>
+                    <span>Step 1</span>
+                    <h3>Personal details & country eligibility</h3>
+                    <p>
+                      Basic information → check whether the partner can participate based on
+                      country.
+                    </p>
+                    <strong>Portal access without withdrawals*</strong>
+                  </li>
+                  <li>
+                    <span>Step 2</span>
+                    <h3>Questionnaire & manager review</h3>
+                    <p>Application and, where available, a call → initial risk and fit check.</p>
+                    <strong>
+                      Access continues without withdrawals; a personal manager is assigned where
+                      available
+                    </strong>
+                  </li>
+                  <li>
+                    <span>Step 3</span>
+                    <h3>Document verification</h3>
+                    <p>
+                      Final KYC/AML review, including PEP, sanctions and money-laundering checks.
+                    </p>
+                    <strong>Full access, including withdrawals, after approval</strong>
+                  </li>
+                </ol>
+                <p className="kyc-note">
+                  *Early access applies to the low-risk route. Medium/high-risk countries follow the
+                  required checks before entering the portal.
+                </p>
+                <div className="kyc-journeys">
+                  <Journey after />
+                </div>
+              </div>
+              <div className="kyc-ui-story">
+                <h3>Second: keep smaller partners — and help them grow.</h3>
+                <p>
+                  Together with the Product Owner, I analysed data from the adjacent referral
+                  program. Partners with a small client base accounted for 10–20% of IB-program
+                  profit. This changed the priority: retain this segment and create room for it to
+                  grow.
+                </p>
+                <figure className="kyc-evidence">
+                  <div className="kyc-evidence-heading">
+                    <strong>10–20%</strong>
+                    <span>of IB-program profit came from partners with a small client base.</span>
+                  </div>
+                  <div className="kyc-profit-track" aria-hidden="true">
+                    <span />
+                    <span />
+                  </div>
+                  <div className="kyc-profit-scale" aria-hidden="true">
+                    <span>0%</span>
+                    <span>100%</span>
+                  </div>
+                  <figcaption>
+                    Internal analysis with the PO · segment contribution, not an uplift from this
+                    redesign
+                  </figcaption>
+                </figure>
+              </div>
             </section>
 
             <section id="ownership" className="kyc-section">
-              <p className="kyc-eyebrow">03 / My role</p>
-              <h2>I owned the idea and drove it through delivery.</h2>
-              <div className="kyc-workstreams">
-                <div>
-                  <span>01 / Research & direction</span>
-                  <h3>Challenge the access gate</h3>
-                  <p>Initiated and researched early access; mapped the new customer journey.</p>
+              <p className="kyc-eyebrow">03 / Designing the service</p>
+              <h2>Connect the customer journey to the work behind it.</h2>
+              <p>
+                I mapped migration for existing partners, new-customer routes for priority and
+                higher-risk regions, and application paths with and without phone interviews. The
+                work also covered edge cases, selecting a verification tool and email communication
+                at each transition.
+              </p>
+              <p>
+                I refined the flows with Legal to meet our compliance requirements, then analysed
+                and adapted operational workflows, including guidance and instructions for Support
+                and Partner Management.
+              </p>
+            </section>
+
+            <section id="migration" className="kyc-section kyc-migration">
+              <p className="kyc-eyebrow">04 / Existing partners</p>
+              <h2>A clear route to the new partner portal.</h2>
+              <p>
+                From transfer consent to a new password and verification, each handoff makes the
+                next destination and the supporting email clear.
+              </p>
+              <ScreenFigure onOpen={openScreen} screen={screens.migrationOverview} />
+              <ol className="kyc-migration-story">
+                <li>
+                  <div className="kyc-migration-story-copy">
+                    <span className="kyc-eyebrow">01</span>
+                    <h3>Agree to transfer data</h3>
+                    <p>
+                      Accept the transfer agreement in the broker’s IB area before the existing
+                      relationship and personal data are moved.
+                    </p>
+                    <aside className="kyc-migration-email">
+                      <span>Email communication</span>
+                      <p>The same migration message is sent by email.</p>
+                    </aside>
+                  </div>
+                  <div className="kyc-migration-screen-stack">
+                    <ScreenFigure onOpen={openScreen} screen={screens.migrationNotice} />
+                    <ScreenFigure onOpen={openScreen} screen={screens.migrationReminder} />
+                  </div>
+                  <div className="kyc-migration-transition">
+                    <ArrowRight size={18} aria-hidden="true" />
+                    <span>Consent → personal and IB data transfer</span>
+                  </div>
+                </li>
+                <li className="kyc-migration-transfer">
+                  <div className="kyc-migration-story-copy">
+                    <span className="kyc-eyebrow">In progress</span>
+                    <h3>Transfer data between licences</h3>
+                    <p>
+                      While the partner waits, the team transfers personal and IB-related data
+                      internally between the licences that support the old and new portals.
+                    </p>
+                  </div>
+                  <div
+                    className="kyc-transfer-visual"
+                    aria-label="Internal transfer between licences"
+                  >
+                    <div>
+                      <span>Broker licence</span>
+                      <strong>Personal Area + IB data</strong>
+                    </div>
+                    <ArrowRight size={22} aria-hidden="true" />
+                    <div>
+                      <span>IB Portal licence</span>
+                      <strong>Partner profile + history</strong>
+                    </div>
+                  </div>
+                  <div className="kyc-migration-transition">
+                    <ArrowRight size={18} aria-hidden="true" />
+                    <span>Transfer complete → old IB area closes</span>
+                  </div>
+                </li>
+                <li>
+                  <div className="kyc-migration-story-copy">
+                    <span className="kyc-eyebrow">02</span>
+                    <h3>Leave the old IB area</h3>
+                    <p>
+                      After transfer, the old functionality is hidden. A replacement page directs
+                      partners to the new portal, including those who return after the move before
+                      they have signed the documents.
+                    </p>
+                    <aside className="kyc-migration-email">
+                      <span>Email communication</span>
+                      <p>The message includes a direct link to the new IB Portal.</p>
+                    </aside>
+                  </div>
+                  <div className="kyc-migration-screen-stack">
+                    <ScreenFigure onOpen={openScreen} screen={screens.migrationMoved} />
+                    <div className="kyc-migration-screen-pair">
+                      <ScreenFigure onOpen={openScreen} screen={screens.migrationLateUnchecked} />
+                      <ScreenFigure onOpen={openScreen} screen={screens.migrationLateChecked} />
+                    </div>
+                  </div>
+                  <div className="kyc-migration-transition">
+                    <ArrowRight size={18} aria-hidden="true" />
+                    <span>Portal link → login</span>
+                  </div>
+                </li>
+                <li>
+                  <div className="kyc-migration-story-copy">
+                    <span className="kyc-eyebrow">03</span>
+                    <h3>Log in to the IB program</h3>
+                    <p>Enter account credentials to begin the first login.</p>
+                  </div>
+                  <ScreenFigure onOpen={openScreen} screen={screens.migrationLogin} />
+                  <div className="kyc-migration-transition">
+                    <ArrowRight size={18} aria-hidden="true" />
+                    <span>First login → email confirmation</span>
+                  </div>
+                </li>
+                <li>
+                  <div className="kyc-migration-story-copy">
+                    <span className="kyc-eyebrow">04</span>
+                    <h3>Confirm it’s you</h3>
+                    <p>Enter the confirmation code sent by email.</p>
+                    <aside className="kyc-migration-email">
+                      <span>Email communication</span>
+                      <p>
+                        The message confirms that the partner initiated the sign-in and includes a
+                        secure confirmation link or button.
+                      </p>
+                    </aside>
+                  </div>
+                  <ScreenFigure onOpen={openScreen} screen={screens.migrationCode} />
+                  <div className="kyc-migration-transition">
+                    <ArrowRight size={18} aria-hidden="true" />
+                    <span>Email confirmed → new password</span>
+                  </div>
+                </li>
+                <li>
+                  <div className="kyc-migration-story-copy">
+                    <span className="kyc-eyebrow">05</span>
+                    <h3>Set a new password</h3>
+                    <p>Create and save a new password for the IB profile.</p>
+                  </div>
+                  <ScreenFigure onOpen={openScreen} screen={screens.migrationPassword} />
+                  <div className="kyc-migration-transition">
+                    <ArrowRight size={18} aria-hidden="true" />
+                    <span>New password → portal agreements</span>
+                  </div>
+                </li>
+                <li>
+                  <div className="kyc-migration-story-copy">
+                    <span className="kyc-eyebrow">06</span>
+                    <h3>Accept the new agreements</h3>
+                    <p>
+                      Review and accept the IB Agreement and Compliance guide in the new portal.
+                    </p>
+                    <aside className="kyc-migration-email">
+                      <span>Email communication</span>
+                      <p>
+                        The message confirms that IB services are now in the new portal and reminds
+                        the partner that their password has changed.
+                      </p>
+                    </aside>
+                  </div>
+                  <ScreenFigure onOpen={openScreen} screen={screens.migrationAgreement} />
+                  <div className="kyc-migration-transition">
+                    <ArrowRight size={18} aria-hidden="true" />
+                    <span>Agreements accepted → dashboard</span>
+                  </div>
+                </li>
+                <li>
+                  <div className="kyc-migration-story-copy">
+                    <span className="kyc-eyebrow">07</span>
+                    <h3>Continue verification</h3>
+                    <p>
+                      Enter the dashboard with Pending IB status. Continue verification to unlock
+                      withdrawals.
+                    </p>
+                  </div>
+                  <ScreenFigure onOpen={openScreen} screen={screens.migrationPending} />
+                </li>
+              </ol>
+            </section>
+
+            <section id="registration" className="kyc-section">
+              <p className="kyc-eyebrow">05 / Account registration</p>
+              <h2>A dedicated account for the IB program.</h2>
+              <p>
+                Registration, login and recovery became a standalone journey, with email
+                confirmations connecting each step.
+              </p>
+              <div className="kyc-signup-devices" ref={registrationRef}>
+                <div data-reveal>
+                  <ScreenFigure onOpen={openScreen} screen={screens.signup} />
                 </div>
-                <div>
-                  <span>02 / Legal</span>
-                  <h3>Separate access from approval</h3>
-                  <p>Worked with the lawyer on agreements, declarations and eligibility rules.</p>
-                </div>
-                <div>
-                  <span>03 / Operations</span>
-                  <h3>Connect the review process</h3>
-                  <p>
-                    Redesigned review, manager contact and communication flows with operational
-                    teams.
-                  </p>
-                </div>
-                <div>
-                  <span>04 / Design & delivery</span>
-                  <h3>Make the model implementable</h3>
-                  <p>Designed screens and branches, prepared handoff and oversaw implementation.</p>
+                <div data-reveal>
+                  <ScreenFigure onOpen={openScreen} screen={screens.signupMobile} />
                 </div>
               </div>
+              <p className="kyc-note">
+                Desktop and mobile signup evolution — shown in the source’s future-development
+                section.
+              </p>
+              <ScreenFigure onOpen={openScreen} screen={screens.registrationFlow} />
             </section>
 
             <section id="access" className="kyc-section">
-              <p className="kyc-eyebrow">04 / Entry & country rules</p>
-              <h2>One account. Different access paths.</h2>
-              <p>
-                A dedicated signup leads to personal details and legal acknowledgement. An account
-                is created here; approved IB status is a later milestone.
-              </p>
-              <div className="kyc-screen-pair">
-                <ScreenFigure onOpen={openScreen} screen={screens.signup} />
-                <ScreenFigure onOpen={openScreen} screen={screens.profile} />
+              <p className="kyc-eyebrow">06 / Step 1</p>
+              <h2>
+                Create the account.
+                <br />
+                Tell us about yourself.
+              </h2>
+              <div className="kyc-primary-screen">
+                <ScreenFigure onOpen={openScreen} screen={screens.accountDetails} />
               </div>
+              <ScreenFigure onOpen={openScreen} screen={screens.accountFlow} />
+              <p>
+                The first step collects name, date of birth, country, city and address, together
+                with acceptance of the IB Agreement and Compliance guide. Validation covers age,
+                missing or invalid details and country eligibility.
+              </p>
+              <p>
+                The country is initially suggested from the IP and can be changed. Supported
+                countries route the partner by risk; unavailable countries cannot proceed. The
+                account-created message confirms receipt for preliminary review — it does not grant
+                IB status.
+              </p>
               <div className="kyc-decision">
                 <span className="kyc-eyebrow">Decision 01</span>
                 <h3>Country of residence → access rules</h3>
@@ -495,7 +874,6 @@ export function KycCaseStudy({ item }: { item: CaseWithMedia }) {
                       "Complete application & verification",
                     ]}
                   />
-                  <ScreenFigure onOpen={openScreen} screen={screens.portal} />
                   <p className="kyc-route-result">
                     Explore the product and referral tools. Withdrawal stays locked until approval.
                   </p>
@@ -509,7 +887,6 @@ export function KycCaseStudy({ item }: { item: CaseWithMedia }) {
                       "Access after clearance",
                     ]}
                   />
-                  <ScreenFigure onOpen={openScreen} screen={screens.riskApplication} />
                   <p className="kyc-route-result">
                     Stay in the application flow. There is no early route to the dashboard.
                   </p>
@@ -519,35 +896,42 @@ export function KycCaseStudy({ item }: { item: CaseWithMedia }) {
                 Designed risk routes; country lists and detailed permissions remained subject to
                 legal review.
               </p>
+            </section>
 
-              <div className="kyc-ui-story">
-                <h3>Early access is not an indefinite pause.</h3>
-                <p>
-                  If the application remains incomplete, a timed reminder explains the upcoming
-                  restriction and leads back to the unfinished step.
-                </p>
-                <FlowPath
-                  steps={[
-                    "Application incomplete",
-                    "Email + in-portal warning",
-                    "Deadline to continue",
-                    "Features limited if unfinished",
-                  ]}
-                />
-                <div className="kyc-screen-pair">
-                  <ScreenFigure onOpen={openScreen} screen={screens.deadline} />
-                  <ScreenFigure onOpen={openScreen} screen={screens.reminder} />
-                </div>
-                <p className="kyc-note">
-                  The design uses N/X days as configurable placeholders, not a confirmed deadline.
-                  Withdrawal also returns the partner to the unfinished application or verification
-                  step.
-                </p>
+            <section id="portal" className="kyc-section">
+              <p className="kyc-eyebrow">07 / After Step 1</p>
+              <h2>Low-risk partners can enter the portal.</h2>
+              <div className="kyc-screen-pair">
+                <ScreenFigure onOpen={openScreen} screen={screens.portalOverview} />
+                <ScreenFigure onOpen={openScreen} screen={screens.portalStatus} />
               </div>
+              <ScreenFigure onOpen={openScreen} screen={screens.portalFlow} />
+              <p>
+                Partners can explore the dashboard and start working while their application is in
+                progress. Withdrawals remain unavailable: selecting a payment method returns them to
+                the unfinished questionnaire or document-verification step.
+              </p>
+              <p>
+                If the application stays incomplete, an email and an in-portal reminder explain when
+                completing it will become mandatory and portal features will be limited. A
+                persistent banner keeps the deadline and next step visible.
+              </p>
+              <FlowPath
+                steps={[
+                  "Application incomplete",
+                  "Email + in-portal warning",
+                  "Deadline to continue",
+                  "Features limited if unfinished",
+                ]}
+              />
+              <p className="kyc-note">
+                N/X days in the working design are placeholders for the configured reminder and
+                deadline.
+              </p>
             </section>
 
             <section id="experience" className="kyc-section">
-              <p className="kyc-eyebrow">05 / Application branches</p>
+              <p className="kyc-eyebrow">08 / Application branches</p>
               <h2>
                 Ask what is needed.
                 <br />
@@ -652,92 +1036,8 @@ export function KycCaseStudy({ item }: { item: CaseWithMedia }) {
               </div>
             </section>
 
-            <section id="migration" className="kyc-section kyc-migration">
-              <p className="kyc-eyebrow">06 / Existing partners</p>
-              <h2>A clear route to the new partner portal.</h2>
-              <p>
-                From transfer consent to a new password and verification — with a return path for
-                partners who move later.
-              </p>
-              <ol className="kyc-migration-story">
-                {[
-                  {
-                    screen: screens.migrationNotice,
-                    title: "Agree to transfer data",
-                    text: "Accept the transfer agreement in the broker\u2019s IB area. The same message is sent by email.",
-                    transition: "Consent \u2192 personal and IB data transfer",
-                  },
-                  {
-                    screen: screens.migrationMoved,
-                    title: "Leave the old IB area",
-                    text: "After transfer, the old IB functionality is hidden. A replacement page and email direct the partner to the new portal.",
-                    transition: "Portal link \u2192 login",
-                  },
-                  {
-                    screen: screens.migrationLogin,
-                    title: "Log in to the IB program",
-                    text: "Enter account credentials to begin the first login.",
-                    transition: "First login \u2192 email confirmation",
-                  },
-                  {
-                    screen: screens.migrationCode,
-                    title: "Confirm it\u2019s you",
-                    text: "Enter the confirmation code sent by email.",
-                    transition: "Email confirmed \u2192 new password",
-                  },
-                  {
-                    screen: screens.migrationPassword,
-                    title: "Set a new password",
-                    text: "Create and save a new password for the IB profile.",
-                    transition: "New password \u2192 portal agreements",
-                  },
-                  {
-                    screen: screens.migrationAgreement,
-                    title: "Accept the new agreements",
-                    text: "Review and accept the IB Agreement and Compliance guide in the new portal.",
-                    transition: "Agreements accepted \u2192 dashboard",
-                  },
-                  {
-                    screen: screens.migrationPending,
-                    title: "Continue verification",
-                    text: "Enter the dashboard with Pending IB status. Continue verification to unlock withdrawals.",
-                    transition: null,
-                  },
-                ].map((step, index) => (
-                  <li key={step.screen.file}>
-                    <div className="kyc-migration-story-copy">
-                      <span className="kyc-eyebrow">0{index + 1}</span>
-                      <h3>{step.title}</h3>
-                      <p>{step.text}</p>
-                    </div>
-                    <ScreenFigure onOpen={openScreen} screen={step.screen} />
-                    {step.transition && (
-                      <div className="kyc-migration-transition">
-                        <ArrowRight size={18} aria-hidden="true" />
-                        <span>{step.transition}</span>
-                      </div>
-                    )}
-                  </li>
-                ))}
-              </ol>
-              <div className="kyc-migration-delayed">
-                <h3>Two ways back to the main journey</h3>
-                <div className="kyc-screen-pair">
-                  <ScreenFigure onOpen={openScreen} screen={screens.migrationReminder} />
-                  <ScreenFigure onOpen={openScreen} screen={screens.migrationLate} />
-                </div>
-                <p>
-                  Reminder → consent · Late consent → login → email confirmation → new password.
-                </p>
-              </div>
-              <details className="kyc-migration-map">
-                <summary>See all screens & alternate paths</summary>
-                <ScreenFigure onOpen={openScreen} screen={screens.migrationMap} />
-              </details>
-            </section>
-
             <section id="delivery" className="kyc-section">
-              <p className="kyc-eyebrow">07 / Delivery & scope</p>
+              <p className="kyc-eyebrow">09 / Delivery & scope</p>
               <h2>A focused first delivery. A visible backlog.</h2>
               <p>
                 I split the work to accelerate development: the core journey and review states for
@@ -768,7 +1068,7 @@ export function KycCaseStudy({ item }: { item: CaseWithMedia }) {
             </section>
 
             <section id="outcome" className="kyc-section">
-              <p className="kyc-eyebrow">08 / Outcome & learnings</p>
+              <p className="kyc-eyebrow">10 / Outcome & learnings</p>
               <h2>The change was the sequence, not just the form.</h2>
               <p>
                 The result was a defined early-access model, connected customer and operational
@@ -817,12 +1117,25 @@ export function KycCaseStudy({ item }: { item: CaseWithMedia }) {
         >
           <DialogTitle>{zoom?.title}</DialogTitle>
           <DialogDescription className="sr-only">
-            Selected design screen. Use Actual size for detail or Fit to screen to see the whole
-            image.
+            Selected design screen. Use Zoom in or Zoom out for detail, and Fit to screen to see the
+            whole image.
           </DialogDescription>
           <div className="kyc-lightbox-tools">
-            <button className="focus-ring" onClick={() => setActualSize(!actualSize)}>
-              {actualSize ? "Fit to screen" : "Actual size"}
+            <button
+              className="focus-ring"
+              aria-label="Zoom out"
+              onClick={() => resizeImage(1 / 1.4)}
+            >
+              <Minus size={18} aria-hidden="true" />
+            </button>
+            <button className="focus-ring" aria-label="Zoom in" onClick={() => resizeImage(1.4)}>
+              <Plus size={18} aria-hidden="true" />
+            </button>
+            <button className="focus-ring" onClick={() => setZoomScale(null)}>
+              Fit to screen
+            </button>
+            <button className="focus-ring" onClick={() => setZoomScale(1)}>
+              100%
             </button>
             {zoom && (
               <a
@@ -835,18 +1148,14 @@ export function KycCaseStudy({ item }: { item: CaseWithMedia }) {
               </a>
             )}
           </div>
-          <div className={`kyc-lightbox-image ${actualSize ? "is-actual-size" : ""}`}>
+          <div className={`kyc-lightbox-image ${zoomScale !== null ? "is-actual-size" : ""}`}>
             {zoom && (
               <img
                 src={imagePath(zoom)}
                 alt={zoom.title}
-                width={
-                  zoom.file === "migration-flow-map"
-                    ? 15150
-                    : zoom.file === "migration-late"
-                      ? 2610
-                      : 1280
-                }
+                ref={zoomImage}
+                width={screenWidth(zoom)}
+                style={zoomScale === null ? undefined : { width: screenWidth(zoom) * zoomScale }}
                 height={zoom.height}
               />
             )}

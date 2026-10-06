@@ -12,7 +12,7 @@ The dedicated presentation is in `src/components/portfolio/KycCaseStudy.tsx`; it
 
 ## Exported Figma screens
 
-All images in `public/images/projects/kyc` are unmodified node exports at the node's configured/default resolution. No generated UI is used.
+The original seven screens below are Figma exports. Earlier migration detail images are crops from the user-supplied migration map; the source overview remains available. No generated UI is used.
 
 | File | Figma node | Content |
 | --- | --- | --- |
@@ -24,7 +24,7 @@ All images in `public/images/projects/kyc` are unmodified node exports at the no
 | rejection.png | 1:44512 | Application declined |
 | dashboard.jpg | 1:41386 | Portal before approval |
 
-The hero crops the dashboard preview; its viewer always starts with the complete image fitted to the screen. Other images are shown without cropping. The viewer offers actual size, fit, and opening the original in a new tab, with keyboard close and focus restoration.
+The hero now pairs signup and portal screenshots without cropping. Source maps use a full, contained overview and open fitted to the viewer. The viewer supports incremental zoom, 100%, fit, opening the original, keyboard close and focus restoration.
 
 ## Evidence boundaries
 
@@ -40,3 +40,44 @@ The hero crops the dashboard preview; its viewer always starts with the complete
 Production build and targeted lint are required after edits. Browser checks cover light/dark desktop and phone layouts, section anchors, image fit/actual-size controls, close/focus restoration, archive disclosure and no page overflow.
 
 The repository-wide TypeScript check currently reports errors in unchanged `src/lib/projects.ts`, `src/routes/__root.tsx` and `src/routes/work.$slug.tsx`; no errors were reported in the new case component.
+
+
+## October 6 editorial revision
+
+Sequence follows the user's supplied narrative: Context (two lead-loss barriers and Before), What I did (competitor analysis, three risk-based steps, After, small-partner contribution), service/operational design, migration overview + existing step-by-step explanation, account registration, personal details, early portal access, questionnaire branches, delivery and outcome.
+
+The user supplied the findings **1 of 10 direct competitors with a similarly closed model**, **10–20% of IB-program profit from smaller partners**, the **fewer-than-five-client entry barrier**, and **a week or more before access**. These are attributed to project/PO research, not presented as independently verified benchmarks or post-launch uplift.
+
+Only verified external research is used: https://www.signicat.com/the-battle-to-onboard-2022 reports 68% of 7,600 consumers from 14 countries abandoned a financial application in the prior year. It does NOT establish that 63% left because documents were requested early. The requested Baymard/McKinsey/Deloitte and provider-specific percentage claims were not added without matching sources.
+
+### New source assets
+
+Figma source file: `v5RtEFFbIjFlkZpxMqEDDx`.
+- signup-new.png: `40002036:51224`; signup-mobile.png: `40002055:73819` (2x). Both are inside `40002039:68586`, titled future development. The display identifies these as signup evolution, not shipped functionality.
+- portal-access.png: `40002039:59245`
+- application-deadline.png: `40002039:63138`; application-reminder.png: `362:113834`
+- risk-application.png: `496:44140`; risk-review.png: `277:30683`
+- call-request.png: `1:29576`; review-contacts.png: `277:29899`
+- experienced-markets.png: `284:41939`; new-partner-plan.png: `183:22455`
+
+User-provided PNGs copied without pixel changes:
+- migration-overview.png — attachment 1, 15150×3834
+- registration-flow.png — attachment 2, 4257×5435
+- account-details.png — attachment 3, 1280×1132
+- account-details-flow.png — attachment 4, 5863×10918
+- portal-overview.png / portal-status.png — attachments 5/6, 1280×736
+- portal-followup-flow.png — attachment 7, 6798×5104
+
+An operations-department diagram was mentioned as a forthcoming attachment; none of these seven images is that diagram. Do not mislabel the registration map as an operations flow. Add the operations diagram below the service-design copy when supplied.
+
+Country rules and account follow-up text were checked against nodes `1:32398` and `1:41385`. N/X days are placeholders, not published deadlines. Coverage for manager calls is a separate routing condition from risk category. Notes in `131:18683` explain short-form + interview vs full written-form paths, with separate prior-experience branches and answers sent to CRM. Existing questionnaire diagrams are retained for the user's next revision.
+
+Desktop/mobile signup reveal uses the existing useSectionReveal hook with reduced-motion support. Authentication credentials used for source reads are not stored in project files.
+
+Verification of this revision: production build and targeted ESLint passed; desktop light and mobile dark screenshots checked. Mobile width 390px matched document width (no horizontal page overflow). Map viewer opened fitted, incremental zoom changed the displayed size, 100% remained within the mobile dialog bounds, and fit/close controls worked. Browser error log was empty. Temporary viewport override and theme change were restored.
+
+### Existing-partner migration revision
+
+The migration sequence now keeps its supporting communication beside the relevant interface state: consent includes both the modal and the in-product reminder; the internal licence-to-licence transfer is an explicit interim step; the old-area closure includes the late-consent route; and email callouts explain the portal link, sign-in confirmation and new-password reminder. The former separate “Two ways back to the main journey” group has been removed after its two screens were incorporated into the first two steps.
+
+Verification: production build and targeted ESLint passed. The migration section was checked in the browser with four email communication cards, no delayed-route group, and a 390px-wide layout with no horizontal overflow. The preview viewport was restored after the check.
