@@ -96,10 +96,13 @@
   top: 120px;
   align-self: start;
 }
+.kyc-index > .kyc-eyebrow {
+  display: none;
+}
 .kyc-index ol {
   display: grid;
   gap: 4px;
-  margin-top: 18px;
+  margin-top: 0;
   padding: 0;
   list-style: none;
 }
@@ -115,6 +118,9 @@
 .kyc-index a span {
   color: var(--primary);
   font-size: 11px;
+}
+.kyc-index a > span {
+  display: none;
 }
 .kyc-index a:hover,
 .kyc-index a:focus-visible {
@@ -1109,6 +1115,81 @@
 .kyc-context-number {
   font-size: 24px;
   line-height: 1.3;
+}
+.kyc-country-routing {
+  margin-block: 36px 16px;
+  padding: clamp(20px, 3vw, 32px);
+  border-radius: 16px;
+  background: var(--secondary);
+}
+.kyc-country-routing header p {
+  margin-top: 8px;
+  color: var(--muted-foreground);
+  font-size: 15px;
+  line-height: 1.5;
+}
+.kyc-country-exclusion {
+  margin-block: 16px 28px;
+  font-size: 13px;
+  color: var(--muted-foreground);
+}
+.kyc-country-routes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px;
+}
+.kyc-country-risk {
+  font-size: 13px;
+  color: var(--muted-foreground);
+}
+.kyc-country-route h4 {
+  margin: 6px 0 20px;
+  font-size: 24px;
+  line-height: 1.2;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+}
+.kyc-country-route ol {
+  list-style: none;
+  counter-reset: route-step;
+  display: grid;
+  gap: 8px;
+  padding: 0;
+  margin: 0;
+}
+.kyc-country-route li {
+  counter-increment: route-step;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 58px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  background: var(--background);
+  font-size: 14px;
+  line-height: 1.4;
+}
+.kyc-country-route li::before {
+  content: counter(route-step);
+  font-size: 12px;
+  opacity: 0.65;
+}
+.kyc-country-route li.is-portal-access {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  font-weight: 500;
+}
+.kyc-country-route > p {
+  margin-top: 16px;
+  color: var(--muted-foreground);
+  font-size: 13px;
+  line-height: 1.6;
+}
+@media (max-width: 640px) {
+  .kyc-country-routes {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
 }
 .kyc-decision {
   margin-top: 48px;

@@ -848,40 +848,35 @@ export function KycCaseStudy({ item }: { item: CaseWithMedia }) {
                 account-created message confirms receipt for preliminary review — it does not grant
                 IB status.
               </p>
-              <div className="kyc-decision">
-                <span className="kyc-eyebrow">Decision 01</span>
-                <h3>Country of residence → access rules</h3>
-                <p>
-                  Unavailable countries are excluded from signup. For supported countries, the risk
-                  category determines whether the portal opens immediately.
-                </p>
-              </div>
-              <div className="kyc-branches">
-                <div className="kyc-branch">
-                  <span className="kyc-route-label">Low risk · early access</span>
-                  <FlowPath
-                    steps={[
-                      "Account created",
-                      "Enter the portal",
-                      "Complete application & verification",
-                    ]}
-                  />
-                  <p className="kyc-route-result">
-                    Explore the product and referral tools. Withdrawal stays locked until approval.
+              <div className="kyc-country-routing">
+                <header>
+                  <h3>When can partners enter the portal?</h3>
+                  <p>
+                    Country of residence determines the risk route; unsupported countries cannot
+                    sign up.
                   </p>
-                </div>
-                <div className="kyc-branch">
-                  <span className="kyc-route-label">Medium / high risk · review first</span>
-                  <FlowPath
-                    steps={[
-                      "Account created",
-                      "Application & required checks",
-                      "Access after clearance",
-                    ]}
-                  />
-                  <p className="kyc-route-result">
-                    Stay in the application flow. There is no early route to the dashboard.
-                  </p>
+                </header>
+                <div className="kyc-country-routes">
+                  <div className="kyc-country-route">
+                    <span className="kyc-country-risk">Low risk</span>
+                    <h4>Access first</h4>
+                    <ol>
+                      <li>Account created</li>
+                      <li className="is-portal-access">Enter the portal</li>
+                      <li>Application & verification</li>
+                    </ol>
+                    <p>Explore tools immediately. Withdrawals unlock after approval.</p>
+                  </div>
+                  <div className="kyc-country-route">
+                    <span className="kyc-country-risk">Medium / high risk</span>
+                    <h4>Review first</h4>
+                    <ol>
+                      <li>Account created</li>
+                      <li>Application & required checks</li>
+                      <li className="is-portal-access">Enter after clearance</li>
+                    </ol>
+                    <p>Complete the required review before accessing the dashboard.</p>
+                  </div>
                 </div>
               </div>
               <p className="kyc-note">
