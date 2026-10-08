@@ -1112,6 +1112,56 @@
 .kyc-hero-screens figcaption span {
   display: none;
 }
+.kyc-hero-prototype {
+  display: block;
+  padding: 0;
+  overflow: hidden;
+  background: #eef2ff;
+}
+.kyc-prototype-preview {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  color: #fff;
+  text-decoration: none;
+}
+.kyc-prototype-preview img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition:
+    filter 180ms ease,
+    transform 180ms ease;
+}
+.kyc-prototype-preview-action {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 52px;
+  padding: 14px 22px;
+  border: 1px solid #ffffff99;
+  border-radius: 999px;
+  background: #1a2029e8;
+  box-shadow: 0 8px 24px #00000040;
+  font-size: 1rem;
+  font-weight: 600;
+  transform: translate(-50%, -50%);
+  transition:
+    background-color 180ms ease,
+    transform 180ms ease;
+}
+.kyc-prototype-preview:hover img {
+  filter: brightness(0.84);
+  transform: scale(1.01);
+}
+.kyc-prototype-preview:hover .kyc-prototype-preview-action {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  transform: translate(-50%, -50%) scale(1.04);
+}
 .kyc-context-number {
   font-size: 24px;
   line-height: 1.3;

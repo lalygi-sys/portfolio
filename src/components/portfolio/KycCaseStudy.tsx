@@ -452,22 +452,26 @@ export function KycCaseStudy({ item }: { item: CaseWithMedia }) {
               <dd>Product strategy, service design, UX/UI & delivery</dd>
             </div>
           </dl>
-          <div className="kyc-hero-visual kyc-hero-showcase">
-            <div className="kyc-hero-principle">
-              <p className="kyc-eyebrow">One product change. Two distinct decisions.</p>
-              <h2>
-                A dedicated signup.
-                <br />A chance to explore before approval.
-              </h2>
-              <p>
-                The IB area was becoming an independent product. I used this transition to rethink
-                when partners should gain access.
-              </p>
-            </div>
-            <div className="kyc-hero-screens">
-              <ScreenFigure onOpen={openScreen} screen={screens.signup} hero />
-              <ScreenFigure onOpen={openScreen} screen={screens.portal} hero />
-            </div>
+          <div className="kyc-hero-visual kyc-hero-prototype">
+            <a
+              className="kyc-prototype-preview focus-ring"
+              href="https://kyc-onboarding-pearl.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Open KYC onboarding prototype"
+            >
+              <img
+                src={imagePath(screens.signup)}
+                alt="First screen of the KYC onboarding prototype"
+                width={1281}
+                height={920}
+                loading="eager"
+                decoding="async"
+              />
+              <span className="kyc-prototype-preview-action">
+                Open prototype <ArrowUpRight size={18} aria-hidden="true" />
+              </span>
+            </a>
           </div>
         </header>
 
