@@ -27,9 +27,17 @@ export function SiteHeader({ resumeUrl }: { resumeUrl?: string | null }) {
             aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
             onClick={() => setMenuOpen((open) => !open)}
           >
-            {menuOpen ? <X size={22} strokeWidth={1.7} aria-hidden="true" /> : <Menu size={24} strokeWidth={1.7} aria-hidden="true" />}
+            {menuOpen ? (
+              <X size={22} strokeWidth={1.7} aria-hidden="true" />
+            ) : (
+              <Menu size={24} strokeWidth={1.7} aria-hidden="true" />
+            )}
           </button>
-          <nav id="main-navigation" aria-label="Main navigation" className={`header-nav${menuOpen ? " is-open" : ""}`}>
+          <nav
+            id="main-navigation"
+            aria-label="Main navigation"
+            className={`header-nav${menuOpen ? " is-open" : ""}`}
+          >
             <Link
               to="/work"
               className="nav-link"
@@ -57,7 +65,7 @@ export function SiteHeader({ resumeUrl }: { resumeUrl?: string | null }) {
               Contact
             </Link>
             <a
-              className="nav-link"
+              className="nav-link cv-nav-link"
               href={resumeUrl || "/Tatiana_Kapkaeva_CV.pdf"}
               target="_blank"
               rel="noopener noreferrer"
