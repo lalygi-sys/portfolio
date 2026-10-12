@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowLeft, LockKeyhole } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, LockKeyhole } from "lucide-react";
 import { useSectionReveal } from "@/hooks/use-section-reveal";
 import type { CaseWithMedia } from "@/lib/portfolio";
 import { SiteFooter, SiteHeader } from "./SiteHeader";
@@ -33,16 +33,13 @@ export function OinkryptCaseStudy({ item }: { item: CaseWithMedia }) {
           <Link to="/work" className="text-link oinkrypt-back">
             <ArrowLeft size={16} aria-hidden="true" /> All work
           </Link>
-          <p className="oinkrypt-kicker">
-            Oinkrypt · Product Discovery · UX Audit · Design Systems
-          </p>
+          <p className="oinkrypt-kicker">Oinkrypt · Product Design · Discovery · Design Systems</p>
           <h1>{item.title}</h1>
           <p className="oinkrypt-lead">
-            Product discovery, UX audit, and MVP prioritisation for an early-stage web vulnerability
-            scanner.
+            Product design and discovery for an early-stage web vulnerability scanner.
           </p>
           <div className="oinkrypt-meta" aria-label="Project details">
-            <span>Role: Product Design &amp; Discovery</span>
+            <span>Role: Product Designer &amp; Co-Founder</span>
             <span>Team: 2 people</span>
             <span>Stage: Early MVP</span>
           </div>
@@ -66,13 +63,13 @@ export function OinkryptCaseStudy({ item }: { item: CaseWithMedia }) {
             <h2 id="oinkrypt-overview">Overview</h2>
             <div className="oinkrypt-copy">
               <p>
-                Oinkrypt is a web vulnerability scanner built by a two-person team. The MVP was
-                functional, but product decisions had not yet been validated with external users.
+                Oinkrypt is a web vulnerability scanner built by a two-person team. I designed the
+                product UX/UI and created its design system from scratch, from the first flows to
+                the foundations used across the MVP.
               </p>
               <p>
-                The initial concern was that onboarding felt complicated. I led product discovery,
-                UX and design-system audits to identify where users might struggle, trace root
-                causes, and prioritise improvements before external testing.
+                Product Discovery supported the work by clarifying the journey, surfacing systemic
+                friction, and prioritising what to validate before external testing.
               </p>
             </div>
           </section>
@@ -128,33 +125,38 @@ export function OinkryptCaseStudy({ item }: { item: CaseWithMedia }) {
               <div>
                 <h3>Design System</h3>
                 <p>
-                  Severity colours came from CSS tokens, components, and PDF exports. The audit also
-                  found four contrast failures, including a 1.79:1 ratio where 4.5:1 was required,
-                  and 53 uses of secondary text with insufficient contrast. Severity logic was
-                  consolidated in design tokens without rebuilding the component library.
+                  I created the design system from scratch, defining the visual foundations and
+                  reusable patterns for the MVP. A later audit found severity colours split across
+                  CSS tokens, components, and PDF exports, alongside four contrast failures —
+                  including 1.79:1 where 4.5:1 was required — and 53 uses of secondary text with
+                  insufficient contrast. Severity logic was then consolidated in tokens.
                 </p>
-                <div
-                  className="oinkrypt-token-flow"
-                  aria-label="Three colour sources consolidated into one source of truth"
-                >
-                  <div>
-                    <span aria-hidden="true">
-                      <i />
-                      <i />
-                      <i />
-                    </span>
-                    <small>3 colour sources</small>
-                  </div>
-                  <b aria-hidden="true">→</b>
-                  <div>
-                    <span className="oinkrypt-token" aria-hidden="true">
-                      severity.*
-                    </span>
-                    <small>1 source of truth</small>
-                  </div>
-                </div>
               </div>
             </div>
+            <figure className="oinkrypt-system-preview" data-reveal>
+              <a
+                href="https://oinkrypt-design-system.vercel.app/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img
+                  src="/images/oinkrypt-design-system-preview.svg"
+                  width="1600"
+                  height="900"
+                  loading="lazy"
+                  alt="Oinkrypt design system foundations and production components"
+                />
+              </a>
+              <figcaption>
+                <a
+                  href="https://oinkrypt-design-system.vercel.app/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Explore design system <ArrowUpRight size={15} aria-hidden="true" />
+                </a>
+              </figcaption>
+            </figure>
           </section>
 
           <section aria-labelledby="oinkrypt-outcome" data-reveal>

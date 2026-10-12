@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Oinkrypt design system foundations and components</title>
+  <desc id="desc">A dark design system reference page showing brand colours, surfaces, typography, status badges and production controls.</desc>
+  <rect width="1600" height="900" fill="#171717"/>
+  <g fill="#f4f4f5" font-family="Arial, Helvetica, sans-serif">
+    <text x="64" y="74" font-size="30" font-weight="700">Oinkrypt Design System — v0.1 foundations</text>
+    <text x="64" y="110" fill="#97979b" font-size="15">Token reference · visual foundations · production components</text>
+    <text x="64" y="178" font-size="22" font-weight="700">Brand</text>
+    <text x="64" y="210" fill="#9b9ba1" font-size="14">Blue is reserved for primary actions and interactive emphasis.</text>
+  </g>
+  <g>
+    <rect x="64" y="242" width="104" height="72" rx="8" fill="#6d8dff"/><rect x="188" y="242" width="104" height="72" rx="8" fill="#5278f4"/><rect x="312" y="242" width="104" height="72" rx="8" fill="#3159ed"/>
+    <g fill="#9b9ba1" font-family="monospace" font-size="12"><text x="64" y="338">primary-hover</text><text x="188" y="338">primary</text><text x="312" y="338">pressed</text></g>
+  </g>
+  <line x1="64" y1="382" x2="1536" y2="382" stroke="#3a3a3d"/>
+  <g fill="#f4f4f5" font-family="Arial, Helvetica, sans-serif"><text x="64" y="430" font-size="22" font-weight="700">Surfaces</text><text x="64" y="462" fill="#9b9ba1" font-size="14">Nested elevation keeps the product quiet and legible.</text></g>
+  <rect x="64" y="490" width="760" height="160" rx="10" fill="#171717" stroke="#444448"/><rect x="94" y="520" width="700" height="100" rx="8" fill="#202020"/><rect x="126" y="548" width="636" height="48" rx="6" fill="#2a2a2a"/>
+  <g fill="#a5a5aa" font-family="monospace" font-size="13"><text x="82" y="514">surface.base</text><text x="112" y="544">surface.container</text><text x="148" y="578">surface.elevated · example.com — scan #4</text></g>
+  <g fill="#f4f4f5" font-family="Arial, Helvetica, sans-serif"><text x="884" y="430" font-size="22" font-weight="700">Status &amp; components</text></g>
+  <g font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700"><rect x="884" y="472" width="120" height="42" rx="7" fill="#e5484d"/><text x="914" y="498" fill="#fff">Critical</text><rect x="1020" y="472" width="100" height="42" rx="7" fill="#f5a524"/><text x="1050" y="498" fill="#171717">High</text><rect x="1136" y="472" width="112" height="42" rx="7" fill="#8f7cff"/><text x="1170" y="498" fill="#171717">Medium</text><rect x="1264" y="472" width="90" height="42" rx="7" fill="#43c49a"/><text x="1290" y="498" fill="#171717">Low</text><rect x="1370" y="472" width="90" height="42" rx="7" fill="#5d9df5"/><text x="1391" y="498" fill="#171717">Info</text></g>
+  <rect x="884" y="552" width="576" height="70" rx="8" fill="#202020" stroke="#414145"/><text x="912" y="582" fill="#f4f4f5" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700">Critical · 12 vulnerabilities</text><text x="912" y="606" fill="#9b9ba1" font-family="monospace" font-size="13">CVE-2026-1234 · Scan completed</text>
+  <rect x="64" y="710" width="1472" height="108" rx="10" fill="#202020" stroke="#414145"/><g fill="#f4f4f5" font-family="Arial, Helvetica, sans-serif"><text x="96" y="748" font-size="18" font-weight="700">Production components</text><text x="96" y="778" fill="#9b9ba1" font-size="14">AppButton · AppInput · AppSelect · FilterChip · SeverityBadge</text></g><rect x="1220" y="742" width="180" height="42" rx="7" fill="#5278f4"/><text x="1268" y="768" fill="#fff" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700">Run verification</text>
+</svg>
