@@ -41,6 +41,15 @@ function AboutPage() {
         </section>
         <section className="experience-history" aria-labelledby="experience-title" data-reveal>
           <div className="experience-heading">
+            <img
+              className="experience-portrait"
+              src="/images/about-portrait.png"
+              alt="Tatiana Kapkaeva"
+              width={144}
+              height={144}
+              loading="eager"
+              decoding="async"
+            />
             <h2 id="experience-title">The path so far</h2>
             <p>
               From visual communication

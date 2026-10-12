@@ -9,9 +9,11 @@ import { projectFromCase, publicOutcome } from "@/lib/projects";
 import { SiteFooter, SiteHeader } from "./SiteHeader";
 import { linksOf, safeExternalUrl, sectionsOf, type CaseWithMedia } from "@/lib/portfolio";
 import { KycCaseStudy } from "./KycCaseStudy";
+import { OinkryptCaseStudy } from "./OinkryptCaseStudy";
 
 export function CaseDetail({ item, preview = false }: { item: CaseWithMedia; preview?: boolean }) {
   if (item.slug === "kyc-kyb-onboarding" && !preview) return <KycCaseStudy item={item} />;
+  if (item.slug === "oinkrypt" && !preview) return <OinkryptCaseStudy item={item} />;
   return <StandardCaseDetail item={item} preview={preview} />;
 }
 

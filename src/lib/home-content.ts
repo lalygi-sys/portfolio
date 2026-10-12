@@ -16,6 +16,27 @@ type CaseEdit = {
 // Homepage edits apply only to the original content. Changes made in the
 // portfolio editor remain the source of truth, including deliberately empty fields.
 const caseEdits: Record<string, CaseEdit> = {
+  oinkrypt: {
+    original: {
+      title: "Web vulnerability scanner",
+      summary:
+        "Product discovery, UX audit, and MVP prioritisation for an early-stage web vulnerability scanner.",
+      contribution:
+        "Product discovery, UX audit, root-cause analysis, design-system audit, and MVP prioritisation.",
+      outcome:
+        "Defined the MVP direction, prioritised three Must-have improvements, unified severity colour logic, and prepared the product for external validation.",
+      stage: "Prepared for external validation",
+    },
+    presentation: {
+      title: "Web vulnerability scanner",
+      tags: ["Co-Founder", "CX", "Design System"],
+      description:
+        "Co-founded and designed a cybersecurity MVP, shaping its core UX, design system, and product direction.",
+      outcome:
+        "Four systemic UX issues and three Must-have improvements defined the next validation cycle.",
+      status: "MVP prepared for validation",
+    },
+  },
   "kyc-kyb-onboarding": {
     original: {
       title: "KYC/KYB onboarding for individuals and businesses",

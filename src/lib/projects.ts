@@ -33,6 +33,16 @@ export type PortfolioProject = {
 
 type ProjectNotes = Pick<PortfolioProject, "product" | "summary" | "coverAlt" | "metrics">;
 const productNotes: Record<string, ProjectNotes> = {
+  oinkrypt: {
+    product: "Web vulnerability scanner",
+    summary:
+      "Product discovery, UX audit, and MVP prioritisation for an early-stage web vulnerability scanner.",
+    coverAlt: "Oinkrypt landing page for a web vulnerability scanner on a dark background",
+    metrics: [
+      { value: "0→1 Product", label: "Core UX & user flows" },
+      { value: "Design System", label: "Built from scratch" },
+    ],
+  },
   "kyc-kyb-onboarding": {
     product: "Partner onboarding",
     summary:
@@ -121,37 +131,46 @@ export function projectFromCase(item: CaseWithMedia): PortfolioProject {
   const presentation = presentCase(item);
   const notes = productNotes[item.slug];
   const uploadedCover = item.cover_path ? item.mediaUrls[item.cover_path] : undefined;
-  const localCover = item.slug === "new-b2b-business-model"
-    ? "/images/projects/new-b2b-business-model-main.png"
-    : item.slug === "kyc-kyb-onboarding"
-      ? "/images/projects/kyc-kyb-onboarding-pdf-cover.png"
-    : item.slug === "b2b-rebates-payouts"
-      ? "/images/projects/b2b-rebates-prototype.png"
-    : item.slug === "standalone-partner-portal"
-      ? "/images/projects/standalone-partner-portal-prototype.png"
-    : item.slug === "research-recruitment"
-      ? "/images/projects/research-recruitment-main.png"
-    : productNotes[item.slug]
-      ? "/images/projects/" + item.slug + ".webp"
-      : undefined;
+  const localCover =
+    item.slug === "new-b2b-business-model"
+      ? "/images/projects/new-b2b-business-model-main.png"
+      : item.slug === "kyc-kyb-onboarding"
+        ? "/images/projects/kyc-kyb-onboarding-pdf-cover.png"
+        : item.slug === "b2b-rebates-payouts"
+          ? "/images/projects/b2b-rebates-prototype.png"
+          : item.slug === "standalone-partner-portal"
+            ? "/images/projects/standalone-partner-portal-prototype.png"
+            : item.slug === "research-recruitment"
+              ? "/images/projects/research-recruitment-main.png"
+              : productNotes[item.slug]
+                ? "/images/projects/" + item.slug + ".webp"
+                : undefined;
   const customOutcome = !isOriginalCaseField(item, "outcome");
   return {
     slug: item.slug,
-    title: item.slug === "new-b2b-business-model"
-      ? "B2B model validation"
-      : item.slug === "research-recruitment"
-        ? "Research recruitment"
-        : presentation.title,
+    title:
+      item.slug === "new-b2b-business-model"
+        ? "B2B model validation"
+        : item.slug === "research-recruitment"
+          ? "Research recruitment"
+          : presentation.title,
     product: notes?.product ?? "Product design",
-    category: "Product work",
+    category: item.slug === "oinkrypt" ? "Freelance & pet projects" : "Product work",
     role: item.role,
     period: item.period,
     tags: presentation.tags,
     summary: notes && isOriginalCaseField(item, "summary") ? notes.summary : item.summary,
     context: presentation.description,
     outcome: publicOutcome(item),
-    coverImage: localCover || uploadedCover || (notes ? "/images/projects/" + item.slug + ".webp" : undefined),
-    coverAlt: localCover ? "B2B partner program presentation and business model interface" : (uploadedCover ? item.title + " — project interface" : (notes?.coverAlt ?? item.title)),
+    coverImage:
+      localCover ||
+      uploadedCover ||
+      (notes ? "/images/projects/" + item.slug + ".webp" : undefined),
+    coverAlt: localCover
+      ? "B2B partner program presentation and business model interface"
+      : uploadedCover
+        ? item.title + " — project interface"
+        : (notes?.coverAlt ?? item.title),
     localCover: !!localCover,
     metrics: customOutcome ? [] : (notes?.metrics ?? []),
     featured: item.featured,
@@ -161,10 +180,10 @@ export function projectFromCase(item: CaseWithMedia): PortfolioProject {
       item.slug === "kyc-kyb-onboarding"
         ? "/documents/kyc-kyb-onboarding.pdf"
         : item.slug === "b2b-rebates-payouts"
-        ? "https://lalygi-sys.github.io/new/prototype/rebate/index.html"
-        : item.slug === "standalone-partner-portal"
-          ? "https://lalygi-sys.github.io/new/prototype/ib-dashboard/index.html"
-        : undefined,
+          ? "https://lalygi-sys.github.io/new/prototype/rebate/index.html"
+          : item.slug === "standalone-partner-portal"
+            ? "https://lalygi-sys.github.io/new/prototype/ib-dashboard/index.html"
+            : undefined,
     prototypeLabel: item.slug === "kyc-kyb-onboarding" ? "Open PDF" : undefined,
     externalLinks: linksOf(item.links).filter((link) => safeExternalUrl(link.url)),
     draft: !item.published,
@@ -219,7 +238,8 @@ export const additionalProjects: PortfolioProject[] = [
       10,
     ),
     detailImage: "/images/projects/window-configurator-flow.png",
-    detailImageAlt: "Window configurator flow showing mobile screens for choosing dimensions, materials and components",
+    detailImageAlt:
+      "Window configurator flow showing mobile screens for choosing dimensions, materials and components",
     detailPdfUrl: "/documents/window-configurator.pdf",
   },
   {
@@ -233,7 +253,8 @@ export const additionalProjects: PortfolioProject[] = [
       11,
     ),
     detailImage: "/images/projects/pizza-ordering-experience-flow.png",
-    detailImageAlt: "Full mobile pizza ordering flow, including preference selection, menu browsing, customisation, delivery and checkout",
+    detailImageAlt:
+      "Full mobile pizza ordering flow, including preference selection, menu browsing, customisation, delivery and checkout",
     detailPdfUrl: "/documents/pizza-ordering-experience-flow.pdf",
   },
 ];

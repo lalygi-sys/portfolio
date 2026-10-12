@@ -1166,6 +1166,15 @@
   transform: scale(1.015);
 }
 
+.home-case-oinkrypt .project-cover {
+  background: #151515;
+}
+
+.home-case-oinkrypt .project-cover img {
+  object-fit: cover;
+  object-position: center;
+}
+
 /* ============================================
    TABLET
    ============================================ */
@@ -1477,6 +1486,17 @@
   display: grid;
   grid-template-columns: 0.8fr 1.2fr;
   gap: 80px;
+}
+.experience-portrait {
+  display: block;
+  width: 144px;
+  height: 144px;
+  margin-bottom: 28px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: 50% 34%;
+  box-shadow: 0 12px 30px oklch(0.1 0.02 255 / 0.14);
 }
 .experience-heading p {
   color: var(--muted-foreground);
@@ -1834,6 +1854,11 @@
   }
   .experience-history {
     padding-top: 36px;
+  }
+  .experience-portrait {
+    width: 112px;
+    height: 112px;
+    margin-bottom: 22px;
   }
   .experience-history ol {
     padding-left: 5px;
@@ -2416,6 +2441,14 @@
   line-height: 1.45;
   color: var(--muted-foreground);
   text-wrap: balance;
+}
+
+.home-case-oinkrypt .project-metrics {
+  padding-bottom: 24px;
+}
+
+.home-case-oinkrypt .project-metrics dd {
+  min-height: 0;
 }
 .home-case-featured .case-cover-link {
   position: relative;

@@ -6,6 +6,7 @@ import { Metrics } from "./Metric";
 
 export function HomeCaseCard({ project }: { project: PortfolioProject }) {
   const isKyc = project.slug === "kyc-kyb-onboarding";
+  const isOinkrypt = project.slug === "oinkrypt";
   return (
     <article
       className={`home-case home-case-featured home-case-${project.slug}`}
@@ -18,7 +19,18 @@ export function HomeCaseCard({ project }: { project: PortfolioProject }) {
         className="case-cover-link"
         aria-label={"Read case study: " + project.title}
       >
-        {isKyc ? (
+        {isOinkrypt ? (
+          <div className="project-cover oinkrypt-card-cover">
+            <img
+              src="/images/oinkrypt-hero.png"
+              width={3452}
+              height={1868}
+              alt={project.coverAlt}
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+        ) : isKyc ? (
           <>
             <div className="project-cover">
               <img
