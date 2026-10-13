@@ -98,7 +98,7 @@ const productNotes: Record<string, ProjectNotes> = {
     metrics: [
       {
         value: "80%",
-        label: "of top partners accepted the terms",
+        label: "top partners accepted",
       },
       {
         value: "Stable metrics",

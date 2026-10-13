@@ -115,7 +115,7 @@ export function HomeCaseCard({ project }: { project: PortfolioProject }) {
                 ? [
                     {
                       value: "10–20%",
-                      label: "of IB profit from smaller partners",
+                      label: "of IB profit",
                     },
                     {
                       value: "Early access",

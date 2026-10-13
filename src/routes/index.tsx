@@ -43,6 +43,8 @@ function HomePage() {
   const featured = getPublicProjects(data.cases)
     .filter((project) => project.featured)
     .sort((a, b) => {
+      if (a.slug === "kyc-kyb-onboarding") return -1;
+      if (b.slug === "kyc-kyb-onboarding") return 1;
       if (a.slug === "standalone-partner-portal") return -1;
       if (b.slug === "standalone-partner-portal") return 1;
       return a.sortOrder - b.sortOrder;
