@@ -42,6 +42,8 @@ function WorkPage() {
               if (category === "Freelance & pet projects") {
                 if (a.slug === "oinkrypt") return -1;
                 if (b.slug === "oinkrypt") return 1;
+                if (a.slug === "lingua") return -1;
+                if (b.slug === "lingua") return 1;
                 if (a.slug === "pizza-ordering-experience") return -1;
                 if (b.slug === "pizza-ordering-experience") return 1;
               }

@@ -229,6 +229,23 @@ const visualProject = (
 export const additionalProjects: PortfolioProject[] = [
   {
     ...visualProject(
+      "lingua",
+      "Personal vocabulary Lingua",
+      "Designed and built a vocabulary learning web app from scratch, from product concept to a working product.",
+      "An independent vocabulary product shaped around faster capture, flexible practice, and a working MVP built from concept through implementation.",
+      "Lingua vocabulary app on desktop, with its mobile screen layered in front",
+      ["Founder", "Product Design", "Development"],
+      9,
+    ),
+    coverImage: "/images/lingua-desktop.jpg",
+    metrics: [
+      { value: "0→1 Product", label: "From concept to live MVP" },
+      { value: "Solo Build", label: "Design, development & launch" },
+    ],
+    externalLinks: [{ label: "Visit live product", url: "https://lingua.fyi/" }],
+  },
+  {
+    ...visualProject(
       "window-configurator",
       "Window configurator",
       "A step-by-step interface for choosing a window’s dimensions, materials, profile and components.",

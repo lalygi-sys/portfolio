@@ -4,6 +4,8 @@ import { ArrowLeft, ArrowRight, ArrowUpRight, Expand, Plus, Minus } from "lucide
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { useSectionReveal } from "@/hooks/use-section-reveal";
 import type { CaseWithMedia } from "@/lib/portfolio";
+import { projectFromCase } from "@/lib/projects";
+import { CaseHeroTags } from "./CaseHeroTags";
 import { SiteFooter, SiteHeader } from "./SiteHeader";
 import "./kyc-case-study.css";
 
@@ -428,7 +430,7 @@ export function KycCaseStudy({ item }: { item: CaseWithMedia }) {
           <Link to="/work" className="text-link kyc-back">
             <ArrowLeft size={16} aria-hidden="true" /> All work
           </Link>
-          <p className="kyc-eyebrow">KYC / KYB · Partner onboarding</p>
+          <CaseHeroTags tags={projectFromCase(item).tags} />
           <h1>
             Access first.
             <br />
@@ -454,7 +456,7 @@ export function KycCaseStudy({ item }: { item: CaseWithMedia }) {
           </dl>
           <div className="kyc-hero-visual kyc-hero-prototype">
             <a
-              className="kyc-prototype-preview focus-ring"
+              className="kyc-prototype-preview case-media-hover-link focus-ring"
               href="https://kyc-onboarding-pearl.vercel.app/"
               target="_blank"
               rel="noopener noreferrer"
@@ -468,9 +470,18 @@ export function KycCaseStudy({ item }: { item: CaseWithMedia }) {
                 loading="eager"
                 decoding="async"
               />
-              <span className="kyc-prototype-preview-action">
+              <span className="case-media-hover-action">
                 Open prototype <ArrowUpRight size={18} aria-hidden="true" />
               </span>
+            </a>
+          </div>
+          <div className="case-media-caption kyc-prototype-caption">
+            <a
+              href="https://kyc-onboarding-pearl.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Open prototype <ArrowUpRight size={15} aria-hidden="true" />
             </a>
           </div>
         </header>

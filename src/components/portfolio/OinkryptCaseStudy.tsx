@@ -3,6 +3,8 @@ import { Link } from "@tanstack/react-router";
 import { ArrowLeft, ArrowUpRight, LockKeyhole } from "lucide-react";
 import { useSectionReveal } from "@/hooks/use-section-reveal";
 import type { CaseWithMedia } from "@/lib/portfolio";
+import { projectFromCase } from "@/lib/projects";
+import { CaseHeroTags } from "./CaseHeroTags";
 import { SiteFooter, SiteHeader } from "./SiteHeader";
 import "./oinkrypt-case-study.css";
 
@@ -33,7 +35,7 @@ export function OinkryptCaseStudy({ item }: { item: CaseWithMedia }) {
           <Link to="/work" className="text-link oinkrypt-back">
             <ArrowLeft size={16} aria-hidden="true" /> All work
           </Link>
-          <p className="oinkrypt-kicker">Oinkrypt · Product Design · Discovery · Design Systems</p>
+          <CaseHeroTags tags={projectFromCase(item).tags} />
           <h1>{item.title}</h1>
           <p className="oinkrypt-lead">
             Product design and discovery for an early-stage web vulnerability scanner.
@@ -135,6 +137,7 @@ export function OinkryptCaseStudy({ item }: { item: CaseWithMedia }) {
             </div>
             <figure className="oinkrypt-system-preview" data-reveal>
               <a
+                className="case-media-hover-link"
                 href="https://oinkrypt-design-system.vercel.app/"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -146,8 +149,11 @@ export function OinkryptCaseStudy({ item }: { item: CaseWithMedia }) {
                   loading="lazy"
                   alt="Oinkrypt design system foundations and production components"
                 />
+                <span className="case-media-hover-action">
+                  Explore design system <ArrowUpRight size={18} aria-hidden="true" />
+                </span>
               </a>
-              <figcaption>
+              <figcaption className="case-media-caption">
                 <a
                   href="https://oinkrypt-design-system.vercel.app/"
                   target="_blank"

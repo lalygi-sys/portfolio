@@ -29,7 +29,7 @@ const caseEdits: Record<string, CaseEdit> = {
     },
     presentation: {
       title: "Web vulnerability scanner",
-      tags: ["Co-Founder", "CX", "Design System"],
+      tags: ["Co-Founder", "UX/CX", "Design System"],
       description:
         "Co-founded and designed a cybersecurity MVP, shaping its core UX, design system, and product direction.",
       outcome:

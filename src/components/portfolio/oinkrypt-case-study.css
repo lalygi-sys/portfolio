@@ -16,13 +16,8 @@
   font-size: 0.86rem;
 }
 
-.oinkrypt-kicker {
+.oinkrypt-intro > .case-hero-tags {
   margin-top: 56px;
-  color: var(--primary);
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
 }
 
 .oinkrypt-intro h1 {
@@ -245,6 +240,7 @@
 }
 
 .oinkrypt-system-preview > a {
+  position: relative;
   display: block;
   overflow: hidden;
   border: 1px solid var(--oinkrypt-rule);
@@ -256,6 +252,11 @@
   display: block;
   width: 100%;
   height: auto;
+}
+
+.oinkrypt-system-preview > a:hover img,
+.oinkrypt-system-preview > a:focus-visible img {
+  filter: brightness(0.78);
 }
 
 .oinkrypt-system-preview figcaption {

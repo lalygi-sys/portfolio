@@ -7,6 +7,7 @@ import { Metrics } from "./Metric";
 export function HomeCaseCard({ project }: { project: PortfolioProject }) {
   const isKyc = project.slug === "kyc-kyb-onboarding";
   const isOinkrypt = project.slug === "oinkrypt";
+  const isLingua = project.slug === "lingua";
   return (
     <article
       className={`home-case home-case-featured home-case-${project.slug}`}
@@ -26,6 +27,27 @@ export function HomeCaseCard({ project }: { project: PortfolioProject }) {
               width={3452}
               height={1868}
               alt={project.coverAlt}
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+        ) : isLingua ? (
+          <div className="project-cover lingua-card-cover">
+            <img
+              className="lingua-card-desktop"
+              src="/images/lingua-desktop.jpg"
+              width={3454}
+              height={1876}
+              alt="Lingua vocabulary app on desktop"
+              loading="lazy"
+              decoding="async"
+            />
+            <img
+              className="lingua-card-mobile"
+              src="/images/lingua-mobile.jpg"
+              width={553}
+              height={1200}
+              alt="Lingua vocabulary app on mobile"
               loading="lazy"
               decoding="async"
             />

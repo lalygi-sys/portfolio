@@ -4,6 +4,7 @@ import { ArrowLeft, ArrowUpRight, Expand } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { PortfolioVisual } from "./PortfolioVisual";
+import { CaseHeroTags } from "./CaseHeroTags";
 import { ProjectCover } from "./ProjectCover";
 import { projectFromCase, publicOutcome } from "@/lib/projects";
 import { SiteFooter, SiteHeader } from "./SiteHeader";
@@ -46,7 +47,7 @@ function StandardCaseDetail({ item, preview = false }: { item: CaseWithMedia; pr
             </Link>
           )}
           <div className="mt-12 max-w-4xl">
-            <p className="eyebrow">Selected work / {item.sort_order.toString().padStart(2, "0")}</p>
+            <CaseHeroTags tags={project.tags} />
             <h1 className="case-title mt-5">{item.title}</h1>
             <p className="mt-7 max-w-3xl text-xl leading-relaxed text-muted-foreground sm:text-2xl">
               {item.summary}
@@ -70,19 +71,27 @@ function StandardCaseDetail({ item, preview = false }: { item: CaseWithMedia; pr
         <div className="mb-16">
           {project.coverImage ? (
             project.prototypeUrl ? (
-              <a
-                className="case-prototype-cover focus-ring"
-                href={project.prototypeUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={`Open ${project.title} ${project.prototypeLabel === "Open PDF" ? "PDF" : "prototype"}`}
-              >
-                <ProjectCover project={project} eager />
-                <span className="case-prototype-cover-action">
-                  {project.prototypeLabel ?? "Open prototype"}{" "}
-                  <ArrowUpRight className="size-5" aria-hidden="true" />
-                </span>
-              </a>
+              <>
+                <a
+                  className="case-prototype-cover case-media-hover-link focus-ring"
+                  href={project.prototypeUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Open ${project.title} ${project.prototypeLabel === "Open PDF" ? "PDF" : "prototype"}`}
+                >
+                  <ProjectCover project={project} eager />
+                  <span className="case-media-hover-action">
+                    {project.prototypeLabel ?? "Open prototype"}{" "}
+                    <ArrowUpRight className="size-5" aria-hidden="true" />
+                  </span>
+                </a>
+                <div className="case-media-caption">
+                  <a href={project.prototypeUrl} target="_blank" rel="noopener noreferrer">
+                    {project.prototypeLabel ?? "Open prototype"}{" "}
+                    <ArrowUpRight className="size-4" aria-hidden="true" />
+                  </a>
+                </div>
+              </>
             ) : (
               <ProjectCover project={project} eager />
             )

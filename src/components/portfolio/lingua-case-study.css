@@ -1,0 +1,101 @@
+.lingua-showcase {
+  position: relative;
+  margin: 0 0 clamp(64px, 9vw, 112px);
+  padding: clamp(22px, 4vw, 50px) clamp(22px, 4vw, 50px) clamp(42px, 6vw, 76px)
+    clamp(46px, 8vw, 104px);
+  border: 1px solid var(--oinkrypt-rule);
+  border-radius: var(--radius-lg);
+  background: #e6e8e5;
+}
+
+.lingua-image-link {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  transition: background-color 180ms ease;
+}
+
+.lingua-image-link:hover,
+.lingua-image-link:focus-visible {
+  background: rgba(20, 29, 24, 0.16);
+}
+
+.lingua-image-link:focus-visible {
+  outline: 2px solid #155c43;
+  outline-offset: 3px;
+}
+
+.lingua-showcase > .case-media-caption {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 13px;
+}
+
+.lingua-desktop-screen {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid rgba(24, 34, 29, 0.12);
+  border-radius: 14px;
+  box-shadow: 0 20px 52px rgba(24, 34, 29, 0.12);
+}
+
+.lingua-mobile-frame {
+  position: absolute;
+  bottom: clamp(18px, 3vw, 34px);
+  left: clamp(18px, 3vw, 34px);
+  width: clamp(120px, 19%, 190px);
+  overflow: hidden;
+  border: 1px solid rgba(24, 34, 29, 0.12);
+  border-radius: 12px;
+  box-shadow: 0 18px 42px rgba(24, 34, 29, 0.2);
+}
+
+.lingua-mobile-screen {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: -3px;
+}
+
+.lingua-findings {
+  row-gap: clamp(32px, 4vw, 48px);
+}
+
+.lingua-findings > div:nth-child(n + 3) {
+  padding-top: 22px;
+  border-top: 1px solid var(--oinkrypt-rule);
+}
+
+.lingua-outcome-content {
+  grid-column: 2;
+}
+
+@media (max-width: 760px) {
+  .lingua-showcase {
+    padding: 52px 16px 38px 34px;
+    border-radius: var(--radius-md);
+  }
+
+  .lingua-desktop-screen {
+    border-radius: 8px;
+  }
+
+  .lingua-mobile-frame {
+    bottom: 16px;
+    left: 12px;
+    width: clamp(82px, 24%, 132px);
+    border-radius: 8px;
+  }
+
+  .lingua-findings > div:nth-child(n + 2) {
+    padding-top: 22px;
+    border-top: 1px solid var(--oinkrypt-rule);
+  }
+
+  .lingua-outcome-content {
+    grid-column: 1;
+  }
+}
