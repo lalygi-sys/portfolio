@@ -1,6 +1,6 @@
 import { useRef, useState, type MouseEvent } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowLeft, ArrowRight, ArrowUpRight, Expand, Plus, Minus } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight, Download, Expand, Plus, Minus } from "lucide-react";
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { useSectionReveal } from "@/hooks/use-section-reveal";
 import type { CaseWithMedia } from "@/lib/portfolio";
@@ -13,13 +13,8 @@ const chapters = [
   ["challenge", "Context"],
   ["journey", "What I did"],
   ["ownership", "Designing the service"],
-  ["migration", "Existing partners"],
-  ["registration", "Account registration"],
-  ["access", "Step 1 · Personal details"],
-  ["portal", "Inside the portal"],
-  ["experience", "Application branches"],
-  ["delivery", "Delivery & scope"],
-  ["outcome", "Outcome & learnings"],
+  ["key-interfaces", "Key interfaces"],
+  ["outcome-summary", "Outcome"],
 ] as const;
 
 type Screen = {
@@ -57,11 +52,11 @@ const screens = {
     diagram: true,
   },
   accountDetails: {
-    file: "account-details",
+    file: "step-1-personal-information",
     title: "Step 1 — personal information",
     caption: "Basic personal details and acceptance of the IB Agreement and Compliance guide.",
-    width: 1280,
-    height: 1132,
+    width: 2560,
+    height: 1898,
   },
   accountFlow: {
     file: "account-details-flow",
@@ -104,11 +99,12 @@ const screens = {
     height: 920,
   },
   portal: {
-    file: "portal-access",
+    file: "pending-ib-dashboard",
     title: "Enter the portal with Pending IB status",
     caption:
       "The dashboard and referral tools are visible; the application remains a clear next step.",
-    height: 736,
+    width: 1280,
+    height: 948,
   },
   deadline: {
     file: "application-deadline",
@@ -139,10 +135,35 @@ const screens = {
     height: 832,
   },
   call: {
-    file: "call-request",
+    file: "manager-call-request",
     title: "Arrange the manager interview",
     caption: "Phone, messenger and preferred language help operations reach the partner.",
-    height: 992,
+    width: 2560,
+    height: 2116,
+  },
+  callConfirmation: {
+    file: "manager-call-waiting",
+    title: "Wait for the manager call",
+    caption:
+      "A confirmation makes the handoff visible and tells the partner that the review team will be in touch.",
+    width: 1280,
+    height: 756,
+  },
+  verificationConsent: {
+    file: "verification-consent",
+    title: "Consent to start document verification",
+    caption:
+      "After the preliminary review, the partner confirms the declaration and continues to document checks.",
+    width: 3452,
+    height: 1878,
+  },
+  completion: {
+    file: "application-complete",
+    title: "IB status becomes active after approval",
+    caption:
+      "The final confirmation makes the change explicit: full cabinet access and withdrawals are now available.",
+    width: 3453,
+    height: 1876,
   },
   markets: {
     file: "experienced-markets",
@@ -179,11 +200,12 @@ const screens = {
     height: 1132,
   },
   experience: {
-    file: "experience",
+    file: "step-2-experience",
     title: "An application that branches by experience",
     caption:
       "The first question separates new and experienced partners, so the following questions can reflect their background.",
-    height: 832,
+    width: 2560,
+    height: 1898,
   },
   channels: {
     file: "acquisition-channels",
@@ -404,6 +426,7 @@ function revisitSection(event: MouseEvent<HTMLAnchorElement>) {
 export function KycCaseStudy({ item }: { item: CaseWithMedia }) {
   const [zoom, setZoom] = useState<Screen | null>(null);
   const [zoomScale, setZoomScale] = useState<number | null>(null);
+  const [deepDiveOpen, setDeepDiveOpen] = useState(false);
   const zoomImage = useRef<HTMLImageElement | null>(null);
   function resizeImage(multiplier: number) {
     if (!zoom || !zoomImage.current) return;
@@ -502,8 +525,11 @@ export function KycCaseStudy({ item }: { item: CaseWithMedia }) {
           </nav>
           <article className="kyc-story">
             <section id="challenge" className="kyc-section">
-              <p className="kyc-eyebrow">01 / Context</p>
-              <h2>Context</h2>
+              <div className="kyc-section-heading">
+                <p className="kyc-eyebrow">01 / Context</p>
+                <h2>Context</h2>
+              </div>
+              <div className="kyc-section-content">
               <p>
                 As the IB program moved into a standalone portal, its entry conditions needed to be
                 redesigned. The previous model created two barriers that cost us leads.
@@ -553,11 +579,15 @@ export function KycCaseStudy({ item }: { item: CaseWithMedia }) {
                   <ArrowUpRight size={14} aria-hidden="true" />
                 </a>
               </details>
+              </div>
             </section>
 
             <section id="journey" className="kyc-section">
-              <p className="kyc-eyebrow">02 / What I did</p>
-              <h2>What I did</h2>
+              <div className="kyc-section-heading">
+                <p className="kyc-eyebrow">02 / What I did</p>
+                <h2>What I did</h2>
+              </div>
+              <div className="kyc-section-content">
               <p>
                 I initiated a review of both barriers and built the case for changing them with
                 evidence.
@@ -639,11 +669,15 @@ export function KycCaseStudy({ item }: { item: CaseWithMedia }) {
                   </figcaption>
                 </figure>
               </div>
+              </div>
             </section>
 
             <section id="ownership" className="kyc-section">
-              <p className="kyc-eyebrow">03 / Designing the service</p>
-              <h2>Connect the customer journey to the work behind it.</h2>
+              <div className="kyc-section-heading">
+                <p className="kyc-eyebrow">03 / Designing the service</p>
+                <h2>Connect the customer journey to the work behind it.</h2>
+              </div>
+              <div className="kyc-section-content">
               <p>
                 I mapped migration for existing partners, new-customer routes for priority and
                 higher-risk regions, and application paths with and without phone interviews. The
@@ -655,11 +689,136 @@ export function KycCaseStudy({ item }: { item: CaseWithMedia }) {
                 and adapted operational workflows, including guidance and instructions for Support
                 and Partner Management.
               </p>
+              </div>
             </section>
 
+            <section id="key-interfaces" className="kyc-section kyc-key-interfaces">
+              <div className="kyc-section-heading">
+                <p className="kyc-eyebrow">04 / Key interfaces</p>
+                <h2>Make the next step clear at every stage.</h2>
+              </div>
+              <div className="kyc-section-content">
+                <p>
+                  The experience makes account creation, early product access and the unfinished
+                  application legible as one connected journey. The status always explains what the
+                  partner can do now and what must happen before withdrawals unlock.
+                </p>
+                <a
+                  className="kyc-unlock-prototype focus-ring"
+                  href="https://kyc-onboarding-pearl.vercel.app/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Walk the interactive prototype <ArrowUpRight size={15} aria-hidden="true" />
+                </a>
+                <div className="kyc-key-screen-grid">
+                  <ScreenFigure onOpen={openScreen} screen={screens.signup} />
+                  <ScreenFigure onOpen={openScreen} screen={screens.accountDetails} />
+                  <ScreenFigure onOpen={openScreen} screen={screens.portal} />
+                </div>
+                <div className="kyc-unlock-flow">
+                  <div className="kyc-unlock-flow-intro">
+                    <h3>From limited access to withdrawal eligibility.</h3>
+                    <p>
+                      The dashboard remains useful from day one: partners can explore the cabinet,
+                      referral tools and payment interface. A clear Pending IB status explains that
+                      withdrawals are unavailable. Choosing a payment method returns the partner to
+                      the unfinished application.
+                    </p>
+                  </div>
+                  <ol className="kyc-unlock-steps">
+                    <li>
+                      <strong>Continue the application</strong>
+                      <span>Answer the IB experience and business questions.</span>
+                    </li>
+                    <li>
+                      <strong>Request a manager call</strong>
+                      <span>Collect contact details for a preliminary fraud and abuse review.</span>
+                    </li>
+                    <li>
+                      <strong>Wait for confirmation</strong>
+                      <span>The partner receives a clear status while the team prepares the call.</span>
+                    </li>
+                    <li>
+                      <strong>Complete verification</strong>
+                      <span>Confirm the required declaration, then continue to document checks.</span>
+                    </li>
+                    <li>
+                      <strong>Receive active IB status</strong>
+                      <span>Approval unlocks full cabinet access and withdrawals.</span>
+                    </li>
+                  </ol>
+                  <p className="kyc-unlock-flow-note">
+                    This is the standard route where a manager call is available. The no-call route
+                    uses a fuller questionnaire and written review; it remains documented in the
+                    full case study below.
+                  </p>
+                  <div className="kyc-unlock-screen-grid">
+                    <ScreenFigure onOpen={openScreen} screen={screens.experience} />
+                    <ScreenFigure onOpen={openScreen} screen={screens.call} />
+                    <ScreenFigure onOpen={openScreen} screen={screens.callConfirmation} />
+                    <ScreenFigure onOpen={openScreen} screen={screens.verificationConsent} />
+                    <ScreenFigure onOpen={openScreen} screen={screens.completion} />
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section id="outcome-summary" className="kyc-section kyc-outcome-summary">
+              <div className="kyc-section-heading">
+                <p className="kyc-eyebrow">05 / Outcome</p>
+                <h2>A defined early-access model, ready for delivery.</h2>
+              </div>
+              <div className="kyc-section-content">
+                <p>
+                  The result was a connected customer and operational journey, from the original
+                  early-access hypothesis through legal alignment, handoff and implementation
+                  oversight.
+                </p>
+                <div className="kyc-outcome-points">
+                  <span>Early access with withdrawals protected by verification</span>
+                  <span>Connected customer, legal and operational flows</span>
+                  <span>Designs ready for implementation with a visible next-step backlog</span>
+                </div>
+              </div>
+            </section>
+
+            <section className={`kyc-deep-dive${deepDiveOpen ? " is-open" : ""}`}>
+              <button
+                className="kyc-deep-dive-trigger focus-ring"
+                type="button"
+                aria-expanded={deepDiveOpen}
+                onClick={() => setDeepDiveOpen((open) => !open)}
+              >
+                <span>Full case study</span>
+                <strong>Explore the complete journey, branches and supporting screens</strong>
+              </button>
+              <div className="kyc-pdf-preview">
+                <a
+                  className="kyc-pdf-preview-media focus-ring"
+                  href="/documents/KYC1.pdf"
+                  download
+                  aria-label="Download the complete KYC case study PDF"
+                >
+                  <img
+                    src="/images/projects/kyc/kyc1-preview-small.png"
+                    alt="Overview of the complete KYC journey and supporting flows"
+                  />
+                  <span className="kyc-pdf-preview-download">
+                    <Download size={17} aria-hidden="true" /> Download PDF
+                  </span>
+                </a>
+                <a className="kyc-pdf-download-link focus-ring" href="/documents/KYC1.pdf" download>
+                  Download the full case study PDF <Download size={14} aria-hidden="true" />
+                </a>
+              </div>
+              {deepDiveOpen ? <div className="kyc-deep-dive-content">
             <section id="migration" className="kyc-section kyc-migration">
-              <p className="kyc-eyebrow">04 / Existing partners</p>
-              <h2>A clear route to the new partner portal.</h2>
+              <div className="kyc-section-heading">
+                <p className="kyc-eyebrow">04 / Existing partners</p>
+                <h2>A clear route to the new partner portal.</h2>
+              </div>
+              <div className="kyc-section-content">
               <p>
                 From transfer consent to a new password and verification, each handoff makes the
                 next destination and the supporting email clear.
@@ -817,11 +976,15 @@ export function KycCaseStudy({ item }: { item: CaseWithMedia }) {
                   <ScreenFigure onOpen={openScreen} screen={screens.migrationPending} />
                 </li>
               </ol>
+              </div>
             </section>
 
             <section id="registration" className="kyc-section">
-              <p className="kyc-eyebrow">05 / Account registration</p>
-              <h2>A dedicated account for the IB program.</h2>
+              <div className="kyc-section-heading">
+                <p className="kyc-eyebrow">05 / Account registration</p>
+                <h2>A dedicated account for the IB program.</h2>
+              </div>
+              <div className="kyc-section-content">
               <p>
                 Registration, login and recovery became a standalone journey, with email
                 confirmations connecting each step.
@@ -839,15 +1002,19 @@ export function KycCaseStudy({ item }: { item: CaseWithMedia }) {
                 section.
               </p>
               <ScreenFigure onOpen={openScreen} screen={screens.registrationFlow} />
+              </div>
             </section>
 
             <section id="access" className="kyc-section">
-              <p className="kyc-eyebrow">06 / Step 1</p>
-              <h2>
+              <div className="kyc-section-heading">
+                <p className="kyc-eyebrow">06 / Step 1</p>
+                <h2>
                 Create the account.
                 <br />
                 Tell us about yourself.
-              </h2>
+                </h2>
+              </div>
+              <div className="kyc-section-content">
               <div className="kyc-primary-screen">
                 <ScreenFigure onOpen={openScreen} screen={screens.accountDetails} />
               </div>
@@ -898,11 +1065,15 @@ export function KycCaseStudy({ item }: { item: CaseWithMedia }) {
                 Designed risk routes; country lists and detailed permissions remained subject to
                 legal review.
               </p>
+              </div>
             </section>
 
             <section id="portal" className="kyc-section">
-              <p className="kyc-eyebrow">07 / After Step 1</p>
-              <h2>Low-risk partners can enter the portal.</h2>
+              <div className="kyc-section-heading">
+                <p className="kyc-eyebrow">07 / After Step 1</p>
+                <h2>Low-risk partners can enter the portal.</h2>
+              </div>
+              <div className="kyc-section-content">
               <div className="kyc-screen-pair">
                 <ScreenFigure onOpen={openScreen} screen={screens.portalOverview} />
                 <ScreenFigure onOpen={openScreen} screen={screens.portalStatus} />
@@ -930,15 +1101,19 @@ export function KycCaseStudy({ item }: { item: CaseWithMedia }) {
                 N/X days in the working design are placeholders for the configured reminder and
                 deadline.
               </p>
+              </div>
             </section>
 
             <section id="experience" className="kyc-section">
-              <p className="kyc-eyebrow">08 / Application branches</p>
-              <h2>
+              <div className="kyc-section-heading">
+                <p className="kyc-eyebrow">08 / Application branches</p>
+                <h2>
                 Ask what is needed.
                 <br />
                 Choose the right review route.
-              </h2>
+                </h2>
+              </div>
+              <div className="kyc-section-content">
               <p>
                 Two decisions shape the questionnaire: whether a manager can interview the partner,
                 and whether the partner already has IB experience.
@@ -1036,11 +1211,15 @@ export function KycCaseStudy({ item }: { item: CaseWithMedia }) {
                   <ScreenFigure onOpen={openScreen} screen={screens.rejection} />
                 </details>
               </div>
+              </div>
             </section>
 
             <section id="delivery" className="kyc-section">
-              <p className="kyc-eyebrow">09 / Delivery & scope</p>
-              <h2>A focused first delivery. A visible backlog.</h2>
+              <div className="kyc-section-heading">
+                <p className="kyc-eyebrow">09 / Delivery &amp; scope</p>
+                <h2>A focused first delivery. A visible backlog.</h2>
+              </div>
+              <div className="kyc-section-content">
               <p>
                 I split the work to accelerate development: the core journey and review states for
                 handoff, with further improvements retained in the backlog.
@@ -1067,11 +1246,15 @@ export function KycCaseStudy({ item }: { item: CaseWithMedia }) {
                 Screens show the designed solution and working variants, not a claim that every
                 state shipped.
               </p>
+              </div>
             </section>
 
             <section id="outcome" className="kyc-section">
-              <p className="kyc-eyebrow">10 / Outcome & learnings</p>
-              <h2>The change was the sequence, not just the form.</h2>
+              <div className="kyc-section-heading">
+                <p className="kyc-eyebrow">10 / Outcome &amp; learnings</p>
+                <h2>The change was the sequence, not just the form.</h2>
+              </div>
+              <div className="kyc-section-content">
               <p>
                 The result was a defined early-access model, connected customer and operational
                 flows, and designs ready for implementation. I drove the work from the original
@@ -1099,6 +1282,9 @@ export function KycCaseStudy({ item }: { item: CaseWithMedia }) {
               <Link to="/work" className="text-link kyc-back kyc-all-work">
                 <ArrowLeft size={16} aria-hidden="true" /> Back to all work
               </Link>
+              </div>
+            </section>
+              </div> : null}
             </section>
           </article>
         </div>

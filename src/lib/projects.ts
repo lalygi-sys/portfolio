@@ -52,8 +52,7 @@ const productNotes: Record<string, ProjectNotes> = {
     metrics: [
       {
         value: "10–20%",
-        label:
-          "of IB program profit came from the smaller-partner segment whose entry barrier was addressed",
+        label: "of IB-program profit",
       },
       { value: "Early access", label: "portal access before verification is complete" },
     ],

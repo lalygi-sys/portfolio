@@ -2417,7 +2417,7 @@
 }
 .case-media-caption {
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
   margin-top: 13px;
 }
 .case-media-caption a {
@@ -2843,5 +2843,106 @@
   }
   :is(.work-page, .home-page) .home-case-featured .project-metrics dt {
     font-size: 18px;
+  }
+}
+
+/* Standard product cases share KYC's editorial reading grid. */
+.case-detail .case-body {
+  display: grid;
+  grid-template-columns: minmax(120px, 160px) minmax(0, 1fr);
+  column-gap: clamp(36px, 5vw, 64px);
+  margin-left: 0;
+  margin-top: 32px;
+}
+.case-detail .case-index {
+  display: block;
+  grid-column: 1;
+  position: sticky;
+  top: 120px;
+  align-self: start;
+}
+.case-detail .case-index > .eyebrow {
+  display: none;
+}
+.case-detail .case-index ol {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.case-detail .case-index a {
+  display: block;
+  padding-block: 4px;
+  color: var(--muted-foreground);
+  font-size: 0.82rem;
+  line-height: 1.5;
+  text-decoration: none;
+}
+.case-detail .case-index a:hover,
+.case-detail .case-index a:focus-visible {
+  color: var(--foreground);
+}
+.case-detail .case-body > :not(.case-index) {
+  grid-column: 2;
+  min-width: 0;
+}
+.case-detail .case-highlight,
+.case-detail .outcome-band {
+  margin-left: 0;
+}
+.case-detail .case-section {
+  display: grid;
+  grid-template-columns: 180px minmax(0, 1fr);
+  column-gap: clamp(36px, 5vw, 64px);
+  padding-block: clamp(48px, 6vw, 74px);
+  border-top: 1px solid color-mix(in oklab, var(--border) 86%, transparent);
+}
+.case-detail .case-section-heading {
+  grid-column: 1;
+}
+.case-detail .case-section-heading > .eyebrow {
+  display: none;
+}
+.case-detail .case-section-heading h2 {
+  margin: 0;
+  font-size: 1.45rem;
+  line-height: 1.25;
+  font-weight: 500;
+}
+.case-detail .case-section-content {
+  grid-column: 2;
+  min-width: 0;
+}
+.case-detail .case-prose {
+  margin-top: 0;
+  font-size: 16px;
+  line-height: 1.75;
+}
+@media (max-width: 760px) {
+  .case-detail .case-body {
+    margin-left: 0;
+    display: block;
+    margin-top: 24px;
+  }
+  .case-detail .case-index {
+    position: static;
+    margin-bottom: 18px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid color-mix(in oklab, var(--border) 86%, transparent);
+  }
+  .case-detail .case-body > :not(.case-index) {
+    display: block;
+  }
+  .case-detail .case-section {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .case-detail .case-section-heading,
+  .case-detail .case-section-content {
+    grid-column: 1;
+  }
+  .case-detail .case-section-heading h2 {
+    margin-top: 0;
   }
 }

@@ -35,7 +35,7 @@ function StandardCaseDetail({ item, preview = false }: { item: CaseWithMedia; pr
           Draft preview · Only you can see this version
         </div>
       )}
-      <main id="main-content" tabIndex={-1} className="site-container pb-24">
+      <main id="main-content" tabIndex={-1} className="site-container case-detail pb-24">
         <div className="case-intro">
           {preview ? (
             <Link to="/admin" className="text-link inline-flex items-center gap-2 text-sm">
@@ -125,10 +125,13 @@ function StandardCaseDetail({ item, preview = false }: { item: CaseWithMedia; pr
                 className="case-section scroll-mt-24"
                 key={section.id || index}
               >
-                <span className="eyebrow">
-                  {String(index + 1).padStart(2, "0")} / {String(sections.length).padStart(2, "0")}
-                </span>
-                <h2>{section.title}</h2>
+                <div className="case-section-heading">
+                  <span className="eyebrow">
+                    {String(index + 1).padStart(2, "0")} / {String(sections.length).padStart(2, "0")}
+                  </span>
+                  <h2>{section.title}</h2>
+                </div>
+                <div className="case-section-content">
                 {section.text && (
                   <div className="case-prose">
                     {section.text
@@ -172,6 +175,7 @@ function StandardCaseDetail({ item, preview = false }: { item: CaseWithMedia; pr
                     {section.linkLabel || "View prototype"} <ArrowUpRight className="size-4" />
                   </a>
                 )}
+                </div>
               </section>
             ))}
             {item.outcome && (
