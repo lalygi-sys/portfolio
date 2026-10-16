@@ -102,6 +102,7 @@ const caseEdits: Record<string, CaseEdit> = {
 };
 
 const researchTags: Record<string, string[]> = {
+  "copy-trading": ["Fintech", "Copy trading", "Product design"],
   "new-b2b-business-model": ["B2B", "Partner research"],
   "research-recruitment": ["B2B", "Research operations"],
 };

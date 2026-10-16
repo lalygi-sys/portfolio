@@ -2,6 +2,64 @@ import type { CaseWithMedia } from "@/lib/portfolio";
 
 const storedCases = [
   {
+    id: "d418f26d-c52c-48c5-a7fb-0e25026fcd47",
+    slug: "copy-trading",
+    title: "Copy trading subscription redesign",
+    summary:
+      "Making the investment needed to copy trades understandable before a user subscribes.",
+    contribution:
+      "Co-designed the copy trading experience with another product designer, from research synthesis and subscription mechanics to interface iterations and testing.",
+    outcome:
+      "The team's reported post-launch results included doubled 7-day retention, threefold monthly active users and first-subscription conversion rising from 2.73% to 9.73%.",
+    role: "Product Designer",
+    period: "2021–2022",
+    stage: "Designed, tested and launched",
+    cover_path: "copy-trading/summary.png",
+    sections: [
+      {
+        title: "Context and goals",
+        text: "The copy trading product had an unreliable first-subscription journey. People wanted to follow experienced traders, but could not tell what investment was needed or how the two subscription types and commissions worked. The team aimed to improve 7-day retention, monthly active use and the first subscription conversion.",
+      },
+      {
+        title: "Research and insights",
+        text: "The project combined a user story map, jobs-to-be-done work and a customer journey map with 17 user interviews. The research showed that users could not confidently assess the cost or likely outcome of following a trader. In the existing flow, 30% of new users had no trades copied; among the others, only 57% of trades were copied.",
+        imagePath: "copy-trading/research-1.png",
+        caption: "Research artefacts used to map the subscription journey and its points of confusion.",
+      },
+      {
+        title: "Listening at cancellation",
+        text: "A feedback form at the point of unsubscribing captured reasons users left a master trader. More than 600 responses arrived in two weeks. Grouping those answers by theme helped the team prioritise the issues that mattered most to users.",
+        imagePath: "copy-trading/feedback-form-2.png",
+        caption: "The revised in-app feedback form for users ending a subscription.",
+      },
+      {
+        title: "An investment users can act on",
+        text: "A trader could previously set an unrealistically low minimum investment, attracting subscribers whose budgets could not copy the trader's larger positions. The redesigned logic calculates a minimum from the trading strategy and offers another trader when a user's budget is too low. The source case reports a 28% improvement in the trade-copy metric after this change.",
+        imagePath: "copy-trading/killer-input.png",
+        caption: "The previous manual minimum investment setting that contributed to the mismatch.",
+      },
+      {
+        title: "A clearer subscription",
+        text: "The new journey replaced two hard-to-understand subscription types with one. Users choose a copying proportion based on their own funds, see the required investment calculated automatically, can add support funds for market movement, and review the terms before confirming. Prototypes and usability checks informed the final flow.",
+        imagePath: "copy-trading/new-design.png",
+        caption: "The redesigned subscription setup makes the required investment and terms visible before confirmation.",
+      },
+      {
+        title: "Outcome and learning",
+        text: "The shared case reports strong interview feedback and an A/B test that supported launch. The team's reported outcomes were 2× 7-day retention, 86% more stable trade copying, 3× monthly active users and first-subscription conversion rising from 2.73% to 9.73%. The core lesson was to make the cost and mechanics of copying a strategy explicit before asking users to commit.",
+        imagePath: "copy-trading/analytics.png",
+        caption: "Product analytics presented in the original collaborative case study.",
+      },
+    ],
+    links: [],
+    nda: false,
+    published: true,
+    featured: false,
+    sort_order: 7,
+    created_at: "2026-10-15T00:00:00.000000+00:00",
+    updated_at: "2026-10-15T00:00:00.000000+00:00",
+  },
+  {
     id: "81d396f6-fb1b-4198-b268-2b408f0caf07",
     slug: "kyc-kyb-onboarding",
     title: "KYC/KYB onboarding for individuals and businesses",
@@ -253,7 +311,22 @@ const storedCases = [
 
 export const portfolioCases: CaseWithMedia[] = storedCases.map((item) => ({
   ...item,
-  mediaUrls: {},
+  mediaUrls:
+    item.slug === "copy-trading"
+      ? Object.fromEntries(
+          [
+            "summary.png",
+            "research-1.png",
+            "feedback-form-2.png",
+            "killer-input.png",
+            "new-design.png",
+            "analytics.png",
+          ].map((name) => [
+            `copy-trading/${name}`,
+            `/images/projects/copy-trading/${name}`,
+          ]),
+        )
+      : {},
 })) as CaseWithMedia[];
 
 export const portfolioSettings = {

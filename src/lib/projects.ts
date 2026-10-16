@@ -112,8 +112,19 @@ const productNotes: Record<string, ProjectNotes> = {
     coverAlt:
       "Desktop and mobile in-product survey invitations used to recruit UX research participants",
     metrics: [
-      { value: "−60%", label: "less time spent recruiting" },
+      { value: "−57%", label: "less time spent recruiting" },
       { value: "2× participants", label: "12 participants instead of 6" },
+    ],
+  },
+  "copy-trading": {
+    product: "Copy trading app",
+    summary:
+      "A clearer subscription journey that shows investment requirements and copying mechanics before a user commits.",
+    coverAlt:
+      "Copy trading mobile screens showing a trader profile and the redesigned subscription summary",
+    metrics: [
+      { value: "2×", label: "7-day retention, team-reported" },
+      { value: "2.73→9.73%", label: "first-subscription conversion, team-reported" },
     ],
   },
 };
@@ -141,7 +152,7 @@ export function projectFromCase(item: CaseWithMedia): PortfolioProject {
             ? "/images/projects/standalone-partner-portal-prototype.png"
             : item.slug === "research-recruitment"
               ? "/images/projects/research-recruitment-main.png"
-              : productNotes[item.slug]
+              : productNotes[item.slug] && !uploadedCover
                 ? "/images/projects/" + item.slug + ".webp"
                 : undefined;
   const customOutcome = !isOriginalCaseField(item, "outcome");
@@ -168,10 +179,10 @@ export function projectFromCase(item: CaseWithMedia): PortfolioProject {
     coverAlt: localCover
       ? "B2B partner program presentation and business model interface"
       : uploadedCover
-        ? item.title + " — project interface"
+        ? (notes?.coverAlt ?? item.title + " — project interface")
         : (notes?.coverAlt ?? item.title),
     localCover: !!localCover,
-    metrics: customOutcome ? [] : (notes?.metrics ?? []),
+    metrics: item.slug === "copy-trading" || !customOutcome ? (notes?.metrics ?? []) : [],
     featured: item.featured,
     sortOrder: item.sort_order,
     caseStudyPath: "/work/" + item.slug,
@@ -291,13 +302,6 @@ export const draftProjects: Pick<
     slug: "application-security",
     title: "Information / application security product",
     category: "Independent projects",
-    draft: true,
-    externalLinks: [],
-  },
-  {
-    slug: "copy-trading",
-    title: "Copy Trading",
-    category: "Product work",
     draft: true,
     externalLinks: [],
   },

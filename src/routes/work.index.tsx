@@ -28,6 +28,7 @@ const listingSummaries: Record<string, string> = {
   "b2b-rebates-payouts": "Redesigning partner-to-client payouts for changing regulatory requirements.",
   "new-b2b-business-model": "Validating new partner terms and adapting the portal to a more complex model.",
   "research-recruitment": "Recruiting B2B research participants through targeted invitations and in-product surveys.",
+  "copy-trading": "Making copy trading subscriptions and investment requirements clear before users commit.",
   oinkrypt: "Co-founded a cybersecurity MVP and designed its core UX and design system.",
   lingua: "Designed and built a vocabulary app, from concept to live MVP.",
   "window-configurator": "A guided mobile flow for configuring windows and their components.",
@@ -66,6 +67,8 @@ function WorkPage() {
     if (b.slug === "kyc-kyb-onboarding") return 1;
     if (a.slug === "standalone-partner-portal") return -1;
     if (b.slug === "standalone-partner-portal") return 1;
+    if (a.slug === "copy-trading") return 1;
+    if (b.slug === "copy-trading") return -1;
     return a.sortOrder - b.sortOrder;
   });
   return (
