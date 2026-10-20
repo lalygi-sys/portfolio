@@ -106,36 +106,37 @@ const storedCases = [
   {
     id: "f1e869ed-b56f-4860-a10b-65cb6f83072e",
     slug: "b2b-rebates-payouts",
-    title: "Redesigning B2B rebates and payouts",
-    summary: "Restructuring partner-to-client payouts as regulatory requirements changed.",
+    title: "Automating rebates for IB partners",
+    summary:
+      "Preserving a high-value client acquisition and retention tool while redesigning its financial mechanics for a multi-license structure.",
     contribution:
-      "An interim solution, future payout mechanics, states and exceptions, a Cursor prototype, and partner testing.",
+      "Designed the interim solution, automation mechanics, interface states and edge cases; built and tested a clickable prototype; prepared the section for development handoff.",
     outcome:
-      "An interim solution was implemented. The automated flow was refined with partners and prepared for development and a pilot; prevention of $XXXk in losses was an estimate.",
+      "The interim solution retained major partners whose acquisition and retention models relied on Rebate. The complete solution preserved the tool across licenses, replaced manual payouts with automation and introduced a commission-hold mechanism reviewed with Compliance. Prototype testing exposed issues before development, and the section was launched in test mode.",
     role: "Area Product Designer",
     period: "2025–2026",
-    stage: "Interim solution implemented; target flow prepared for pilot",
+    stage: "Launched in test mode",
     cover_path: null,
     sections: [
       {
-        text: "A licensing transition affected the existing form of partner-to-client rebates. The work needed to retain the program while meeting new regulatory requirements.",
-        title: "Context and constraints",
+        title: "Context",
+        text: "Rebate is a client acquisition and retention tool for IB partners, allowing them to share a percentage of their profit with clients. It is one of the program’s most profitable tools. During the transition to a multi-license structure, Legal questioned whether the feature could continue in its existing form because of regulatory restrictions and the broker’s split across separate licenses.",
       },
       {
-        text: "I investigated constraints with legal and product partners and tested an interactive Cursor prototype with partners. Feedback informed adjustments before development.",
-        title: "Research and insights",
+        title: "Objective",
+        text: "Find a way to retain the feature for major partners already using rebates extensively, and design an automated Rebate section in the new portal, including commission calculations, financial flows and all interface states.",
       },
       {
-        text: "First, an interim rebate option maintained continuity under the constraints. Separately, I designed an automated flow covering calculation, payout rules, statuses, manual actions, and exceptions.",
-        title: "Key decisions",
+        title: "What I did",
+        text: "Interim solution. There were not enough resources to build the entire section, but the regulatory deadline was approaching. I designed a solution that kept rebate payouts available, with restrictions, for partners generating the most profit through the feature.\nRethinking the mechanics. The old model was manual: partners entered dates and a percentage, received a table of client trading data, then calculated and sent each payout themselves. The new model solves two problems at once.\nFirst, automation: partners set a rebate percentage, and payouts are sent to clients automatically, without manual calculations or transfers. One-click manual payouts remain available.\nSecond, compliance: under the applicable regulatory requirements, payouts could not be made from commission already credited to a partner. In the new model, commission is held when the rebate is set up, and clients are paid from those reserved funds. This approach was reviewed with the internal Compliance team.\nSection design. I designed the complete mechanics: calculation logic, payout rules, all interface states and edge cases.\nPrototype research. I built a clickable prototype in Cursor, wrote a research script and tested it with partners. Feedback revealed significant issues in the mechanics, which I addressed before development handoff.\nI prepared the screens for development, covering all scenarios, edge cases and states.",
       },
       {
-        text: "The target design brings payout review, setup, status, and exception handling into a coherent workflow. It was prepared for development and a test launch, not presented as fully deployed.",
-        title: "Flows and interface",
+        title: "Challenges",
+        text: "The feature’s legal status was uncertain at the start, and I had to find solutions to the regulatory issues without ready-made answers from Legal. I needed to balance the user experience, financial mechanics and legal constraints.",
       },
       {
-        text: "The temporary solution was implemented. The target flow was handed off for development and pilot testing. Estimated loss prevention is not confirmed revenue growth.",
-        title: "Outcomes and learnings",
+        title: "Outcome",
+        text: "An interim solution was implemented, retaining major partners whose client acquisition and retention models relied on Rebate. A complete solution was then found, preserving the tool across all licenses and replacing manual payouts with automation. The new commission-hold mechanism addressed the legal restriction and was reviewed internally with Compliance. Prototype testing exposed issues before development, allowing the design to be refined based on feedback. The section was handed off for development and launched in test mode.",
       },
     ],
     links: [],
@@ -149,37 +150,37 @@ const storedCases = [
   {
     id: "7cabe16e-9029-43f0-af05-d7a7a88c56f5",
     slug: "standalone-partner-portal",
-    title: "Designing a standalone B2B partner portal",
+    title: "Designing a standalone Partner Portal",
     summary:
-      "Turning a partner area into an independent product through organizational and licensing changes.",
+      "Turning an embedded partner workspace into a standalone product during a company and licensing transition.",
     contribution:
-      "Workflow audit, customer journeys, service blueprints, product structure, interface design, and transition planning.",
+      "Audited partner and operations journeys, mapped transition dependencies, designed the portal structure and six sections, and prepared improved designs for development.",
     outcome:
-      "The transition preserved partner access while operational processes were reorganized; this does not imply every designed section launched.",
+      "The company split was completed on time. Critical workflows for thousands of active partners remained available, disrupted operations flows were automated or redesigned, and all Partner Portal sections were handed off for development.",
     role: "Area Product Designer",
     period: "2025–2026",
-    stage: "Transition completed; sections at different delivery stages",
+    stage: "Handed off for development",
     cover_path: null,
     sections: [
       {
-        text: "The partner program moved away from shared company infrastructure during organizational and licensing changes. Partner access and support processes had to remain coherent throughout the transition.",
-        title: "Context and constraints",
+        title: "Context",
+        text: "The company was splitting into two independent entities with separate licenses. The partner program had historically been embedded in the main customer account, with its own flows, tools and operational processes. It needed to become a standalone product with its own domain and portal, while keeping thousands of active partners and operations teams working throughout the transition.",
       },
       {
-        text: "I audited the existing partner journey and its operational dependencies, using customer journeys and service blueprints to expose work behind the interface.",
-        title: "Research and insights",
+        title: "Objective",
+        text: "Design the architecture of the new Partner Portal. Support the transition period, when the partner workspace would exist in two portals at once. Identify problematic workflows for operations teams and design solutions. Prepare improved designs for the portal's sections for development.",
       },
       {
-        text: "I mapped what partners needed at each stage, defined the product structure and transition dependencies, and coordinated interface and service changes with cross-functional teams.",
-        title: "Key decisions",
+        title: "What I did",
+        text: "I audited every partner journey, both inside and outside the portal, accounting for operations workflows at each stage. I broke down the scope of work, identified dependencies and mapped tasks onto the roadmap.\nFor the transition period, I examined every scenario where the license split prevented operations teams from completing routine tasks. I studied how each team worked, then either automated the flow or redesigned the process. For example, requests from customers to change their assigned partners had previously been handled manually by Support. After the split, this flow was almost fully automated.\nI designed the new portal's structure and content around the tasks partners needed to complete. As lead designer, I designed 6 sections with support from one other designer.",
       },
       {
-        text: "The portal work spans dashboard, partner operations, and transition touchpoints. The design distinguished between the new product vision and the specific capabilities needed for a safe transition.",
-        title: "Flows and interface",
+        title: "Challenges",
+        text: "The main challenge was uncertainty: operations teams did not yet know how their work would function after the split. I interviewed the teams, documented existing processes and known constraints, then designed solutions flexible enough to work across different possible scenarios.",
       },
       {
-        text: "Partner access was preserved during the transition, with operational processes adapted. This is not a claim that all designed sections were launched.",
-        title: "Outcomes and learnings",
+        title: "Outcome",
+        text: "The company split was completed on time. All critical workflows for thousands of active partners remained available throughout the transition. Operational flows disrupted by the license split were either automated or redesigned. All sections of the new Partner Portal were handed off for development.",
       },
     ],
     links: [],
@@ -198,27 +199,27 @@ const storedCases = [
     contribution:
       "Partner research, feedback analysis, presentation of terms, and portal adaptation.",
     outcome:
-      "80% of participating top partners accepted the proposed terms; pilot metrics remained stable.",
+      "80% of highest-earning partners accepted the new model's terms. After approximately four months of testing, key metrics remained within the expected confidence interval, with no anomalies or significant deviations from the forecast or control group.",
     role: "Area Product Designer / Research Lead",
     period: "2025–2026",
     stage: "Pilot",
     cover_path: null,
     sections: [
       {
-        text: "The partner program needed a new model that could be clearly explained and evaluated with its largest partners.",
-        title: "Context and constraints",
+        title: "Context",
+        text: "The company was updating its partner program terms, replacing fixed commissions per unit of customer activity and partner tiers based on customer count with a more flexible model. Under the new model, commission rates depend on the product category and partner tier. Tiers are determined by the number of active customers and transaction volume, while the threshold for a customer to qualify as active is significantly lower. The goal was to reward partners who generate more value for the business and encourage activity in more profitable product categories.\nThe changes were developed in collaboration with the Product Owner, analysts, and a researcher. My role was to explore how partners perceived the new terms, address objections, secure buy-in from key partners, and adapt the interface to the new model.",
       },
       {
-        text: "I worked through partner feedback to understand objections and improve how the new mechanics were communicated.",
-        title: "Research and insights",
+        title: "What I did",
+        text: "Research and materials. I analyzed the existing business model, developed a research script, and prepared a presentation to test whether participants understood the benefits of the new model and were willing to adopt it.\nSecuring buy-in from key partners. I finalized the presentation and interview script for our highest-value partners. The main risk was losing those who contributed the most profit. I built feedback into every stage of the research: documented partner questions, gathered answers, and addressed them in subsequent interviews or passed them to the partner manager. This turned the process into a dialogue rather than a one-way announcement of changes.\nParticipant selection. Together with the researcher, I selected participants at each stage based on region, performance metrics, and partner segment. More than 20 partners participated in the research.\nInterface adaptation. Once the terms were finalized, I updated the FAQ to clearly explain them to partners joining the test. I reflected the new commission logic in the partner dashboard and added acceptance of the required documents to the onboarding flow for test participants.",
       },
       {
-        text: "Present the terms clearly, adapt the interface where the model changes the experience, and test the proposal with participating top partners before wider decisions.",
-        title: "Key decisions",
+        title: "Challenges",
+        text: "Despite its flexibility, the new commission model was more complex than the previous one, making it challenging to explain clearly. However, none of the partners reported difficulty understanding the terms during the research; their feedback suggested the opposite.\nLow participant recruitment conversion was another challenge. How I organized recruitment, increased participation, and reduced the time required is covered in a separate UX research case study.",
       },
       {
-        text: "80% of participating top partners accepted the proposed terms; pilot metrics remained stable. This finding applies to the participants, not the whole partner base.",
-        title: "Outcomes and learnings",
+        title: "Outcome",
+        text: "In the final study, 80% of highest-earning partners accepted the new model's terms.\nAfter approximately four months of testing, key metrics remained within the expected confidence interval, with no anomalies or significant deviations from the forecast or control group.",
       },
     ],
     links: [],
@@ -233,30 +234,32 @@ const storedCases = [
     id: "f791544a-91f9-4a3f-8cb2-2bbb4a846108",
     slug: "research-recruitment",
     title: "Improving research recruitment",
-    summary: "Finding more reliable ways to recruit B2B research participants.",
+    summary:
+      "Building a reliable way to recruit relevant B2B partners for UX research.",
     contribution:
-      "Research planning with a researcher, interview guides, analysis, hypothesis checks, targeted invitations, and in-product surveys.",
-    outcome: "Reduced recruitment time by approximately 60% while doubling participant numbers.",
+      "Research planning, interview scripts, recruitment strategy, targeted invitations, in-product surveys, and partner community concept.",
+    outcome:
+      "Reduced UX research recruitment time by 57%, from 3.5 to 1.5 sprints, while doubling the number of participants from 6 to 12.",
     role: "Process Lead / Area Product Designer",
     period: "2025–2026",
     stage: "Implemented research practice",
     cover_path: null,
     sections: [
       {
-        text: "Recruitment for B2B partner research was a bottleneck; the existing approach required several sprints to reach enough participants.",
-        title: "Context and constraints",
+        title: "Context",
+        text: "Recruiting partners for UX research was a bottleneck: it took 3.5 sprints to recruit just 6 participants, still below the minimum required. We needed more effective approaches to recruit enough relevant participants within a reasonable timeframe.",
       },
       {
-        text: "Together with a researcher I planned studies, wrote interview guides, analysed findings, and checked hypotheses while trying different recruitment methods.",
-        title: "Research and insights",
+        title: "What I did",
+        text: "Research planning. I led UX research initiatives for the B2B product, planned the quarterly research roadmap, developed interview scripts, and analyzed findings in collaboration with a UX researcher.\nTesting recruitment methods. I explored several approaches and identified a combination of methods that improved recruitment.\nFirst, a portal banner linking to a survey. Alongside the survey's main topic, I added a question about willingness to participate in interviews, building a pool of potential research participants in parallel.\nSecond, personalized invitations. I manually selected candidates from exported data and sent personalized invitations through their partner managers, including a calendar link to schedule an interview.\nThird, a Telegram community for key partners. I developed the concept for a private channel for partners generating most of the program's profit. The community was designed to provide value to both sides through discussions about the portal's direction, early information about promotions, surveys, and interview invitations.\nI defined how the channel would operate, developed moderation guidelines with the social media team, established participant selection criteria, selected the initial test group, and prepared the invitation flow and participant instructions. All 5 partners surveyed expressed interest in joining. The channel was being prepared for launch.",
       },
       {
-        text: "Targeted invitations through partner managers and in-product surveys gave relevant participants clearer ways to join research.",
-        title: "Key decisions",
+        title: "Challenges",
+        text: "The main challenge was recruiting enough relevant partners within a limited research timeline. I needed to identify an effective combination of recruitment methods, coordinate personalized outreach through partner managers, and establish a more sustainable participant recruitment process instead of relying on one-off invitations.\nAt the same time, the proposed Telegram community was a longer-term initiative, so the immediate recruitment bottleneck had to be addressed independently of its launch.",
       },
       {
-        text: "Reduced recruitment time by approximately 60% while doubling participant numbers.",
-        title: "Outcomes and learnings",
+        title: "Outcome",
+        text: "Reduced UX research recruitment time by 57%, from 3.5 to 1.5 sprints, while doubling the number of participants recruited from 6 to 12.\nThe new approach established a pool of potential research participants and a more effective invitation process. The planned Telegram community was designed to support long-term partner engagement and create a recurring source of participants for future UX research.",
       },
     ],
     links: [],

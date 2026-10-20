@@ -88,7 +88,7 @@
 .kyc-layout {
   display: grid;
   grid-template-columns: minmax(120px, 160px) minmax(0, 1fr);
-  column-gap: clamp(36px, 7vw, 96px);
+  column-gap: clamp(36px, 5vw, 64px);
   align-items: start;
   margin-top: 32px;
   margin-left: 0;
@@ -136,7 +136,7 @@
 .kyc-section {
   display: grid;
   grid-template-columns: 180px minmax(0, 1fr);
-  column-gap: clamp(36px, 7vw, 96px);
+  column-gap: clamp(36px, 5vw, 64px);
   scroll-margin-top: 120px;
   margin-bottom: 0;
   padding-block: clamp(48px, 6vw, 74px);
@@ -1482,11 +1482,12 @@
 }
 .kyc-profit-summary > strong {
   color: var(--primary);
-  font-size: clamp(48px, 6vw, 76px);
+  font-size: clamp(36px, 4.2vw, 52px);
   font-weight: 500;
   letter-spacing: -0.055em;
   line-height: 1;
   white-space: nowrap;
+  font-variant-numeric: tabular-nums;
 }
 .kyc-profit-summary > div > span {
   font-size: 18px;
@@ -1524,6 +1525,11 @@
   color: var(--primary);
   font-size: 13px;
   padding-top: 4px;
+}
+.kyc-risk-stages h3 {
+  font-size: 18px;
+  line-height: 1.35;
+  letter-spacing: -0.015em;
 }
 .kyc-risk-stages p {
   color: var(--muted-foreground);
@@ -1574,10 +1580,41 @@
   font-size: 14px;
   margin-top: 12px;
 }
+.kyc-research-sources {
+  border: 0;
+  padding-block: 0;
+}
+.kyc-research-sources summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  width: fit-content;
+  padding: 8px 0;
+  list-style: none;
+}
+.kyc-research-sources summary::marker,
+.kyc-research-sources summary::-webkit-details-marker {
+  display: none;
+}
+.kyc-research-sources summary::after {
+  content: "";
+  width: 7px;
+  height: 7px;
+  margin-top: -4px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  color: var(--muted-foreground);
+  transform: rotate(45deg);
+  transition: transform 160ms ease-out;
+}
+.kyc-research-sources[open] summary::after {
+  margin-top: 4px;
+  transform: rotate(225deg);
+}
 
 /* Editorial overview: the first read stays concise; the complete process remains available below. */
 .kyc-case {
-  max-width: 1120px;
+  max-width: 1160px;
 }
 .kyc-hero {
   padding-block: clamp(48px, 8vw, 96px) clamp(48px, 7vw, 84px);

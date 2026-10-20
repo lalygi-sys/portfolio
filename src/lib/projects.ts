@@ -60,7 +60,7 @@ const productNotes: Record<string, ProjectNotes> = {
   "b2b-rebates-payouts": {
     product: "Rebate",
     summary:
-      "Redesigning how partners share commission with clients as regulatory requirements changed.",
+      "Preserving a high-value partner tool while redesigning its payout mechanics for regulatory requirements.",
     coverAlt:
       "Rebate sharing interface with client payout settings and a table of automated commission payments",
     metrics: [
@@ -74,12 +74,12 @@ const productNotes: Record<string, ProjectNotes> = {
   "standalone-partner-portal": {
     product: "IB Partner Portal",
     summary:
-      "Turning a partner area into a standalone product through a company and licensing transition.",
+      "Turning an embedded partner workspace into a standalone product during a company and licensing transition.",
     coverAlt:
       "IB Partner Portal dashboard showing partner revenue, activity, client statistics and quick actions",
     metrics: [
       {
-        value: "≈7,000",
+        value: "Thousands",
         label: "active partners retained access and critical workflows during the transition",
       },
       {
@@ -143,7 +143,7 @@ export function projectFromCase(item: CaseWithMedia): PortfolioProject {
   const uploadedCover = item.cover_path ? item.mediaUrls[item.cover_path] : undefined;
   const localCover =
     item.slug === "new-b2b-business-model"
-      ? "/images/projects/new-b2b-business-model-main.png"
+      ? "/images/projects/new-b2b-business-model-partner-program.png"
       : item.slug === "kyc-kyb-onboarding"
         ? "/images/projects/kyc-kyb-onboarding-pdf-cover.png"
         : item.slug === "b2b-rebates-payouts"
@@ -151,7 +151,7 @@ export function projectFromCase(item: CaseWithMedia): PortfolioProject {
           : item.slug === "standalone-partner-portal"
             ? "/images/projects/standalone-partner-portal-prototype.png"
             : item.slug === "research-recruitment"
-              ? "/images/projects/research-recruitment-main.png"
+              ? "/images/projects/research-recruitment-partner-program.png"
               : productNotes[item.slug] && !uploadedCover
                 ? "/images/projects/" + item.slug + ".webp"
                 : undefined;

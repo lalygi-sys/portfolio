@@ -125,8 +125,8 @@ export function HomeCaseCard({ project }: { project: PortfolioProject }) {
                 : project.slug === "b2b-rebates-payouts"
                   ? [
                       {
-                        value: "$900k+",
-                        label: "revenue losses prevented",
+                        value: "6-figure impact",
+                        label: "revenue protected",
                       },
                       {
                         value: "Automation",
@@ -135,7 +135,7 @@ export function HomeCaseCard({ project }: { project: PortfolioProject }) {
                     ]
                   : project.slug === "standalone-partner-portal"
                     ? [
-                        { value: "≈7,000", label: "partners kept access" },
+                        { value: "Thousands", label: "partners kept access" },
                         {
                           value: "Standalone",
                           label: "product ready for development",
@@ -144,9 +144,6 @@ export function HomeCaseCard({ project }: { project: PortfolioProject }) {
                     : project.metrics
             }
           />
-          {!project.metrics.length && project.outcome && (
-            <p className="project-summary">{project.outcome}</p>
-          )}
         </div>
       </div>
     </article>

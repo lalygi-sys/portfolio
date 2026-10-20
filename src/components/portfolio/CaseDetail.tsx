@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowLeft, ArrowUpRight, Expand } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, Expand, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { PortfolioVisual } from "./PortfolioVisual";
@@ -27,6 +27,12 @@ function StandardCaseDetail({ item, preview = false }: { item: CaseWithMedia; pr
       (s.imagePath && item.mediaUrls[s.imagePath]) ||
       (s.linkUrl && safeExternalUrl(s.linkUrl)),
   );
+  const hideCaseHighlights = [
+    "b2b-rebates-payouts",
+    "standalone-partner-portal",
+    "new-b2b-business-model",
+    "research-recruitment",
+  ].includes(item.slug);
   return (
     <>
       <SiteHeader />
@@ -68,7 +74,15 @@ function StandardCaseDetail({ item, preview = false }: { item: CaseWithMedia; pr
             </div>
           </div>
         </div>
-        <div className="mb-16">
+        <div
+          className={[
+            "mb-16",
+            item.slug === "new-b2b-business-model" && "case-cover-b2b-model",
+            item.slug === "research-recruitment" && "case-cover-research-recruitment",
+          ]
+            .filter(Boolean)
+            .join(" ")}
+        >
           {project.coverImage ? (
             project.prototypeUrl ? (
               <>
@@ -113,7 +127,7 @@ function StandardCaseDetail({ item, preview = false }: { item: CaseWithMedia; pr
             </ol>
           </aside>
           <div className="min-w-0">
-            {item.contribution && (
+            {item.contribution && !hideCaseHighlights && (
               <div className="case-highlight">
                 <span className="eyebrow">My contribution</span>
                 <p>{item.contribution}</p>
@@ -178,14 +192,15 @@ function StandardCaseDetail({ item, preview = false }: { item: CaseWithMedia; pr
                 </div>
               </section>
             ))}
-            {item.outcome && (
+            {item.outcome && !hideCaseHighlights && (
               <div className="outcome-band">
                 <span className="eyebrow">The outcome</span>
                 <p>{publicOutcome(item)}</p>
               </div>
             )}
             {item.nda && (
-              <p className="mt-8 text-sm text-muted-foreground">
+              <p className="case-walkthrough-note">
+                <FileText className="case-walkthrough-icon" aria-hidden="true" />
                 Detailed walkthrough available on request.
               </p>
             )}

@@ -885,6 +885,12 @@
   height: 100%;
   object-fit: contain;
 }
+.case-cover-b2b-model .project-cover {
+  aspect-ratio: 1774 / 887;
+}
+.case-cover-research-recruitment .project-cover {
+  aspect-ratio: 1673 / 940;
+}
 .project-cover-fallback {
   display: flex;
   align-items: center;
@@ -2918,6 +2924,29 @@
   margin-top: 0;
   font-size: 16px;
   line-height: 1.75;
+}
+.case-walkthrough-note {
+  margin: 24px 0 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 16px 20px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: color-mix(in oklab, var(--foreground) 3%, var(--background));
+  color: var(--foreground);
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.4;
+  text-wrap: balance;
+}
+.case-walkthrough-icon {
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  color: var(--primary);
+  stroke-width: 1.65;
 }
 @media (max-width: 760px) {
   .case-detail .case-body {
